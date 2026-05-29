@@ -198,7 +198,7 @@ export default function Home() {
               Contact
             </p>
             <h2 className="mt-4 font-serif text-4xl text-white">
-              Let&apos;s build useful systems.
+              Let&apos;s Change The World.
             </h2>
           </div>
           <a
