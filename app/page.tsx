@@ -155,9 +155,10 @@ export default function Home() {
       <section className="section-shell">
         <div className="mx-auto max-w-7xl px-5 py-28 sm:px-8">
           <blockquote className="max-w-5xl font-serif text-4xl leading-tight text-white sm:text-5xl lg:text-6xl">
-            “Building applications is my favorite thing to do. There&apos;s
-            something beautiful about transforming complex logic into tools that
-            solve real-world problems and help people learn.”
+            "I enjoy creating things that make a real difference. There’s
+            something meaningful about taking complex ideas and turning them
+            into practical solutions that help people learn and improve how they
+            work."
           </blockquote>
         </div>
       </section>
@@ -198,7 +199,7 @@ export default function Home() {
               Contact
             </p>
             <h2 className="mt-4 font-serif text-4xl text-white">
-              Let&apos;s Change The World.
+              Let’s Change The World.
             </h2>
           </div>
           <a
