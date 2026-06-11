@@ -4,6 +4,17 @@ import { useEffect, useRef } from "react";
 
 const glyphs = ["∑", "λ", "π", "µ", "∂", "AI", "01", "ƒ", "∫", "RAG", "⊕", "∞"];
 
+const highlights = [
+  "Infinit AI (MIT Solve)",
+  "ClearEye (3M Challenge)",
+  "FTC 21689 - Tesseract",
+  "MathCounts NH 2026",
+  "AMC 10 2025",
+  "HSSP @ MIT 2026",
+  "CNN Model 98.6%",
+  "RAG Systems"
+];
+
 type Particle = {
   x: number;
   y: number;
@@ -11,6 +22,7 @@ type Particle = {
   vy: number;
   size: number;
   glyph: string;
+  label?: string;
   alpha: number;
 };
 
@@ -48,6 +60,7 @@ export function AsciiMesh() {
         vy: (Math.random() - 0.5) * 0.18,
         size: 10 + Math.random() * 12,
         glyph: glyphs[index % glyphs.length],
+        label: Math.random() < 0.12 ? highlights[index % highlights.length] : undefined,
         alpha: 0.14 + Math.random() * 0.3,
       }));
     };
@@ -94,7 +107,11 @@ export function AsciiMesh() {
         const wobble = Math.sin(frame * 3 + index) * 0.22;
         context.font = `${particle.size + wobble}px ui-monospace, SFMono-Regular, Menlo, monospace`;
         context.fillStyle = `rgba(244, 244, 245, ${particle.alpha})`;
-        context.fillText(particle.glyph, particle.x + driftX, particle.y + driftY);
+        context.fillText(
+          particle.label ?? particle.glyph,
+          particle.x + driftX,
+          particle.y + driftY
+        );
       });
 
       animationFrame = requestAnimationFrame(draw);
