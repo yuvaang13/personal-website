@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-const glyphs = ["∑", "λ", "π", "µ", "∂", "AI", "01", "ƒ", "∫", "RAG", "⊕", "∞"];
+const glyphs = ["∑", "π", , "∂", "AI", "01", "ƒ", "RAG", "⊕", "∞", "MATH"];
 
 const highlights = [
   "Infinit AI (MIT Solve)",
