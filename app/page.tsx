@@ -20,7 +20,7 @@ const workItems = [
   },
   {
     number: "04",
-    title: "Open-Source iOS Productivity App",
+    title: "First Tech Challenge Competitor",
     description: "FTC Team 21689 | Team Tesseract. For some context, Team Tesseract, we are a very high-achieving team based out of Nashua, New Hampshire.",
   },
 ];
