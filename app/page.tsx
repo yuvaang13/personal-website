@@ -10,8 +10,8 @@ const workItems = [
   },
   {
     number: "02",
-    title: "Competitive Mathematician",
-    description: "2026 20th Place in New Hampshire State STEM Competition.",
+    title: "Active STEM Competitor",
+    description: "Active STEM Competitor in the Math, Science, and Robotics areas.",
   },
   {
     number: "03",
