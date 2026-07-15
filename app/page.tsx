@@ -163,6 +163,15 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Subtle quote addition */}
+      <section className="section-shell">
+        <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 text-center">
+          <blockquote className="italic text-sm text-zinc-500 max-w-md mx-auto">
+            “Time is your most important asset, treat it like money. There is no tomorrow” - Yuvaan Gulati
+          </blockquote>
+        </div>
+      </section>
+
       <section id="projects" className="section-shell">
         <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8">
           <div className="mb-12">
