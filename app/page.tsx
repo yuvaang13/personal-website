@@ -155,10 +155,7 @@ export default function Home() {
       <section className="section-shell">
         <div className="mx-auto max-w-7xl px-5 py-28 sm:px-8">
           <blockquote className="max-w-5xl font-serif text-4xl leading-tight text-white sm:text-5xl lg:text-6xl">
-            "I enjoy creating things that make a real difference. There’s
-            something meaningful about taking complex ideas and turning them
-            into practical solutions that help people learn and improve how they
-            work."
+            "Creating solutions with meaningful impact is what drives innovation. Transforming complex ideas into practical tools requires thoughtful risk-taking, problem-solving, and a focus on improving how people learn, work, and make the most of their most valuable resource: time."
           </blockquote>
         </div>
       </section>
