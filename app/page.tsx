@@ -164,7 +164,7 @@ export default function Home() {
       <section className="section-shell">
         <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 text-center">
           <blockquote className="italic text-sm text-zinc-500 max-w-md mx-auto">
-            “Time is your most important asset, treat it like money. There is no tomorrow” - Yuvaan Gulati
+            “Time is the most valuable asset anyone has. Use it wisely.” - Yuvaan Gulati
           </blockquote>
         </div>
       </section>
