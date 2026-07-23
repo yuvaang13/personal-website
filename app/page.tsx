@@ -36,7 +36,7 @@ const focusAreas = [
   },
   {
     label: "Core Research Interests",
-    text: "Computer Vision in healthcare, Retrieval-Augmented Generation (RAG) for personalized education, and hardware-software optimization.",
+    text: "Computer Vision in healthcare, Retrieval-Augmented Generation (RAG) for personalized LLM Interaction, and hardware-software optimization.",
   },
 ];
 
