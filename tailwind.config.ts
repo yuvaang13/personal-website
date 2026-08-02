@@ -8,14 +8,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: [
-          "IBM Plex Mono",
-          "JetBrains Mono",
-          "SFMono-Regular",
-          "Menlo",
-          "ui-monospace",
-          "monospace",
-        ],
+        sans: ["Inter", "Geist", "ui-sans-serif", "system-ui", "sans-serif"],
         mono: [
           "IBM Plex Mono",
           "JetBrains Mono",
@@ -24,7 +17,14 @@ const config: Config = {
           "ui-monospace",
           "monospace",
         ],
-        serif: ["Playfair Display", "Georgia", "serif"],
+        serif: [
+          "IBM Plex Mono",
+          "JetBrains Mono",
+          "SFMono-Regular",
+          "Menlo",
+          "ui-monospace",
+          "monospace",
+        ],
       },
       animation: {
         "fade-up": "fadeUp 900ms cubic-bezier(0.22, 1, 0.36, 1) both",

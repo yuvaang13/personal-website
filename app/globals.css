@@ -20,8 +20,6 @@ body {
   margin: 0;
   background: #000;
   color: #d4d4d8;
-  font-feature-settings: "ss01" 1, "zero" 1;
-  text-rendering: geometricPrecision;
 }
 
 ::selection {
@@ -47,9 +45,4 @@ body {
 
 .focus-ring:focus-visible {
   box-shadow: 0 0 0 2px #fff, 0 0 0 6px rgba(255, 255, 255, 0.12);
-}
-
-a,
-button {
-  letter-spacing: 0.01em;
 }
