@@ -8,7 +8,22 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter", "Geist", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: [
+          "IBM Plex Mono",
+          "JetBrains Mono",
+          "SFMono-Regular",
+          "Menlo",
+          "ui-monospace",
+          "monospace",
+        ],
+        mono: [
+          "IBM Plex Mono",
+          "JetBrains Mono",
+          "SFMono-Regular",
+          "Menlo",
+          "ui-monospace",
+          "monospace",
+        ],
         serif: ["Playfair Display", "Georgia", "serif"],
       },
       animation: {
