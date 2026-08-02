@@ -2,46 +2,31 @@
 
 import { useEffect, useRef } from "react";
 
-const glyphs = [
-  "AI",
-  "ML",
-  "RAG",
-  "FTC",
-  "∑",
-  "π",
-  "∂",
-  "01",
-  "∞",
-  "CNN",
-  "K-8",
-  "SAT",
+const labelNodes = [
+  "Infinit AI\nK-8 STEM Tutor",
+  "next-gen-reCAPTCHA\nAI Verification",
+  "FTC 21689\nTeam Tesseract",
+  "MATHCOUNTS\nNH 2026",
+  "ClearEye\nComputer Vision",
+  "MonkMode\niOS Focus App",
+  "RAG + APIs\nAI Apps",
+  "NHSEE 1st\nCS + Math",
 ];
 
-const signals = [
-  "Infinit AI",
-  "ClearEye",
-  "MATHCOUNTS",
-  "FTC 21689",
-  "NHSEE",
-  "RAG",
-  "CNN 98.61%",
-  "MIT HSSP",
-  "MonkMode",
-  "Python",
-];
+const glyphs = ["AI", "ML", "RAG", "∑", "π", "01", "FTC", "K-8", "CS"];
 
-type Particle = {
+type NodePoint = {
   x: number;
   y: number;
-  originX: number;
-  originY: number;
+  baseX: number;
+  baseY: number;
   vx: number;
   vy: number;
   size: number;
-  glyph: string;
   label?: string;
+  glyph: string;
   alpha: number;
-  ring: number;
+  anchor: boolean;
 };
 
 export function AsciiMesh() {
@@ -58,7 +43,7 @@ export function AsciiMesh() {
     let frame = 0;
     let width = 0;
     let height = 0;
-    let particles: Particle[] = [];
+    let nodes: NodePoint[] = [];
     let animationFrame = 0;
 
     const resize = () => {
@@ -70,94 +55,116 @@ export function AsciiMesh() {
       canvas.height = Math.floor(height * dpr);
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const count = Math.max(48, Math.floor((width * height) / 8500));
-      particles = Array.from({ length: count }, (_, index) => {
-        const ring = index % 5;
-        const angle = (index / count) * Math.PI * 2;
-        const radius = Math.min(width, height) * (0.16 + ring * 0.075);
-        const originX = width / 2 + Math.cos(angle) * radius;
-        const originY = height / 2 + Math.sin(angle) * radius * 0.78;
+      const anchorPositions = [
+        [0.24, 0.22],
+        [0.66, 0.2],
+        [0.43, 0.36],
+        [0.78, 0.42],
+        [0.2, 0.56],
+        [0.57, 0.62],
+        [0.34, 0.78],
+        [0.75, 0.76],
+      ];
+
+      const anchors = anchorPositions.map(([x, y], index) => {
+        const baseX = x * width;
+        const baseY = y * height;
 
         return {
-          x: originX + (Math.random() - 0.5) * 32,
-          y: originY + (Math.random() - 0.5) * 32,
-          originX,
-          originY,
-          vx: (Math.random() - 0.5) * 0.22,
-          vy: (Math.random() - 0.5) * 0.22,
-          size: 10 + Math.random() * 12,
+          x: baseX,
+          y: baseY,
+          baseX,
+          baseY,
+          vx: 0,
+          vy: 0,
+          size: 13,
+          label: labelNodes[index],
           glyph: glyphs[index % glyphs.length],
-          label: index % 9 === 0 ? signals[index % signals.length] : undefined,
-          alpha: 0.18 + Math.random() * 0.38,
-          ring,
+          alpha: 0.88,
+          anchor: true,
         };
       });
+
+      const count = Math.max(54, Math.floor((width * height) / 7800));
+      const fillers = Array.from({ length: count }, (_, index) => {
+        const baseX = (0.08 + Math.random() * 0.84) * width;
+        const baseY = (0.1 + Math.random() * 0.78) * height;
+
+        return {
+          x: baseX,
+          y: baseY,
+          baseX,
+          baseY,
+          vx: (Math.random() - 0.5) * 0.14,
+          vy: (Math.random() - 0.5) * 0.14,
+          size: 8 + Math.random() * 7,
+          glyph: glyphs[index % glyphs.length],
+          alpha: 0.16 + Math.random() * 0.26,
+          anchor: false,
+        };
+      });
+
+      nodes = [...anchors, ...fillers];
     };
 
-    const drawCore = (pulse: number) => {
-      const centerX = width / 2;
-      const centerY = height / 2;
-      const radius = Math.min(width, height) * (0.16 + pulse * 0.014);
+    const drawLabel = (node: NodePoint, x: number, y: number) => {
+      if (!node.label) return;
 
-      const gradient = context.createRadialGradient(
-        centerX,
-        centerY,
-        0,
-        centerX,
-        centerY,
-        radius * 2.6,
-      );
-      gradient.addColorStop(0, "rgba(255, 255, 255, 0.18)");
-      gradient.addColorStop(0.45, "rgba(161, 161, 170, 0.06)");
-      gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-      context.fillStyle = gradient;
-      context.beginPath();
-      context.arc(centerX, centerY, radius * 2.6, 0, Math.PI * 2);
-      context.fill();
+      const lines = node.label.split("\n");
+      context.font = "12px ui-monospace, SFMono-Regular, Menlo, monospace";
+      const widthText = Math.max(...lines.map((line) => context.measureText(line).width));
+      const boxWidth = widthText + 22;
+      const boxHeight = lines.length * 16 + 16;
 
-      context.strokeStyle = "rgba(244, 244, 245, 0.18)";
+      context.fillStyle = "rgba(0, 0, 0, 0.72)";
+      context.strokeStyle = "rgba(244, 244, 245, 0.2)";
       context.lineWidth = 1;
       context.beginPath();
-      context.arc(centerX, centerY, radius, 0, Math.PI * 2);
+      context.roundRect(x - 10, y - 24, boxWidth, boxHeight, 6);
+      context.fill();
       context.stroke();
+
+      lines.forEach((line, index) => {
+        context.fillStyle = index === 0 ? "rgba(255, 255, 255, 0.92)" : "rgba(212, 212, 216, 0.68)";
+        context.fillText(line, x + 1, y - 3 + index * 16);
+      });
     };
 
     const draw = () => {
-      frame += 0.007;
+      frame += 0.008;
       context.clearRect(0, 0, width, height);
 
       const mouse = mouseRef.current;
-      const driftX = (mouse.x - 0.5) * (mouse.active ? 26 : 8);
-      const driftY = (mouse.y - 0.5) * (mouse.active ? 26 : 8);
-      const pulse = Math.sin(frame * 5);
+      const driftX = (mouse.x - 0.5) * (mouse.active ? 18 : 5);
+      const driftY = (mouse.y - 0.5) * (mouse.active ? 18 : 5);
 
-      drawCore(pulse);
+      nodes.forEach((node, index) => {
+        const floatX = Math.sin(frame * (0.8 + index * 0.005) + index) * (node.anchor ? 4 : 10);
+        const floatY = Math.cos(frame * (0.9 + index * 0.006) + index * 0.7) * (node.anchor ? 4 : 10);
+        const targetX = node.baseX + floatX;
+        const targetY = node.baseY + floatY;
 
-      particles.forEach((particle, index) => {
-        const orbit = frame * (0.36 + particle.ring * 0.035) + index * 0.08;
-        const targetX = particle.originX + Math.cos(orbit) * (8 + particle.ring * 2);
-        const targetY = particle.originY + Math.sin(orbit) * (8 + particle.ring * 2);
-
-        particle.vx += (targetX - particle.x) * 0.0008;
-        particle.vy += (targetY - particle.y) * 0.0008;
-        particle.vx *= 0.992;
-        particle.vy *= 0.992;
-        particle.x += particle.vx + Math.sin(frame + index) * 0.035;
-        particle.y += particle.vy + Math.cos(frame + index * 0.7) * 0.035;
+        node.vx += (targetX - node.x) * (node.anchor ? 0.012 : 0.004);
+        node.vy += (targetY - node.y) * (node.anchor ? 0.012 : 0.004);
+        node.vx *= 0.9;
+        node.vy *= 0.9;
+        node.x += node.vx;
+        node.y += node.vy;
       });
 
-      for (let i = 0; i < particles.length; i += 1) {
-        for (let j = i + 1; j < particles.length; j += 1) {
-          const a = particles[i];
-          const b = particles[j];
+      for (let i = 0; i < nodes.length; i += 1) {
+        for (let j = i + 1; j < nodes.length; j += 1) {
+          const a = nodes[i];
+          const b = nodes[j];
           const dx = a.x - b.x;
           const dy = a.y - b.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
+          const threshold = a.anchor || b.anchor ? 210 : 122;
 
-          if (distance < 132) {
-            const opacity = (1 - distance / 132) * 0.16;
+          if (distance < threshold) {
+            const opacity = (1 - distance / threshold) * (a.anchor || b.anchor ? 0.22 : 0.11);
             context.strokeStyle = `rgba(244, 244, 245, ${opacity})`;
-            context.lineWidth = 1;
+            context.lineWidth = a.anchor && b.anchor ? 1.3 : 1;
             context.beginPath();
             context.moveTo(a.x + driftX, a.y + driftY);
             context.lineTo(b.x + driftX, b.y + driftY);
@@ -166,15 +173,25 @@ export function AsciiMesh() {
         }
       }
 
-      particles.forEach((particle, index) => {
-        const wobble = Math.sin(frame * 3 + index) * 0.24;
-        context.font = `${particle.size + wobble}px ui-monospace, SFMono-Regular, Menlo, monospace`;
-        context.fillStyle = `rgba(244, 244, 245, ${particle.alpha})`;
-        context.fillText(
-          particle.label ?? particle.glyph,
-          particle.x + driftX,
-          particle.y + driftY,
-        );
+      nodes.forEach((node, index) => {
+        const x = node.x + driftX;
+        const y = node.y + driftY;
+        const pulse = Math.sin(frame * 4 + index) * 1.3;
+
+        context.fillStyle = node.anchor
+          ? "rgba(255, 255, 255, 0.88)"
+          : `rgba(244, 244, 245, ${node.alpha})`;
+        context.beginPath();
+        context.arc(x, y, (node.anchor ? 3.2 : 1.8) + pulse * 0.18, 0, Math.PI * 2);
+        context.fill();
+
+        if (node.anchor) {
+          drawLabel(node, x + 10, y + 2);
+        } else {
+          context.font = `${node.size}px ui-monospace, SFMono-Regular, Menlo, monospace`;
+          context.fillStyle = `rgba(244, 244, 245, ${node.alpha})`;
+          context.fillText(node.glyph, x + 5, y - 5);
+        }
       });
 
       animationFrame = requestAnimationFrame(draw);
@@ -223,8 +240,8 @@ export function AsciiMesh() {
         AI / Math / Robotics
       </div>
       <div className="pointer-events-none absolute bottom-5 left-5 right-5 flex items-center justify-between border-t border-zinc-800 pt-4 text-[10px] uppercase tracking-[0.28em] text-zinc-600">
-        <span>Neural Field</span>
-        <span className="animate-soft-pulse text-zinc-400">Live Signal</span>
+        <span>Neural Network</span>
+        <span className="animate-soft-pulse text-zinc-400">Connected</span>
       </div>
     </div>
   );

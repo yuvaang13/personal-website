@@ -43,7 +43,12 @@ export const projects = [
     details:
       "Infinit was developed across multiple versions, building toward stronger personalization, larger knowledge bases, Retrieval-Augmented Generation, and custom model tuning. The goal is to close the tutoring access gap by giving students a patient, always-available STEM helper.",
     tags: ["AI/ML", "RAG", "Education", "K-8 STEM"],
-    links: [{ label: "MIT Solve", href: "https://solve.mit.edu/" }],
+    links: [
+      {
+        label: "GitHub",
+        href: "https://github.com/yuvaang13/Infinit-AI-an-AI-Powered-STEM-tutor-for-K-8-Students",
+      },
+    ],
   },
   {
     title: "ClearEye",
@@ -157,8 +162,23 @@ export const highlights = [
 export const timeline = [
   {
     year: "2026",
-    title: "NHSEE first place",
-    body: "Placed first in the Computer Science and Math category while presenting Infinit.",
+    title: "Building Infinit AI",
+    body: "Built an AI-powered STEM tutoring platform for K-8 students, using grade-level explanations and a roadmap toward larger knowledge bases, RAG, and custom model tuning.",
+  },
+  {
+    year: "2026",
+    title: "Building next-gen-reCAPTCHA",
+    body: "Working on a human verification project for the AI era, focused on better ways to separate real users from automated systems as AI agents become more capable.",
+  },
+  {
+    year: "2026",
+    title: "Open-source iOS productivity work",
+    body: "Built MonkMode, an iOS-first focus app that uses deep work sessions, Screen Time blocking, commitment rituals, and accountability tracking.",
+  },
+  {
+    year: "2026",
+    title: "NHSEE first place with Infinit",
+    body: "Placed first in the Computer Science and Math category while presenting Infinit as an applied AI education project.",
   },
   {
     year: "2026",
@@ -169,21 +189,6 @@ export const timeline = [
     year: "2026",
     title: "FTC Team Tesseract",
     body: "Joined FTC Team 21689 as lead programmer, outreach/fundraising/social media specialist, graphic designer/video editor, and builder/hardware contributor.",
-  },
-  {
-    year: "2026",
-    title: "HSSP at MIT",
-    body: "Participated in HSSP at MIT while continuing to explore advanced STEM interests.",
-  },
-  {
-    year: "2025-2026",
-    title: "Science Bowl and applied STEM",
-    body: "Competed in Science Bowl through Fairgrounds Middle School and worked on hydroponic growing at SCA.",
-  },
-  {
-    year: "2025",
-    title: "MATHCOUNTS and AMC 10",
-    body: "Placed 13th at MATHCOUNTS Southern NH Chapter 2025 and competed in AMC 10 at Nashua High School South.",
   },
 ];
 

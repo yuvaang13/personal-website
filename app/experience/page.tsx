@@ -5,8 +5,8 @@ const stats = [
   { value: "3rd", label: "MATHCOUNTS Southern NH Chapter 2026" },
   { value: "20th", label: "MATHCOUNTS NH State Competition 2026" },
   { value: "1st", label: "NHSEE 2026 Computer Science and Math" },
-  { value: "98.61%", label: "CNN digit recognition accuracy" },
-  { value: "100+", label: "Python math calculator functions" },
+  { value: "K-8", label: "Audience for Infinit AI STEM tutoring" },
+  { value: "FTC", label: "Lead programming and build work on Team 21689" },
   { value: "7th", label: "Grade level for SAT 1280 and ACT Math 32" },
 ];
 
