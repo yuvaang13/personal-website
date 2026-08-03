@@ -6,7 +6,7 @@ export default function ProjectsPage() {
   return (
     <PageShell>
       <PageHeader
-        eyebrow="Projects"
+        eyebrow="projects/"
         title="AI tools, apps, ML experiments, and STEM systems."
         body="A fuller look at the things I am building: from tutoring platforms and health-focused computer vision concepts to productivity software and machine learning experiments."
       />

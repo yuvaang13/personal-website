@@ -5,7 +5,7 @@ export default function AboutPage() {
   return (
     <PageShell>
       <PageHeader
-        eyebrow="About Me"
+        eyebrow="about_me"
         title="A math-heavy builder with a practical AI streak."
         body={profile.shortIntro}
       />
@@ -14,7 +14,7 @@ export default function AboutPage() {
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.7fr_1fr] lg:py-20">
           <div>
             <p className="text-xs uppercase tracking-[0.28em] text-zinc-600">
-              Direction
+              direction/
             </p>
             <h2 className="mt-5 font-serif text-4xl leading-tight text-white sm:text-5xl">
               I like projects where software meets rigorous thinking.
@@ -67,7 +67,7 @@ export default function AboutPage() {
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 py-16 sm:px-8 lg:grid-cols-2">
           <div>
             <p className="text-xs uppercase tracking-[0.28em] text-zinc-600">
-              Interests
+              interests[]
             </p>
             <div className="mt-6 grid gap-3">
               {educationInterests.map((interest) => (
@@ -82,7 +82,7 @@ export default function AboutPage() {
           </div>
           <div>
             <p className="text-xs uppercase tracking-[0.28em] text-zinc-600">
-              Tools & Skills
+              tools_and_skills
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               {skills.map((skill) => (

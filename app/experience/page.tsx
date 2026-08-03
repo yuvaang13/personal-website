@@ -24,7 +24,7 @@ export default function ExperiencePage() {
   return (
     <PageShell>
       <PageHeader
-        eyebrow="Experience"
+        eyebrow="experience"
         title="Competition, robotics, teaching, and technical growth."
         body="A structured view of the work behind the portfolio: competitions, team roles, mentoring, coursework, and applied STEM projects."
       />
@@ -51,9 +51,9 @@ export default function ExperiencePage() {
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.38fr_1fr] lg:py-20">
           <div>
             <p className="text-xs uppercase tracking-[0.28em] text-zinc-600">
-              Timeline
+              timeline/
             </p>
-            <h2 className="mt-5 font-serif text-4xl text-white">Recent work</h2>
+            <h2 className="mt-5 font-serif text-4xl text-white">recent_work</h2>
           </div>
           <div className="border-l border-zinc-800">
             {timeline.map((item) => (
@@ -62,7 +62,7 @@ export default function ExperiencePage() {
                 className="relative border-b border-zinc-800 pb-8 pl-8 pt-1 last:border-b-0"
               >
                 <span className="absolute -left-[5px] top-2 h-2.5 w-2.5 rounded-full bg-white" />
-                <p className="font-mono text-sm text-zinc-600">{item.year}</p>
+                <p className="font-mono text-sm text-zinc-600">/{item.year}</p>
                 <h3 className="mt-2 text-2xl font-medium text-white">
                   {item.title}
                 </h3>
@@ -78,7 +78,7 @@ export default function ExperiencePage() {
       <section>
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
           <p className="text-xs uppercase tracking-[0.28em] text-zinc-600">
-            Roles
+            roles[]
           </p>
           <div className="mt-8 grid grid-cols-1 border border-zinc-800 md:grid-cols-2">
             {roles.map((role) => (

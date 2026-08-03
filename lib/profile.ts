@@ -20,11 +20,11 @@ export const profile = {
 };
 
 export const navItems = [
-  { label: "Home", href: "/" },
-  { label: "Projects", href: "/projects" },
-  { label: "About Me", href: "/about" },
-  { label: "Experience", href: "/experience" },
-  { label: "Contact", href: "/contact" },
+  { label: "~/", href: "/" },
+  { label: "projects/", href: "/projects" },
+  { label: "about_me", href: "/about" },
+  { label: "experience", href: "/experience" },
+  { label: "contact", href: "/contact" },
 ];
 
 export const homeLinks = [

@@ -14,7 +14,7 @@ export function NavBar() {
           href="/"
           className="focus-ring shrink-0 text-sm font-medium tracking-tight text-white transition-opacity hover:opacity-80"
         >
-          Yuvaan Gulati
+          yuvaan_gulati
         </Link>
         <div className="flex items-center gap-1 overflow-x-auto">
           {navItems.map((item) => {

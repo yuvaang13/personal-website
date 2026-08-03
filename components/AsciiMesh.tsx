@@ -111,7 +111,7 @@ export function AsciiMesh() {
       if (!node.label) return;
 
       const lines = node.label.split("\n");
-      context.font = "12px ui-monospace, SFMono-Regular, Menlo, monospace";
+      context.font = '12px "Styrene A", ui-sans-serif, system-ui, sans-serif';
       const widthText = Math.max(...lines.map((line) => context.measureText(line).width));
       const boxWidth = widthText + 22;
       const boxHeight = lines.length * 16 + 16;
@@ -188,7 +188,7 @@ export function AsciiMesh() {
         if (node.anchor) {
           drawLabel(node, x + 10, y + 2);
         } else {
-          context.font = `${node.size}px ui-monospace, SFMono-Regular, Menlo, monospace`;
+          context.font = `${node.size}px "Styrene A", ui-sans-serif, system-ui, sans-serif`;
           context.fillStyle = `rgba(244, 244, 245, ${node.alpha})`;
           context.fillText(node.glyph, x + 5, y - 5);
         }

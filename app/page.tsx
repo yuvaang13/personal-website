@@ -11,7 +11,7 @@ export default function Home() {
         <div className="animate-fade-up">
           <div className="mb-8 inline-flex items-center gap-3 border border-zinc-800 px-3 py-2 text-xs uppercase tracking-[0.28em] text-zinc-500">
             <span className="h-1.5 w-1.5 rounded-full bg-white" />
-            Student Developer
+            // student_developer
           </div>
           <h1 className="max-w-4xl font-serif text-5xl leading-[0.95] tracking-normal text-white sm:text-6xl lg:text-8xl">
             {profile.name}.
@@ -47,7 +47,7 @@ export default function Home() {
       <section className="border-t border-zinc-800">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-5 py-12 sm:px-8 md:grid-cols-[0.4fr_1fr]">
           <p className="text-xs uppercase tracking-[0.28em] text-zinc-600">
-            Neural Field
+            neural_field/
           </p>
           <p className="max-w-3xl text-lg leading-8 text-zinc-300">
             A live visual layer for math, AI, robotics, and learning systems.

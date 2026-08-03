@@ -27,7 +27,7 @@ export default function ContactPage() {
   return (
     <PageShell>
       <PageHeader
-        eyebrow="Contact"
+        eyebrow="contact"
         title="Projects, STEM ideas, robotics, or AI work."
         body="The best way to reach me is email. You can also find my code and current experiments on GitHub."
       />
@@ -56,7 +56,7 @@ export default function ContactPage() {
                         {item.value}
                       </p>
                       <span className="mt-5 inline-flex items-center gap-2 text-sm text-white">
-                        Open
+                        open →
                         <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </span>
                     </div>
