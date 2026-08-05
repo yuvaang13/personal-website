@@ -1,14 +1,35 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Github, Mail, MapPin } from "lucide-react";
 import { NavBar } from "@/components/NavBar";
 import { profile } from "@/lib/profile";
+import { NeuralFieldBackground } from "@/components/NeuralFieldBackground";
 
-export function PageShell({ children }: { children: React.ReactNode }) {
+interface PageShellProps {
+  children: React.ReactNode;
+  backgroundVariant?: "dense" | "sparse" | "structured";
+  showBackground?: boolean;
+}
+
+export function PageShell({
+  children,
+  backgroundVariant = "structured",
+  showBackground = true,
+}: PageShellProps) {
   return (
-    <main className="min-h-screen overflow-hidden bg-black text-zinc-400">
+    <main className="relative min-h-screen bg-black text-zinc-400 overflow-x-hidden">
+      {showBackground && (
+        <NeuralFieldBackground
+          variant={backgroundVariant}
+          colorScheme="mono"
+          className="pointer-events-none -z-10"
+        />
+      )}
       <NavBar />
-      {children}
-      <footer className="border-t border-zinc-800">
-        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-8 text-sm text-zinc-500 sm:px-8 md:flex-row md:items-center md:justify-between">
+      <div className="relative z-10">{children}</div>
+      <footer className="relative z-10 border-t border-zinc-800">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-12 text-sm text-zinc-500 sm:px-8 md:flex-row md:items-center md:justify-between">
           <p className="text-white">{profile.name}</p>
           <div className="flex flex-wrap items-center gap-4">
             <a
@@ -42,13 +63,20 @@ export function PageHeader({
   eyebrow,
   title,
   body,
+  className = "",
 }: {
   eyebrow: string;
   title: string;
   body: string;
+  className?: string;
 }) {
   return (
-    <section className="border-b border-zinc-800">
+    <motion.section
+      className={`border-b border-zinc-800 ${className}`}
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="mx-auto max-w-7xl px-5 pb-16 pt-32 sm:px-8 lg:pb-20">
         <p className="text-xs uppercase tracking-[0.28em] text-zinc-600">
           {eyebrow}
@@ -60,6 +88,25 @@ export function PageHeader({
           {body}
         </p>
       </div>
-    </section>
+    </motion.section>
+  );
+}
+
+interface ScrollContentProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function ScrollContent({ children, className = "" }: ScrollContentProps) {
+  return (
+    <div className={`relative ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+export function SectionDivider(className = "") {
+  return (
+    <div className={`border-t border-zinc-800 my-8 ${className}`} />
   );
 }
