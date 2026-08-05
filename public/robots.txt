@@ -1,0 +1,5 @@
+# Robots.txt for Yuvaan Gulati Portfolio
+User-agent: *
+Allow: /
+
+Sitemap: https://iamyuvaangulati.vercel.app/sitemap-index.xml

@@ -1,0 +1,96 @@
+---
+// Experience page - Stats, timeline, roles with scroll animations
+
+import PageShell from '@/layouts/PageShell.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import ScrollContent from '@/components/ScrollContent.astro';
+import SectionDivider from '@/components/SectionDivider.astro';
+import { stats, timeline, roles } from '@/data/profile';
+---
+
+<PageShell title="Experience — Yuvaan Gulati" backgroundVariant="structured">
+  <PageHeader
+    eyebrow="experience"
+    title="Competition, robotics, teaching, and technical growth."
+    body="A structured view of the work behind the portfolio: competitions, team roles, mentoring, coursework, and applied STEM projects."
+  />
+
+  <!-- Stats Section -->
+  <ScrollContent class="pb-16">
+    <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
+      <p class="eyebrow mb-10">metrics/</p>
+    </div>
+
+    <div data-stagger-container data-stagger="0.08" data-delay-children="0.15" class="mx-auto max-w-7xl px-5 sm:px-8">
+      {stats.map((stat, index) => (
+        <div
+          class="group relative min-h-[170px] border border-zinc-800 bg-black/50 backdrop-blur-sm p-5 transition-all duration-500 hover:border-zinc-700 hover:bg-white/[0.02] hover:shadow-[0_0_40px_rgba(255,255,255,0.02)]"
+          data-scroll-reveal
+          data-direction="up"
+          data-distance="30"
+          data-delay={0.1 + index * 0.03}
+        >
+          <p class="font-serif text-4xl text-white group-hover:scale-[1.02] transition-transform duration-300">{stat.value}</p>
+          <p class="mt-4 text-sm leading-6 text-zinc-500">{stat.label}</p>
+        </div>
+      ))}
+    </div>
+  </ScrollContent>
+
+  <SectionDivider />
+
+  <!-- Timeline Section -->
+  <ScrollContent class="pb-16">
+    <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 sm:px-8 lg:grid-cols-[0.38fr_1fr]">
+      <div>
+        <p class="eyebrow">timeline/</p>
+        <h2 class="mt-5 heading-3">recent_work</h2>
+      </div>
+      <div class="relative">
+        {/* Timeline line */}
+        <div class="absolute left-4 top-0 bottom-0 w-px bg-zinc-800" aria-hidden="true" />
+
+        <div data-stagger-container data-stagger="0.08" data-delay-children="0.15" class="border-l border-zinc-800 pl-8">
+          {timeline.map((item, index) => (
+            <div
+              class="relative border-b border-zinc-800 pb-8 last:border-b-0"
+              data-scroll-reveal
+              data-direction="right"
+              data-distance="30"
+              data-delay={0.15 + index * 0.03}
+            >
+              <span class="absolute -left-[10px] top-4 h-3 w-3 rounded-full bg-white border-4 border-black" aria-hidden="true" />
+              <p class="font-mono text-sm text-zinc-600">/{item.year}</p>
+              <h3 class="mt-2 text-2xl font-medium text-white">{item.title}</h3>
+              <p class="mt-3 max-w-2xl leading-7 text-zinc-500">{item.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </ScrollContent>
+
+  <SectionDivider />
+
+  <!-- Roles Section -->
+  <ScrollContent class="pb-20">
+    <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
+      <p class="eyebrow mb-8">roles[]</p>
+    </div>
+
+    <div data-stagger-container data-stagger="0.06" data-delay-children="0.15" class="mx-auto max-w-7xl px-5 sm:px-8">
+      {roles.map((role, index) => (
+        <div
+          class="border border-zinc-800 bg-black/50 backdrop-blur-sm p-5 text-lg text-zinc-300 transition-all duration-300 hover:border-zinc-600 hover:bg-white/[0.02]"
+          data-scroll-reveal
+          data-direction="up"
+          data-distance="20"
+          data-delay={0.15 + index * 0.02}
+        >
+          <p class="font-medium text-white">{role.title}</p>
+          <p class="mt-1 text-zinc-500">{role.description}</p>
+        </div>
+      ))}
+    </div>
+  </ScrollContent>
+</PageShell>

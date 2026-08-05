@@ -1,0 +1,26 @@
+---
+// PageHeader.astro - Consistent section header component
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  body: string;
+  className?: string;
+}
+
+const { eyebrow, title, body, className = '' } = Astro.props;
+---
+
+<section
+  class={`border-b border-zinc-800 ${className}`}
+  data-scroll-reveal
+  data-direction="up"
+  data-distance="40"
+  data-delay="0"
+>
+  <div class="mx-auto max-w-7xl px-5 pb-16 pt-32 sm:px-8 lg:pb-20">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1 class="mt-5 max-w-5xl heading-1">{title}</h1>
+    <p class="mt-7 max-w-3xl body-lg">{body}</p>
+  </div>
+</section>

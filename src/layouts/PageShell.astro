@@ -1,0 +1,126 @@
+---
+// PageShell.astro - Main layout wrapper component
+// Provides neural field background, navbar, and footer
+
+import '@fontsource-variable/inter';
+import NavBar from '@/components/NavBar.astro';
+import Footer from '@/components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  backgroundVariant?: 'dense' | 'sparse' | 'structured';
+  showBackground?: boolean;
+  className?: string;
+}
+
+const {
+  title = 'Yuvaan Gulati — Student Developer',
+  description = 'Student developer building AI tools, robotics systems, and STEM learning projects.',
+  backgroundVariant = 'structured',
+  showBackground = true,
+  className = '',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="preconnect" href="https://db.onlinewebfonts.com" />
+    <link rel="dns-prefetch" href="https://db.onlinewebfonts.com" />
+  </head>
+  <body class={`min-h-screen bg-black text-zinc-400 overflow-x-hidden ${className}`}>
+    <!-- Neural Field Background -->
+    {showBackground && (
+      <div
+        data-neural-field
+        data-variant={backgroundVariant}
+        data-color-scheme="mono"
+        class="pointer-events-none fixed inset-0 -z-10"
+        aria-hidden="true"
+      >
+        <canvas class="absolute inset-0 h-full w-full" aria-hidden="true"></canvas>
+        <div class="pointer-events-none absolute inset-0 opacity-10" style="
+          background-image:
+            linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+          background-size: 60px 60px;
+          mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+          -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+        "></div>
+      </div>
+    )}
+
+    <!-- Navigation -->
+    <NavBar />
+
+    <!-- Main Content -->
+    <main class="relative z-10">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <Footer />
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress-indicator" aria-hidden="true"></div>
+
+    <!-- Initialize animations -->
+    <script>
+      import { initScrollAnimations } from '@/utils/scrollAnimations';
+      import { initNeuralFieldBackground } from '@/components/NeuralFieldBackground';
+      import { initAsciiMesh } from '@/components/AsciiMesh';
+
+      // Initialize scroll animations
+      initScrollAnimations();
+
+      // Initialize neural field backgrounds
+      initNeuralFieldBackground();
+
+      // Initialize ASCII mesh
+      initAsciiMesh();
+
+      // Scroll progress indicator
+      const progressBar = document.getElementById('scroll-progress-indicator');
+      if (progressBar) {
+        let ticking = false;
+        const updateProgress = () => {
+          const scrollY = window.scrollY || document.documentElement.scrollTop;
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = Math.max(0, Math.min(1, scrollY / docHeight));
+          progressBar.style.transform = `scaleX(${progress})`;
+          ticking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            requestAnimationFrame(updateProgress);
+            ticking = true;
+          }
+        }, { passive: true });
+
+        // Initial update
+        updateProgress();
+      }
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  @import '@/styles/global.css';
+</style>

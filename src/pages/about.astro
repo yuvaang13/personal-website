@@ -1,0 +1,130 @@
+---
+// About page - Highlights, interests, skills with scroll animations
+
+import PageShell from '@/layouts/PageShell.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import ScrollContent from '@/components/ScrollContent.astro';
+import SectionDivider from '@/components/SectionDivider.astro';
+import { profile, highlights, educationInterests, skills } from '@/data/profile';
+import { highlightIcons } from '@/data/icons';
+
+const iconPaths: Record<string, string> = {
+  trophy: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />',
+  brain: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0114 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />',
+  'code-2': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />',
+  users: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />',
+  microscope: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 3a6 6 0 00-3.519 11.58L4 21h4l1-1h3v-1H7l1-1h3l.539 3.425A6.001 6.001 0 0016 14.5a6 6 0 000-12 6 6 0 00-6 6zm0 2a4 4 0 010-8 4 4 0 000 8z" />',
+  'graduation-cap': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />',
+};
+---
+
+<PageShell title="About — Yuvaan Gulati" backgroundVariant="dense">
+  <PageHeader
+    eyebrow="about_me"
+    title="A math-heavy builder with a practical AI streak."
+    body={profile.shortIntro}
+  />
+
+  <!-- Direction Section -->
+  <ScrollContent class="pb-16">
+    <div data-scroll-reveal data-direction="up" data-distance="60" data-delay="0.1" class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 sm:px-8 lg:grid-cols-[0.7fr_1fr] lg:py-8">
+      <div>
+        <p class="eyebrow">direction/</p>
+        <h2 class="mt-5 heading-2">I like projects where software meets rigorous thinking.</h2>
+      </div>
+      <div class="space-y-6 body-lg self-center">
+        <p>
+          My work sits between math, science, and technology. I compete in
+          math and science events, build AI applications, experiment with
+          machine learning models, and mentor younger students in STEM.
+        </p>
+        <p>
+          I am especially interested in computer science, electrical
+          engineering, AI/ML, robotics, computer vision in healthcare, and
+          personalized tutoring systems. Long term, I want to build tools
+          that make high-quality learning and problem solving more
+          accessible.
+        </p>
+      </div>
+    </div>
+  </ScrollContent>
+
+  <SectionDivider />
+
+  <!-- Highlights Section -->
+  <ScrollContent class="pb-16">
+    <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
+      <p class="eyebrow mb-10">highlights/</p>
+    </div>
+
+    <div data-stagger-container data-stagger="0.1" data-delay-children="0.15" class="mx-auto max-w-7xl px-5 sm:px-8">
+      {highlights.map((item, index) => {
+        const IconName = highlightIcons[item.icon] || item.icon;
+        const iconPath = iconPaths[IconName] || iconPaths.trophy;
+
+        return (
+          <div
+            class="group relative border border-zinc-800 bg-black/50 backdrop-blur-sm p-6 transition-all duration-500 hover:border-zinc-700 hover:bg-white/[0.02] hover:shadow-[0_0_40px_rgba(255,255,255,0.02)]"
+            data-scroll-reveal
+            data-direction="up"
+            data-distance="30"
+            data-delay={0.1 + index * 0.05}
+          >
+            <div class="flex h-full flex-col gap-6">
+              <div>
+                <svg class="h-7 w-7 text-white transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <Fragment set:html={iconPath} />
+                </svg>
+                <p class="mt-6 eyebrow">{item.label}</p>
+                <h3 class="mt-4 text-2xl font-medium tracking-tight text-white">{item.title}</h3>
+              </div>
+              <p class="leading-7 text-zinc-500 flex-1">{item.body}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </ScrollContent>
+
+  <SectionDivider />
+
+  <!-- Interests & Skills Section -->
+  <ScrollContent class="pb-20">
+    <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 sm:px-8 lg:grid-cols-2">
+      {/* Interests */}
+      <div>
+        <p class="eyebrow mb-6">interests[]</p>
+        <div data-stagger-container data-stagger="0.04" data-delay-children="0.1" class="grid gap-3">
+          {educationInterests.map((interest) => (
+            <div
+              class="border border-zinc-800 px-4 py-4 text-zinc-300 transition-all duration-300 hover:border-zinc-600 hover:bg-white/[0.02] hover:text-white"
+              data-scroll-reveal
+              data-direction="up"
+              data-distance="20"
+            >
+              <h4 class="font-medium text-white">{interest.title}</h4>
+              <p class="mt-1 text-sm text-zinc-500">{interest.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Skills */}
+      <div>
+        <p class="eyebrow mb-6">tools_and_skills</p>
+        <div data-stagger-container data-stagger="0.03" data-delay-children="0.1" class="flex flex-wrap gap-2">
+          {skills.map((skill) => (
+            <span
+              class="border border-zinc-800 px-3 py-2 text-sm text-zinc-400 transition-all duration-300 hover:border-zinc-600 hover:bg-white/[0.02] hover:text-zinc-200"
+              data-scroll-reveal
+              data-direction="up"
+              data-distance="15"
+            >
+              {skill.name}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </ScrollContent>
+</PageShell>

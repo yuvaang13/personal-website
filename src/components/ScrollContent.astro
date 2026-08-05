@@ -1,0 +1,13 @@
+---
+// ScrollContent.astro - Wrapper for scroll-animated content sections
+
+interface Props {
+  className?: string;
+}
+
+const { className = '', children } = Astro.props;
+---
+
+<div class={`relative ${className}`}>
+  <slot />
+</div>
