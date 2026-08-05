@@ -5,7 +5,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 interface NeuralFieldBackgroundProps {
   className?: string;
-  scrollProgress?: number;
   variant?: "dense" | "sparse" | "structured";
   colorScheme?: "mono" | "subtle-accent";
 }
@@ -28,12 +27,18 @@ interface NeuralNode {
 
 export function NeuralFieldBackground({
   className = "",
-  scrollProgress = 0,
   variant = "structured",
   colorScheme = "mono",
 }: NeuralFieldBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  // Track page scroll progress
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -108,9 +113,12 @@ export function NeuralFieldBackground({
     let animationFrame = 0;
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    const getScrollProgress = () => scrollYProgress.get();
+
     const draw = () => {
+      const scrollProgress = getScrollProgress();
+
       if (prefersReducedMotion) {
-        // Draw static frame
         context.clearRect(0, 0, w, h);
         drawStaticFrame(context, nodes, w, h, scrollProgress, colorScheme);
         return;
@@ -216,7 +224,6 @@ export function NeuralFieldBackground({
               ctx.moveTo(a.baseX, a.baseY);
               ctx.lineTo(b.baseX, b.baseY);
               ctx.stroke();
-            }
           }
         });
       });
@@ -290,10 +297,10 @@ export function NeuralFieldBackground({
     return () => {
       cancelAnimationFrame(animationFrame);
     };
-  }, [dimensions, scrollProgress, variant, colorScheme]);
+  }, [dimensions, scrollYProgress, variant, colorScheme]);
 
   return (
-    <div className={`absolute inset-0 overflow-hidden ${className}`}>
+    <div ref={containerRef} className={`absolute inset-0 overflow-hidden ${className}`}>
       <canvas
         ref={canvasRef}
         aria-hidden="true"
@@ -310,33 +317,5 @@ export function NeuralFieldBackground({
         maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)'
       }} />
     </div>
-  );
-}
-
-interface ParallaxLayerProps {
-  children: React.ReactNode;
-  speed?: number;
-  className?: string;
-}
-
-export function ParallaxLayer({ children, speed = 0.3, className = "" }: ParallaxLayerProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [0, -300 * speed]);
-
-  return (
-    <motion.div
-      ref={ref}
-      className={className}
-      style={{ transform: "translateY(0)" }}
-      animate={{ y }}
-      initial={false}
-    >
-      {children}
-    </motion.div>
   );
 }
