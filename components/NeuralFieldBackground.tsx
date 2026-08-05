@@ -1,13 +1,29 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useScroll, useTransform } from "framer-motion";
 
 interface NeuralFieldBackgroundProps {
   className?: string;
   scrollProgress?: number;
   variant?: "dense" | "sparse" | "structured";
   colorScheme?: "mono" | "subtle-accent";
+}
+
+interface NeuralNode {
+  x: number;
+  y: number;
+  baseX: number;
+  baseY: number;
+  vx: number;
+  vy: number;
+  size: number;
+  alpha: number;
+  connections: number[];
+  orbitSpeed: number;
+  orbitRadius: number;
+  orbitAngle: number;
+  pulsePhase: number;
 }
 
 export function NeuralFieldBackground({
@@ -175,7 +191,7 @@ export function NeuralFieldBackground({
 
     const drawStaticFrame = (
       ctx: CanvasRenderingContext2D,
-      nodes: typeof nodes,
+      nodes: NeuralNode[],
       w: number,
       h: number,
       progress: number,
