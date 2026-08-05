@@ -1,12 +1,11 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 
 interface ScrollSectionProps {
   children: React.ReactNode;
   className?: string;
-  triggerOnce?: boolean;
   staggerChildren?: number;
   delay?: number;
 }
@@ -14,7 +13,6 @@ interface ScrollSectionProps {
 export function ScrollSection({
   children,
   className = "",
-  triggerOnce = true,
   staggerChildren = 0.08,
   delay = 0,
 }: ScrollSectionProps) {
@@ -34,15 +32,10 @@ export function ScrollSection({
       ref={ref}
       className={className}
       style={{
-        opacity: 0,
-        transform: "translateY(60px) scale(0.92)",
-        filter: "blur(12px)",
-      }}
-      animate={{
         opacity,
         y,
         scale,
-        filter: `blur(${blur}px)`,
+        filter: blur,
       }}
       transition={{
         type: "spring",
@@ -52,7 +45,7 @@ export function ScrollSection({
       }}
       initial={false}
     >
-      {typeof children === "function" ? children({ opacity, y, scale, blur }) : children}
+      {children}
     </motion.div>
   );
 }
@@ -78,20 +71,26 @@ export function Reveal({
     offset: ["start end", "end start"],
   });
 
-  const getTransforms = () => {
-    switch (direction) {
-      case "up":
-        return { y: useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [distance, 0, 0, -distance]) };
-      case "down":
-        return { y: useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [-distance, 0, 0, distance]) };
-      case "left":
-        return { x: useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [distance, 0, 0, -distance]) };
-      case "right":
-        return { x: useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [-distance, 0, 0, distance]) };
-    }
-  };
+  let transformX = 0;
+  let transformY = 0;
 
-  const transforms = getTransforms();
+  switch (direction) {
+    case "up":
+      transformY = distance;
+      break;
+    case "down":
+      transformY = -distance;
+      break;
+    case "left":
+      transformX = distance;
+      break;
+    case "right":
+      transformX = -distance;
+      break;
+  }
+
+  const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [transformY, 0, 0, -transformY]);
+  const x = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [transformX, 0, 0, -transformX]);
   const opacity = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
   const blur = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [8, 0, 0, 8]);
 
@@ -99,11 +98,11 @@ export function Reveal({
     <motion.div
       ref={ref}
       className={className}
-      style={{ opacity: 0, ...(direction === "up" || direction === "down" ? { y: distance } : { x: distance }), filter: "blur(8px)" }}
-      animate={{
+      style={{
         opacity,
-        ...transforms,
-        filter: `blur(${blur}px)`,
+        x,
+        y,
+        filter: blur,
       }}
       transition={{
         type: "spring",
