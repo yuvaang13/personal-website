@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 
 interface NeuralFieldBackgroundProps {
   className?: string;
@@ -34,7 +34,6 @@ export function NeuralFieldBackground({
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
-  // Track page scroll progress
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
@@ -69,7 +68,6 @@ export function NeuralFieldBackground({
     const w = width * dpr;
     const h = height * dpr;
 
-    // Generate static node positions based on variant
     const nodeCount = variant === "dense" ? 120 : variant === "sparse" ? 40 : 80;
     const nodes = Array.from({ length: nodeCount }, (_, i) => {
       const angle = (i / nodeCount) * Math.PI * 2;
@@ -94,7 +92,6 @@ export function NeuralFieldBackground({
       };
     });
 
-    // Build connection graph
     nodes.forEach((a, i) => {
       nodes.forEach((b, j) => {
         if (i !== j) {
@@ -127,19 +124,15 @@ export function NeuralFieldBackground({
       frame += 0.003;
       context.clearRect(0, 0, w, h);
 
-      // Update node positions based on scroll and time
       nodes.forEach((node) => {
-        // Orbital motion
         node.orbitAngle += node.orbitSpeed;
         const orbitalX = Math.cos(node.orbitAngle) * node.orbitRadius;
         const orbitalY = Math.sin(node.orbitAngle) * node.orbitRadius;
 
-        // Scroll influence
         const scrollInfluence = scrollProgress * 100;
         const scrollX = Math.sin(frame * 0.5 + node.pulsePhase) * 15 * (1 - scrollProgress * 0.5);
         const scrollY = Math.cos(frame * 0.7 + node.pulsePhase) * 15 * (1 - scrollProgress * 0.5);
 
-        // Drift toward base with spring
         node.vx += (node.baseX + orbitalX + scrollX + scrollInfluence * 0.3 - node.x) * 0.008;
         node.vy += (node.baseY + orbitalY + scrollY - node.y) * 0.008;
         node.vx *= 0.92;
@@ -148,7 +141,6 @@ export function NeuralFieldBackground({
         node.y += node.vy;
       });
 
-      // Draw connections
       nodes.forEach((a, i) => {
         a.connections.forEach((j) => {
           if (j > i) {
@@ -175,8 +167,7 @@ export function NeuralFieldBackground({
         });
       });
 
-      // Draw nodes
-      nodes.forEach((node, i) => {
+      nodes.forEach((node) => {
         const pulse = Math.sin(frame * 4 + node.pulsePhase) * 0.4 + 0.6;
         const scrollAlpha = 1 - scrollProgress * 0.4;
         const alpha = node.alpha * pulse * scrollAlpha;
@@ -189,7 +180,6 @@ export function NeuralFieldBackground({
         context.fill();
       });
 
-      // Draw structured grid lines for "structured" variant
       if (variant === "structured") {
         drawStructuredGrid(context, w, h, frame, scrollProgress, colorScheme);
       }
@@ -197,14 +187,14 @@ export function NeuralFieldBackground({
       animationFrame = requestAnimationFrame(draw);
     };
 
-    const drawStaticFrame = (
+    function drawStaticFrame(
       ctx: CanvasRenderingContext2D,
       nodes: NeuralNode[],
       w: number,
       h: number,
       progress: number,
       scheme: "mono" | "subtle-accent"
-    ) => {
+    ) {
       nodes.forEach((a, i) => {
         a.connections.forEach((j) => {
           if (j > i) {
@@ -224,6 +214,7 @@ export function NeuralFieldBackground({
               ctx.moveTo(a.baseX, a.baseY);
               ctx.lineTo(b.baseX, b.baseY);
               ctx.stroke();
+            }
           }
         });
       });
@@ -241,16 +232,16 @@ export function NeuralFieldBackground({
       if (variant === "structured") {
         drawStructuredGrid(ctx, w, h, 0, progress, scheme);
       }
-    };
+    }
 
-    const drawStructuredGrid = (
+    function drawStructuredGrid(
       ctx: CanvasRenderingContext2D,
       w: number,
       h: number,
       frame: number,
       progress: number,
       scheme: "mono" | "subtle-accent"
-    ) => {
+    ) {
       const gridSize = 80;
       const offsetX = (frame * 20) % gridSize;
       const offsetY = (frame * 15) % gridSize;
@@ -261,14 +252,12 @@ export function NeuralFieldBackground({
         : `rgba(100, 200, 255, ${alpha * 0.5})`;
       ctx.lineWidth = 0.3;
 
-      // Vertical lines
       for (let x = -offsetX; x < w; x += gridSize) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
         ctx.lineTo(x, h);
         ctx.stroke();
       }
-      // Horizontal lines
       for (let y = -offsetY; y < h; y += gridSize) {
         ctx.beginPath();
         ctx.moveTo(0, y);
@@ -276,7 +265,6 @@ export function NeuralFieldBackground({
         ctx.stroke();
       }
 
-      // Center crosshairs
       const centerAlpha = 0.04 * (1 - progress * 0.3);
       ctx.strokeStyle = scheme === "mono"
         ? `rgba(244, 244, 245, ${centerAlpha})`
@@ -290,7 +278,7 @@ export function NeuralFieldBackground({
       ctx.moveTo(0, h / 2);
       ctx.lineTo(w, h / 2);
       ctx.stroke();
-    };
+    }
 
     draw();
 
@@ -307,7 +295,6 @@ export function NeuralFieldBackground({
         className="absolute inset-0 h-full w-full"
         style={{ pointerEvents: "none" }}
       />
-      {/* Noise overlay */}
       <div className="pointer-events-none absolute inset-0 opacity-10" style={{
         backgroundImage: `
           linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
