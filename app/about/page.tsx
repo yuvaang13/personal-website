@@ -1,20 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Trophy, Brain, Code2, Users, Microscope, GraduationCap } from "lucide-react";
 import { PageShell, PageHeader, ScrollContent, SectionDivider } from "@/components/PageShell";
 import { educationInterests, highlights, profile, skills } from "@/lib/profile";
 import { Reveal, StaggerContainer, StaggerItem, ScrollSection } from "@/components/ScrollSection";
 
 export default function AboutPage() {
-  const highlightIcons = {
-    Trophy,
-    Brain,
-    Code2,
-    Users,
-    Microscope,
-    GraduationCap,
-  };
 
   return (
     <PageShell backgroundVariant="dense" showBackground={true}>
@@ -68,7 +59,7 @@ export default function AboutPage() {
 
         <StaggerContainer stagger={0.1} delayChildren={0.15} className="mx-auto max-w-7xl px-5 sm:px-8">
           {highlights.map((item, index) => {
-            const Icon = highlightIcons[item.icon as keyof typeof highlightIcons] || Trophy;
+            const Icon = item.icon;
             return (
               <StaggerItem key={item.label} delay={index * 0.05}>
                 <ScrollSection
