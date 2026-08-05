@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import * as React from "react";
 
 interface ScrollSectionProps {
   children: React.ReactNode;
