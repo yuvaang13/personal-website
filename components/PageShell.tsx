@@ -105,7 +105,7 @@ export function ScrollContent({ children, className = "" }: ScrollContentProps) 
   );
 }
 
-export function SectionDivider(className = "") {
+export function SectionDivider({ className = "" }: { className?: string } = {}) {
   return (
     <div className={`border-t border-zinc-800 my-8 ${className}`} />
   );
