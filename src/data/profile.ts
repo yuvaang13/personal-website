@@ -141,7 +141,7 @@ export const projects: Project[] = [
     impactOrder: 2,
   },
   {
-    title: 'next-gen-reCAPTCHA',
+    title: 'Verus',
     type: 'Security and verification project',
     status: 'In progress',
     summary: 'A human verification concept for the AI era, exploring stronger ways to separate real users from automated systems.',
@@ -150,7 +150,7 @@ export const projects: Project[] = [
     links: [
       { label: 'Repository', href: 'https://github.com/yuvaang13/next-gen-reCAPTCHA' },
     ],
-    image: '/projects/recaptcha.png',
+    image: '/projects/verus.png',
     featured: true,
     impactOrder: 3,
   },
@@ -253,7 +253,7 @@ export const highlights: Highlight[] = [
 
 export const timeline: TimelineEntry[] = [
   { year: '2026', title: 'Building Infinit AI', body: 'Built an AI-powered STEM tutoring platform for K-8 students, using grade-level explanations and a roadmap toward larger knowledge bases, RAG, and custom model tuning.' },
-  { year: '2026', title: 'Building next-gen-reCAPTCHA', body: 'Working on a human verification project for the AI era, focused on better ways to separate real users from automated systems as AI agents become more capable.' },
+  { year: '2026', title: 'Building Verus', body: 'Working on a human verification project for the AI era, focused on better ways to separate real users from automated systems as AI agents become more capable.' },
   { year: '2026', title: 'Open-source iOS productivity work', body: 'Built MonkMode, an iOS-first focus app that uses deep work sessions, Screen Time blocking, commitment rituals, and accountability tracking.' },
   { year: '2026', title: 'NHSEE first place with Infinit', body: 'Placed first in the Computer Science and Math category while presenting Infinit as an applied AI education project.' },
   { year: '2026', title: 'MATHCOUNTS state competitor', body: 'Placed 3rd at the Southern NH Chapter competition, reached the state competition, and placed 20th statewide.' },
