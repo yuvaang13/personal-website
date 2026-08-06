@@ -5,7 +5,6 @@ import PageShell from '@/layouts/PageShell.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import ScrollContent from '@/components/ScrollContent.astro';
 import ScrollShowcase from '@/components/ScrollShowcase.astro';
-import SectionDivider from '@/components/SectionDivider.astro';
 import { profile, homeLinks } from '@/data/profile';
 
 const featuredAreas = [
@@ -39,7 +38,7 @@ const featuredAreas = [
   />
 
   <!-- Featured Areas -->
-  <ScrollContent class="pb-20 pt-14">
+  <ScrollContent class="pb-28 pt-20">
     <div
       data-scroll-reveal
       data-direction="up"
@@ -47,33 +46,31 @@ const featuredAreas = [
       data-delay="0.1"
       class="mx-auto max-w-7xl px-5 sm:px-8"
     >
-      <div class="overflow-hidden rounded-xl border border-mistral-border bg-white">
-        <div class="grid grid-cols-1 divide-y divide-mistral-border md:grid-cols-3 md:divide-x md:divide-y-0">
-          {featuredAreas.map((area, index) => (
-            <a
-              key={area.href}
-              href={area.href}
-              data-od-id={`feature-card-${area.eyebrow}`}
-              data-scroll-reveal
-              data-direction="up"
-              data-distance="30"
-              data-delay={0.15 + index * 0.06}
-              class="focus-ring group flex min-h-[220px] flex-col justify-between gap-10 p-7 transition-colors duration-300 hover:bg-mistral-bgElevated sm:p-9"
-            >
-              <p class="eyebrow">{area.eyebrow}</p>
-              <div>
-                <h2 class="heading-3">{area.title}</h2>
-                <p class="mt-3 body-md">{area.body}</p>
-              </div>
-              <span class="inline-flex items-center gap-2 text-sm font-medium text-mistral-text">
-                open
-                <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 19l7-7m0 0l-7-7m7 7H3" />
-                </svg>
-              </span>
-            </a>
-          ))}
-        </div>
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
+        {featuredAreas.map((area, index) => (
+          <a
+            key={area.href}
+            href={area.href}
+            data-od-id={`feature-card-${area.eyebrow}`}
+            data-scroll-reveal
+            data-direction="up"
+            data-distance="30"
+            data-delay={0.15 + index * 0.06}
+            class="focus-ring group flex min-h-[220px] flex-col justify-between gap-10 rounded-xl border border-mistral-border bg-white p-8 transition-colors duration-300 hover:border-mistral-text hover:bg-mistral-bgElevated sm:p-10"
+          >
+            <p class="eyebrow">{area.eyebrow}</p>
+            <div>
+              <h2 class="heading-3">{area.title}</h2>
+              <p class="mt-3 body-md">{area.body}</p>
+            </div>
+            <span class="inline-flex items-center gap-2 text-sm font-medium text-mistral-text">
+              open
+              <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 19l7-7m0 0l-7-7m7 7H3" />
+              </svg>
+            </span>
+          </a>
+        ))}
       </div>
     </div>
   </ScrollContent>
@@ -81,9 +78,9 @@ const featuredAreas = [
   <ScrollShowcase />
 
   <!-- CTA Section -->
-  <ScrollContent class="pb-20">
+  <ScrollContent class="pb-28">
     <div data-scroll-reveal data-direction="up" data-distance="60" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
-      <div class="flex flex-wrap gap-3" data-stagger-container data-stagger="0.08" data-delay-children="0">
+      <div class="flex flex-wrap gap-4" data-stagger-container data-stagger="0.08" data-delay-children="0">
         {homeLinks.map((link, index) => (
           <a
             href={link.href}
@@ -107,9 +104,8 @@ const featuredAreas = [
   </ScrollContent>
 
   <!-- About Preview Section -->
-  <SectionDivider />
-  <ScrollContent class="pb-20">
-    <div data-scroll-reveal data-direction="up" data-distance="60" data-delay="0.15" class="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-5 sm:px-8 md:grid-cols-[0.4fr_1fr]">
+  <ScrollContent class="pb-28">
+    <div data-scroll-reveal data-direction="up" data-distance="60" data-delay="0.15" class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 sm:px-8 md:grid-cols-[0.4fr_1fr]">
       <div class="text-center md:text-left">
         <p class="eyebrow">work_in_progress/</p>
         <h2 class="mt-4 heading-2">Selected projects, competitions, and technical interests.</h2>

@@ -26,11 +26,11 @@ const iconPaths: Record<string, string> = {
   />
 
   <!-- Direction Section -->
-  <ScrollContent class="pb-16">
+  <ScrollContent class="pb-24">
     <div data-scroll-reveal data-direction="up" data-distance="60" data-delay="0.1" class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 sm:px-8 lg:grid-cols-[0.7fr_1fr] lg:py-8">
       <div>
         <p class="eyebrow">direction/</p>
-        <h2 class="mt-5 heading-2">I like projects where software meets rigorous thinking.</h2>
+        <h2 class="mt-8 heading-2">I like projects where software meets rigorous thinking.</h2>
       </div>
       <div class="space-y-6 body-lg self-center">
         <p>
@@ -49,19 +49,17 @@ const iconPaths: Record<string, string> = {
     </div>
   </ScrollContent>
 
-  <SectionDivider />
-
   <!-- Highlights Section -->
-  <ScrollContent class="pb-16">
+  <ScrollContent class="pb-24">
     <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
-      <p class="eyebrow mb-10">highlights/</p>
+      <p class="eyebrow mb-12">highlights/</p>
     </div>
 
     <div
       data-stagger-container
       data-stagger="0.1"
       data-delay-children="0.15"
-      class="mx-auto grid max-w-7xl grid-cols-1 divide-y divide-mistral-border overflow-hidden rounded-xl border border-mistral-border bg-white lg:grid-cols-3 lg:divide-x lg:divide-y-0"
+      class="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-5 sm:px-8 lg:grid-cols-3"
     >
       {highlights.map((item, index) => {
         const IconName = highlightIcons[item.icon] || item.icon;
@@ -70,7 +68,7 @@ const iconPaths: Record<string, string> = {
         return (
           <div
             data-od-id={`highlight-${item.label}`}
-            class="group p-7 transition-colors duration-300 hover:bg-mistral-bgElevated"
+            class="group rounded-xl border border-mistral-border bg-white p-8 transition-colors duration-300 hover:border-mistral-text hover:bg-mistral-bgElevated"
             data-scroll-reveal
             data-direction="up"
             data-distance="30"
@@ -95,15 +93,15 @@ const iconPaths: Record<string, string> = {
   <SectionDivider />
 
   <!-- Interests & Skills Section -->
-  <ScrollContent class="pb-20">
+  <ScrollContent class="pb-28">
     <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 sm:px-8 lg:grid-cols-2">
       {/* Interests */}
       <div>
-        <p class="eyebrow mb-6">interests[]</p>
+        <p class="eyebrow mb-8">interests[]</p>
         <div data-stagger-container data-stagger="0.04" data-delay-children="0.1" class="overflow-hidden rounded-xl border border-mistral-border bg-white">
           {educationInterests.map((interest) => (
             <div
-              class="border-b border-mistral-border px-5 py-4 transition-colors duration-300 last:border-b-0 hover:bg-mistral-bgElevated"
+              class="px-6 py-5 transition-colors duration-300 hover:bg-mistral-bgElevated"
               data-scroll-reveal
               data-direction="up"
               data-distance="20"
@@ -117,7 +115,7 @@ const iconPaths: Record<string, string> = {
 
       {/* Skills */}
       <div>
-        <p class="eyebrow mb-6">tools_and_skills</p>
+        <p class="eyebrow mb-8">tools_and_skills</p>
         <div data-stagger-container data-stagger="0.03" data-delay-children="0.1" class="flex flex-wrap gap-2">
           {skills.map((skill) => (
             <span

@@ -56,7 +56,24 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <!-- Initialize animations -->
     <script>
+      import Lenis from 'lenis';
       import { initScrollAnimations } from '@/utils/scrollAnimations';
+
+      // Slow, weighty inertial scroll (Mistral-style), skipped for reduced motion
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReducedMotion) {
+        const lenis = new Lenis({
+          lerp: 0.08,
+          wheelMultiplier: 0.9,
+          smoothWheel: true,
+        });
+
+        const raf = (time: number) => {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        };
+        requestAnimationFrame(raf);
+      }
 
       // Initialize scroll animations
       initScrollAnimations();

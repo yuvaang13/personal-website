@@ -16,21 +16,21 @@ import { stats, timeline, roles } from '@/data/profile';
   />
 
   <!-- Stats Section -->
-  <ScrollContent class="pb-16">
+  <ScrollContent class="pb-24">
     <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
-      <p class="eyebrow mb-10">metrics/</p>
+      <p class="eyebrow mb-12">metrics/</p>
     </div>
 
     <div
       data-stagger-container
       data-stagger="0.08"
       data-delay-children="0.15"
-      class="mx-auto grid max-w-7xl grid-cols-1 gap-3 px-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-3"
+      class="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-3"
     >
       {stats.map((stat, index) => (
         <div
           data-od-id={`stat-${stat.value.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
-          class="group relative min-h-[170px] rounded-xl border border-mistral-border bg-white p-5 transition-colors duration-300 hover:border-mistral-text"
+          class="group relative min-h-[170px] rounded-xl border border-mistral-border bg-white p-6 transition-colors duration-300 hover:border-mistral-text"
           data-scroll-reveal
           data-direction="up"
           data-distance="30"
@@ -43,14 +43,12 @@ import { stats, timeline, roles } from '@/data/profile';
     </div>
   </ScrollContent>
 
-  <SectionDivider />
-
   <!-- Timeline Section -->
-  <ScrollContent class="pb-16">
+  <ScrollContent class="pb-24">
     <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 sm:px-8 lg:grid-cols-[0.38fr_1fr]">
       <div>
         <p class="eyebrow">timeline/</p>
-        <h2 class="mt-5 heading-3">recent_work</h2>
+        <h2 class="mt-8 heading-3">recent_work</h2>
       </div>
       <div class="relative">
         {/* Timeline line — aligned to the dot markers */}
@@ -59,7 +57,7 @@ import { stats, timeline, roles } from '@/data/profile';
         <div data-stagger-container data-stagger="0.08" data-delay-children="0.15" class="pl-10">
           {timeline.map((item, index) => (
             <div
-              class="relative border-b border-mistral-border pb-8 pl-8 last:border-b-0"
+              class="relative pb-12 pl-8"
               data-scroll-reveal
               data-direction="right"
               data-distance="24"
@@ -79,16 +77,16 @@ import { stats, timeline, roles } from '@/data/profile';
   <SectionDivider />
 
   <!-- Roles Section -->
-  <ScrollContent class="pb-20">
+  <ScrollContent class="pb-28">
     <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
-      <p class="eyebrow mb-8">roles[]</p>
+      <p class="eyebrow mb-10">roles[]</p>
     </div>
 
-    <div data-stagger-container data-stagger="0.06" data-delay-children="0.15" class="mx-auto grid max-w-7xl grid-cols-1 gap-3 px-5 sm:px-8 lg:grid-cols-2">
+    <div data-stagger-container data-stagger="0.06" data-delay-children="0.15" class="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-5 sm:px-8 lg:grid-cols-2">
       {roles.map((role, index) => (
         <div
           data-od-id={`role-${index + 1}`}
-          class="rounded-xl border border-mistral-border bg-white p-5 text-lg text-mistral-textSecondary transition-colors duration-300 hover:border-mistral-text"
+          class="rounded-xl border border-mistral-border bg-white p-6 text-lg text-mistral-textSecondary transition-colors duration-300 hover:border-mistral-text"
           data-scroll-reveal
           data-direction="up"
           data-distance="20"

@@ -343,6 +343,28 @@ html:not([data-reduced-motion]) {
   scroll-behavior: smooth;
 }
 
+/* Lenis inertial scroll helpers */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
 /* Image optimization */
 img {
   max-width: 100%;
@@ -367,7 +389,7 @@ canvas {
   --showcase-local: 0;
   position: relative;
   height: 420vh;
-  margin: 0 auto 7rem;
+  margin: 0 auto 8rem;
 }
 
 .scroll-showcase__sticky {

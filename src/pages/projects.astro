@@ -4,7 +4,6 @@
 import PageShell from '@/layouts/PageShell.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import ScrollContent from '@/components/ScrollContent.astro';
-import SectionDivider from '@/components/SectionDivider.astro';
 import { projects } from '@/data/profile';
 ---
 
@@ -16,9 +15,9 @@ import { projects } from '@/data/profile';
   />
 
   <!-- Featured Projects -->
-  <ScrollContent class="pb-20">
+  <ScrollContent class="pb-28">
     <div data-scroll-reveal data-direction="up" data-distance="60" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
-      <p class="eyebrow mb-12">featured_work</p>
+      <p class="eyebrow mb-14">featured_work</p>
     </div>
 
     <div data-stagger-container data-stagger="0.12" data-delay-children="0.15" class="mx-auto max-w-7xl px-5 sm:px-8">
@@ -41,7 +40,7 @@ import { projects } from '@/data/profile';
             >
               {/* Image/Visual Side */}
               {hasImage && (
-                <div class="relative h-72 overflow-hidden border-b border-mistral-border bg-mistral-bgElevated md:h-auto md:min-h-[420px] md:border-b-0 md:border-r">
+                <div class="relative h-72 overflow-hidden bg-mistral-bgElevated md:h-auto md:min-h-[420px]">
                   <img
                     src={project.image}
                     alt={`${project.title} preview`}
@@ -111,9 +110,9 @@ import { projects } from '@/data/profile';
   </ScrollContent>
 
   <!-- Other Projects -->
-  <ScrollContent class="pb-20">
+  <ScrollContent class="pb-28">
     <div data-scroll-reveal data-direction="up" data-distance="60" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
-      <p class="eyebrow mb-12">other_work</p>
+      <p class="eyebrow mb-14">other_work</p>
     </div>
 
     <div data-stagger-container data-stagger="0.1" data-delay-children="0.15" class="mx-auto max-w-7xl px-5 sm:px-8">
@@ -204,8 +203,7 @@ import { projects } from '@/data/profile';
   </ScrollContent>
 
   <!-- Bottom CTA -->
-  <ScrollContent class="pb-20">
-    <SectionDivider />
+  <ScrollContent class="pb-28">
     <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8 text-center">
       <p class="eyebrow mb-6">more_coming/</p>
       <h2 class="heading-3 mb-4">Always building. Always learning.</h2>

@@ -4,7 +4,6 @@
 import PageShell from '@/layouts/PageShell.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import ScrollContent from '@/components/ScrollContent.astro';
-import SectionDivider from '@/components/SectionDivider.astro';
 import { profile, contactLinks, contactNotes } from '@/data/profile';
 
 const iconPaths = {
@@ -21,16 +20,16 @@ const iconPaths = {
     body="The best way to reach me is email. You can also find my code and current experiments on GitHub."
   />
 
-  <ScrollContent class="pb-16">
+  <ScrollContent class="pb-24">
     <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
-      <p class="eyebrow mb-10">channels/</p>
+      <p class="eyebrow mb-12">channels/</p>
     </div>
 
     <div
       data-stagger-container
       data-stagger="0.1"
       data-delay-children="0.15"
-      class="mx-auto grid max-w-7xl grid-cols-1 gap-3 px-5 md:grid-cols-3 sm:px-8"
+      class="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-5 md:grid-cols-3 sm:px-8"
     >
       {contactLinks.map((item, index) => {
         const iconPath = iconPaths[item.icon] || iconPaths.mail;
@@ -48,7 +47,7 @@ const iconPaths = {
               href={item.href}
               target={item.href.startsWith("http") ? "_blank" : undefined}
               rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-              class="focus-ring flex h-full flex-col justify-between gap-10 p-6"
+              class="focus-ring flex h-full flex-col justify-between gap-10 p-8"
             >
               <div>
                 <svg class="h-7 w-7 text-mistral-text transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" set:html={iconPath} />
@@ -71,17 +70,15 @@ const iconPaths = {
     </div>
   </ScrollContent>
 
-  <SectionDivider />
-
   <!-- Additional Contact Info -->
-  <ScrollContent class="pb-20">
+  <ScrollContent class="pb-28">
     <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
-      <p class="eyebrow mb-8">notes/</p>
-      <div class="grid gap-3 md:grid-cols-3">
+      <p class="eyebrow mb-10">notes/</p>
+      <div class="grid gap-5 md:grid-cols-3">
         {contactNotes.map((note, index) => (
           <div
             data-od-id={`note-${note.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
-            class="rounded-xl border border-mistral-border bg-white p-6"
+            class="rounded-xl border border-mistral-border bg-white p-8"
             data-scroll-reveal
             data-direction="up"
             data-distance="30"
