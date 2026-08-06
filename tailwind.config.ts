@@ -7,10 +7,24 @@ const config: Config = {
   darkMode: 'class',
   theme: {
     extend: {
+      colors: {
+        mistral: {
+          bg: '#fbfbf8',
+          bgElevated: '#f5f5f0',
+          text: '#000000',
+          textSecondary: '#3a3a3a',
+          textMuted: '#737373',
+          border: '#e4e3de',
+          borderHover: '#d4d3ce',
+          accent: '#000000',
+          accentDim: 'rgba(0, 0, 0, 0.06)',
+        },
+      },
       fontFamily: {
-        sans: ['Inter Variable', 'Inter', 'Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        mono: ['Styrene A', 'Styrene A Web', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        serif: ['Styrene A', 'Styrene A Web', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['Space Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+        serif: ['ALTMistral', 'Georgia', 'Cambria', 'Times New Roman', 'serif'],
+        display: ['ALTMistral', 'Georgia', 'Cambria', 'Times New Roman', 'serif'],
       },
       animation: {
         'fade-up': 'fadeUp 900ms cubic-bezier(0.22, 1, 0.36, 1) both',
