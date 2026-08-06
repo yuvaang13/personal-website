@@ -5,8 +5,6 @@ const showcaseOrder = ['Infinit AI', 'next-gen-reCAPTCHA', 'MonkMode'];
 const showcaseProjects = showcaseOrder
   .map((title) => projects.find((project) => project.title === title))
   .filter(Boolean);
-
-const vectorClasses = ['cube', 'prism', 'orbit', 'stack'];
 ---
 
 <section class="scroll-showcase" data-scroll-showcase aria-label="Scroll-driven project showcase">
@@ -35,12 +33,6 @@ const vectorClasses = ['cube', 'prism', 'orbit', 'stack'];
             {project.image && (
               <img src={project.image} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
             )}
-            <div class={`wireform wireform--${vectorClasses[index % vectorClasses.length]}`}>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
           </figure>
         ))}
       </div>
@@ -49,7 +41,6 @@ const vectorClasses = ['cube', 'prism', 'orbit', 'stack'];
 </section>
 
 <script>
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const showcases = document.querySelectorAll<HTMLElement>('[data-scroll-showcase]');
 
   const clamp = (value: number, min = 0, max = 1) => Math.min(max, Math.max(min, value));
@@ -57,7 +48,6 @@ const vectorClasses = ['cube', 'prism', 'orbit', 'stack'];
   showcases.forEach((showcase) => {
     const stages = Array.from(showcase.querySelectorAll<HTMLElement>('[data-showcase-stage]'));
     const visuals = Array.from(showcase.querySelectorAll<HTMLElement>('[data-showcase-visual]'));
-    const forms = Array.from(showcase.querySelectorAll<HTMLElement>('.wireform'));
 
     const update = () => {
       const rect = showcase.getBoundingClientRect();
@@ -65,10 +55,8 @@ const vectorClasses = ['cube', 'prism', 'orbit', 'stack'];
       const progress = clamp(-rect.top / travel);
       const segment = stages.length > 1 ? 1 / stages.length : 1;
       const activeIndex = Math.min(stages.length - 1, Math.floor(progress / segment));
-      const local = clamp((progress - activeIndex * segment) / segment);
 
       showcase.style.setProperty('--showcase-progress', progress.toFixed(4));
-      showcase.style.setProperty('--showcase-local', local.toFixed(4));
 
       stages.forEach((stage, index) => {
         const distance = index - activeIndex;
@@ -81,13 +69,6 @@ const vectorClasses = ['cube', 'prism', 'orbit', 'stack'];
         visual.classList.toggle('is-active', index === activeIndex);
         visual.style.setProperty('--visual-distance', String(distance));
       });
-
-      if (!prefersReducedMotion) {
-        forms.forEach((form, index) => {
-          const spin = progress * 260 + index * 24;
-          form.style.transform = `translate3d(0, 0, 0) rotateX(${58 + local * 12}deg) rotateY(${spin}deg) rotateZ(${-10 + index * 5}deg)`;
-        });
-      }
     };
 
     update();
