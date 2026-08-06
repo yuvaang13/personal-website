@@ -1,5 +1,5 @@
 ---
-// Home page - Hero with neural field, scroll animations, CTA section
+// Home page - Hero, featured areas, scroll-driven project showcase, CTA
 
 import PageShell from '@/layouts/PageShell.astro';
 import PageHeader from '@/components/PageHeader.astro';
@@ -7,9 +7,30 @@ import ScrollContent from '@/components/ScrollContent.astro';
 import ScrollShowcase from '@/components/ScrollShowcase.astro';
 import SectionDivider from '@/components/SectionDivider.astro';
 import { profile, homeLinks } from '@/data/profile';
+
+const featuredAreas = [
+  {
+    eyebrow: 'ai_ml',
+    title: 'AI & machine learning',
+    body: 'RAG tutoring systems, CNNs, fine-tuning, and applied ML experiments.',
+    href: '/about',
+  },
+  {
+    eyebrow: 'robotics',
+    title: 'Robotics & systems',
+    body: 'FTC Team 21689 — autonomy, computer vision, odometry, and driver control.',
+    href: '/experience',
+  },
+  {
+    eyebrow: 'stem_learning',
+    title: 'STEM learning',
+    body: 'Infinit AI, MATHCOUNTS, and volunteer teaching for younger students.',
+    href: '/projects',
+  },
+];
 ---
 
-<PageShell title={`${profile.name} — Student Developer`} backgroundVariant="structured">
+<PageShell title={`${profile.name} — Student Developer`}>
   <!-- Hero Section -->
   <PageHeader
     eyebrow="home"
@@ -17,26 +38,45 @@ import { profile, homeLinks } from '@/data/profile';
     body={profile.headline}
   />
 
-  <!-- Neural Field Visualization -->
-  <section class="relative mx-auto max-w-7xl px-5 pb-20 sm:px-8" data-scroll-reveal data-direction="up" data-distance="60" data-delay="0.2">
-    <div class="relative h-[60vh] min-h-[400px] max-h-[700px] border border-zinc-800 bg-black overflow-hidden">
-      <div class="pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, transparent 70%)"></div>
-      <div data-ascii-mesh class="absolute inset-0">
-        <canvas class="absolute inset-0 h-full w-full opacity-95" aria-hidden="true"></canvas>
-        <div class="noise-mask pointer-events-none absolute inset-0 opacity-70"></div>
-        <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/20"></div>
-        <div class="pointer-events-none absolute inset-y-0 left-1/2 w-px bg-white/[0.045]"></div>
-        <div class="pointer-events-none absolute inset-x-0 top-1/2 h-px bg-white/[0.045]"></div>
-        <div class="pointer-events-none absolute left-5 top-5 border border-zinc-800 bg-black/70 px-3 py-2 text-[10px] uppercase tracking-[0.28em] text-zinc-500 backdrop-blur">
-          AI / Math / Robotics
-        </div>
-        <div class="pointer-events-none absolute bottom-5 left-5 right-5 flex items-center justify-between border-t border-zinc-800 pt-4 text-[10px] uppercase tracking-[0.28em] text-zinc-600">
-          <span>Neural Network</span>
-          <span class="animate-soft-pulse text-zinc-400">Connected</span>
+  <!-- Featured Areas -->
+  <ScrollContent class="pb-20 pt-14">
+    <div
+      data-scroll-reveal
+      data-direction="up"
+      data-distance="60"
+      data-delay="0.1"
+      class="mx-auto max-w-7xl px-5 sm:px-8"
+    >
+      <div class="overflow-hidden rounded-xl border border-mistral-border bg-white">
+        <div class="grid grid-cols-1 divide-y divide-mistral-border md:grid-cols-3 md:divide-x md:divide-y-0">
+          {featuredAreas.map((area, index) => (
+            <a
+              key={area.href}
+              href={area.href}
+              data-od-id={`feature-card-${area.eyebrow}`}
+              data-scroll-reveal
+              data-direction="up"
+              data-distance="30"
+              data-delay={0.15 + index * 0.06}
+              class="focus-ring group flex min-h-[220px] flex-col justify-between gap-10 p-7 transition-colors duration-300 hover:bg-mistral-bgElevated sm:p-9"
+            >
+              <p class="eyebrow">{area.eyebrow}</p>
+              <div>
+                <h2 class="heading-3">{area.title}</h2>
+                <p class="mt-3 body-md">{area.body}</p>
+              </div>
+              <span class="inline-flex items-center gap-2 text-sm font-medium text-mistral-text">
+                open
+                <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 19l7-7m0 0l-7-7m7 7H3" />
+                </svg>
+              </span>
+            </a>
+          ))}
         </div>
       </div>
     </div>
-  </section>
+  </ScrollContent>
 
   <ScrollShowcase />
 
@@ -49,10 +89,11 @@ import { profile, homeLinks } from '@/data/profile';
             href={link.href}
             target={link.href.startsWith("http") ? "_blank" : undefined}
             rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-            class={`focus-ring group inline-flex h-12 items-center justify-center gap-2 px-6 text-sm font-medium transition-all duration-300 hover:scale-[1.02] ${
+            data-od-id={index === 0 ? 'cta-github' : link.label.toLowerCase()}
+            class={`focus-ring inline-flex h-12 items-center justify-center gap-2 rounded-full px-7 text-sm font-medium transition-colors duration-300 ${
               index === 0
-                ? "bg-white text-black hover:bg-zinc-200 shadow-[0_0_30px_rgba(255,255,255,0.15)]"
-                : "border border-zinc-800 text-zinc-300 hover:border-zinc-600 hover:text-white hover:bg-white/[0.02]"
+                ? "bg-mistral-text text-white hover:bg-[#1c1c1c]"
+                : "border border-mistral-text bg-white text-mistral-text hover:bg-mistral-bgElevated"
             }`}
           >
             {link.label}
@@ -70,21 +111,21 @@ import { profile, homeLinks } from '@/data/profile';
   <ScrollContent class="pb-20">
     <div data-scroll-reveal data-direction="up" data-distance="60" data-delay="0.15" class="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-5 sm:px-8 md:grid-cols-[0.4fr_1fr]">
       <div class="text-center md:text-left">
-        <p class="eyebrow">neural_field/</p>
-        <h2 class="mt-4 heading-2">A live visual layer for math, AI, robotics, and learning systems.</h2>
+        <p class="eyebrow">work_in_progress/</p>
+        <h2 class="mt-4 heading-2">Selected projects, competitions, and technical interests.</h2>
       </div>
       <p class="max-w-3xl body-lg self-center">
-        The deeper pages in the top navigation unpack the projects, competition history, and technical interests behind it. Scroll to explore each dimension.
+        The pages in the top navigation unpack the projects, competition history, and technical interests behind it. Scroll to explore each dimension.
       </p>
     </div>
   </ScrollContent>
 
   <!-- Scroll Indicator -->
   <div class="fixed bottom-10 left-1/2 -translate-x-1/2 z-20 pointer-events-none" style="animation: fadeIn 500ms ease-out 1.5s both;">
-    <div class="flex flex-col items-center gap-2 text-zinc-600">
-      <p class="text-[10px] uppercase tracking-[0.3em]">scroll</p>
-      <div class="h-6 w-1.5 border border-zinc-700 rounded-full overflow-hidden">
-        <div class="h-full w-full bg-white" style="animation: slideUp 1.5s ease-in-out infinite;"></div>
+    <div class="flex flex-col items-center gap-2 text-mistral-textMuted">
+      <p class="font-mono text-[10px] uppercase tracking-[0.3em]">scroll</p>
+      <div class="h-6 w-1.5 rounded-full border border-mistral-text/40 overflow-hidden">
+        <div class="h-full w-full bg-mistral-text" style="animation: slideUp 1.5s ease-in-out infinite;"></div>
       </div>
     </div>
   </div>

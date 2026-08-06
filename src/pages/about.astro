@@ -18,7 +18,7 @@ const iconPaths: Record<string, string> = {
 };
 ---
 
-<PageShell title="About — Yuvaan Gulati" backgroundVariant="dense">
+<PageShell title="About — Yuvaan Gulati">
   <PageHeader
     eyebrow="about_me"
     title="A math-heavy builder with a practical AI streak."
@@ -57,14 +57,20 @@ const iconPaths: Record<string, string> = {
       <p class="eyebrow mb-10">highlights/</p>
     </div>
 
-    <div data-stagger-container data-stagger="0.1" data-delay-children="0.15" class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div
+      data-stagger-container
+      data-stagger="0.1"
+      data-delay-children="0.15"
+      class="mx-auto grid max-w-7xl grid-cols-1 divide-y divide-mistral-border overflow-hidden rounded-xl border border-mistral-border bg-white lg:grid-cols-3 lg:divide-x lg:divide-y-0"
+    >
       {highlights.map((item, index) => {
         const IconName = highlightIcons[item.icon] || item.icon;
         const iconPath = iconPaths[IconName] || iconPaths.trophy;
 
         return (
           <div
-            class="group relative border border-zinc-800 bg-black/50 backdrop-blur-sm p-6 transition-all duration-500 hover:border-zinc-700 hover:bg-white/[0.02] hover:shadow-[0_0_40px_rgba(255,255,255,0.02)]"
+            data-od-id={`highlight-${item.label}`}
+            class="group p-7 transition-colors duration-300 hover:bg-mistral-bgElevated"
             data-scroll-reveal
             data-direction="up"
             data-distance="30"
@@ -72,13 +78,13 @@ const iconPaths: Record<string, string> = {
           >
             <div class="flex h-full flex-col gap-6">
               <div>
-                <svg class="h-7 w-7 text-white transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <svg class="h-7 w-7 text-mistral-text transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <Fragment set:html={iconPath} />
                 </svg>
                 <p class="mt-6 eyebrow">{item.label}</p>
-                <h3 class="mt-4 text-2xl font-medium tracking-tight text-white">{item.title}</h3>
+                <h3 class="mt-4 text-2xl font-medium tracking-tight text-mistral-text">{item.title}</h3>
               </div>
-              <p class="leading-7 text-zinc-500 flex-1">{item.body}</p>
+              <p class="flex-1 leading-7 text-mistral-textMuted">{item.body}</p>
             </div>
           </div>
         );
@@ -94,16 +100,16 @@ const iconPaths: Record<string, string> = {
       {/* Interests */}
       <div>
         <p class="eyebrow mb-6">interests[]</p>
-        <div data-stagger-container data-stagger="0.04" data-delay-children="0.1" class="grid gap-3">
+        <div data-stagger-container data-stagger="0.04" data-delay-children="0.1" class="overflow-hidden rounded-xl border border-mistral-border bg-white">
           {educationInterests.map((interest) => (
             <div
-              class="border border-zinc-800 px-4 py-4 text-zinc-300 transition-all duration-300 hover:border-zinc-600 hover:bg-white/[0.02] hover:text-white"
+              class="border-b border-mistral-border px-5 py-4 transition-colors duration-300 last:border-b-0 hover:bg-mistral-bgElevated"
               data-scroll-reveal
               data-direction="up"
               data-distance="20"
             >
-              <h4 class="font-medium text-white">{interest.title}</h4>
-              <p class="mt-1 text-sm text-zinc-500">{interest.description}</p>
+              <h4 class="font-medium text-mistral-text">{interest.title}</h4>
+              <p class="mt-1 text-sm leading-6 text-mistral-textMuted">{interest.description}</p>
             </div>
           ))}
         </div>
@@ -115,7 +121,8 @@ const iconPaths: Record<string, string> = {
         <div data-stagger-container data-stagger="0.03" data-delay-children="0.1" class="flex flex-wrap gap-2">
           {skills.map((skill) => (
             <span
-              class="border border-zinc-800 px-3 py-2 text-sm text-zinc-400 transition-all duration-300 hover:border-zinc-600 hover:bg-white/[0.02] hover:text-zinc-200"
+              key={skill.name}
+              class="tag"
               data-scroll-reveal
               data-direction="up"
               data-distance="15"

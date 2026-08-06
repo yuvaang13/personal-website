@@ -4,17 +4,17 @@
 import PageShell from '@/layouts/PageShell.astro';
 ---
 
-<PageShell title="404 — Page Not Found" backgroundVariant="sparse" showBackground={true}>
+<PageShell title="404 — Page Not Found">
   <section class="mx-auto max-w-7xl px-5 py-32 sm:px-8 lg:py-40" data-scroll-reveal data-direction="up" data-distance="60">
     <div class="text-center">
-      <p class="font-mono text-8xl font-bold text-white/10 sm:text-12xl">404</p>
+      <p class="font-serif text-8xl font-medium tracking-tight text-mistral-text/15 sm:text-12xl">404</p>
       <h1 class="mt-8 heading-2">Page not found</h1>
-      <p class="mt-4 max-w-xl mx-auto body-lg">
+      <p class="mx-auto mt-4 max-w-xl body-lg">
         The page you're looking for doesn't exist or has been moved.
         No worries though — let's get you back on track.
       </p>
 
-      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
         <a href="/" class="btn-primary">
           Back to Home
           <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -30,26 +30,26 @@ import PageShell from '@/layouts/PageShell.astro';
       </div>
 
       <!-- Quick Navigation -->
-      <div class="mt-16 grid grid-cols-2 md:grid-cols-5 gap-4 max-w-3xl mx-auto">
-        <a href="/" class="border border-zinc-800 p-4 text-sm text-zinc-400 hover:border-zinc-600 hover:text-white hover:bg-white/[0.02] transition-all">
-          <p class="font-medium text-white">~/</p>
-          <p class="text-xs text-zinc-600 mt-1">Home</p>
+      <div class="mx-auto mt-16 grid max-w-3xl grid-cols-2 gap-4 md:grid-cols-5">
+        <a href="/" class="rounded-xl border border-mistral-border bg-white p-4 text-sm text-mistral-textMuted transition-colors hover:border-mistral-text hover:bg-mistral-bgElevated hover:text-mistral-text">
+          <p class="font-medium text-mistral-text">~/</p>
+          <p class="mt-1 text-xs text-mistral-textMuted">Home</p>
         </a>
-        <a href="/projects" class="border border-zinc-800 p-4 text-sm text-zinc-400 hover:border-zinc-600 hover:text-white hover:bg-white/[0.02] transition-all">
-          <p class="font-medium text-white">projects/</p>
-          <p class="text-xs text-zinc-600 mt-1">Work</p>
+        <a href="/projects" class="rounded-xl border border-mistral-border bg-white p-4 text-sm text-mistral-textMuted transition-colors hover:border-mistral-text hover:bg-mistral-bgElevated hover:text-mistral-text">
+          <p class="font-medium text-mistral-text">projects/</p>
+          <p class="mt-1 text-xs text-mistral-textMuted">Work</p>
         </a>
-        <a href="/about" class="border border-zinc-800 p-4 text-sm text-zinc-400 hover:border-zinc-600 hover:text-white hover:bg-white/[0.02] transition-all">
-          <p class="font-medium text-white">about_me</p>
-          <p class="text-xs text-zinc-600 mt-1">About</p>
+        <a href="/about" class="rounded-xl border border-mistral-border bg-white p-4 text-sm text-mistral-textMuted transition-colors hover:border-mistral-text hover:bg-mistral-bgElevated hover:text-mistral-text">
+          <p class="font-medium text-mistral-text">about_me</p>
+          <p class="mt-1 text-xs text-mistral-textMuted">About</p>
         </a>
-        <a href="/experience" class="border border-zinc-800 p-4 text-sm text-zinc-400 hover:border-zinc-600 hover:text-white hover:bg-white/[0.02] transition-all">
-          <p class="font-medium text-white">experience</p>
-          <p class="text-xs text-zinc-600 mt-1">Timeline</p>
+        <a href="/experience" class="rounded-xl border border-mistral-border bg-white p-4 text-sm text-mistral-textMuted transition-colors hover:border-mistral-text hover:bg-mistral-bgElevated hover:text-mistral-text">
+          <p class="font-medium text-mistral-text">experience</p>
+          <p class="mt-1 text-xs text-mistral-textMuted">Timeline</p>
         </a>
-        <a href="/contact" class="border border-zinc-800 p-4 text-sm text-zinc-400 hover:border-zinc-600 hover:text-white hover:bg-white/[0.02] transition-all">
-          <p class="font-medium text-white">contact</p>
-          <p class="text-xs text-zinc-600 mt-1">Reach Out</p>
+        <a href="/contact" class="col-span-2 rounded-xl border border-mistral-border bg-white p-4 text-sm text-mistral-textMuted transition-colors hover:border-mistral-text hover:bg-mistral-bgElevated hover:text-mistral-text md:col-span-1">
+          <p class="font-medium text-mistral-text">contact</p>
+          <p class="mt-1 text-xs text-mistral-textMuted">Reach Out</p>
         </a>
       </div>
     </div>

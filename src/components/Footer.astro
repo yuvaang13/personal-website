@@ -4,16 +4,16 @@
 import { profile } from '@/data/profile';
 ---
 
-<footer class="relative z-10 border-t border-zinc-800" role="contentinfo">
-  <div class="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-12 text-sm text-zinc-500 sm:px-8 md:flex-row md:items-center md:justify-between">
-    <p class="text-white">{profile.name}</p>
+<footer data-od-id="site-footer" class="relative z-10 border-t border-mistral-text bg-mistral-bg" role="contentinfo">
+  <div class="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-12 text-sm text-mistral-textSecondary sm:px-8 md:flex-row md:items-center md:justify-between">
+    <p class="font-serif text-base tracking-tight text-mistral-text">{profile.name}</p>
 
-    <div class="flex flex-wrap items-center gap-4">
+    <div class="flex flex-wrap items-center gap-6">
       <a
         href={profile.github}
         target="_blank"
         rel="noreferrer"
-        class="focus-ring inline-flex items-center gap-2 transition-colors hover:text-white"
+        class="focus-ring inline-flex items-center gap-2 underline-offset-4 transition-colors hover:text-mistral-text hover:underline"
         aria-label="GitHub"
       >
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -24,7 +24,7 @@ import { profile } from '@/data/profile';
 
       <a
         href={`mailto:${profile.email}`}
-        class="focus-ring inline-flex items-center gap-2 transition-colors hover:text-white"
+        class="focus-ring inline-flex items-center gap-2 underline-offset-4 transition-colors hover:text-mistral-text hover:underline"
         aria-label="Email"
       >
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -33,7 +33,7 @@ import { profile } from '@/data/profile';
         Email
       </a>
 
-      <span class="inline-flex items-center gap-2" aria-label="Location">
+      <span class="inline-flex items-center gap-2 text-mistral-textMuted" aria-label="Location">
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />

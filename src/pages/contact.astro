@@ -14,7 +14,7 @@ const iconPaths = {
 };
 ---
 
-<PageShell title="Contact — Yuvaan Gulati" backgroundVariant="sparse">
+<PageShell title="Contact — Yuvaan Gulati">
   <PageHeader
     eyebrow="contact"
     title="Projects, STEM ideas, robotics, or AI work."
@@ -26,13 +26,19 @@ const iconPaths = {
       <p class="eyebrow mb-10">channels/</p>
     </div>
 
-    <div data-stagger-container data-stagger="0.1" data-delay-children="0.15" class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div
+      data-stagger-container
+      data-stagger="0.1"
+      data-delay-children="0.15"
+      class="mx-auto grid max-w-7xl grid-cols-1 gap-3 px-5 md:grid-cols-3 sm:px-8"
+    >
       {contactLinks.map((item, index) => {
         const iconPath = iconPaths[item.icon] || iconPaths.mail;
 
         return (
           <div
-            class="group relative min-h-[260px] border border-zinc-800 bg-black/50 backdrop-blur-sm p-6 transition-all duration-500 hover:border-zinc-700 hover:bg-white/[0.02] hover:shadow-[0_0_40px_rgba(255,255,255,0.03)]"
+            data-od-id={`contact-${item.label.toLowerCase()}`}
+            class="group relative min-h-[260px] rounded-xl border border-mistral-border bg-white transition-colors duration-300 hover:border-mistral-text"
             data-scroll-reveal
             data-direction="up"
             data-distance="30"
@@ -42,16 +48,16 @@ const iconPaths = {
               href={item.href}
               target={item.href.startsWith("http") ? "_blank" : undefined}
               rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-              class="focus-ring flex h-full flex-col justify-between gap-10"
+              class="focus-ring flex h-full flex-col justify-between gap-10 p-6"
             >
               <div>
-                <svg class="h-7 w-7 text-white transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" set:html={iconPath} />
+                <svg class="h-7 w-7 text-mistral-text transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" set:html={iconPath} />
                 <p class="mt-6 eyebrow">{item.label}</p>
               </div>
               <div>
-                <p class="break-words text-xl text-zinc-300 group-hover:text-white transition-colors">{item.value}</p>
-                <p class="mt-3 text-sm text-zinc-500">{item.description}</p>
-                <span class="mt-5 inline-flex items-center gap-2 text-sm text-white transition-transform group-hover:translate-x-1">
+                <p class="break-words text-xl text-mistral-textSecondary transition-colors group-hover:text-mistral-text">{item.value}</p>
+                <p class="mt-3 text-sm text-mistral-textMuted">{item.description}</p>
+                <span class="mt-5 inline-flex items-center gap-2 text-sm font-medium text-mistral-text transition-transform group-hover:translate-x-1">
                   open
                   <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 19l7-7m0 0l-7-7m7 7H3" />
@@ -71,17 +77,18 @@ const iconPaths = {
   <ScrollContent class="pb-20">
     <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
       <p class="eyebrow mb-8">notes/</p>
-      <div class="grid gap-6 md:grid-cols-3">
+      <div class="grid gap-3 md:grid-cols-3">
         {contactNotes.map((note, index) => (
           <div
-            class="border border-zinc-800 bg-black/50 backdrop-blur-sm p-6"
+            data-od-id={`note-${note.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+            class="rounded-xl border border-mistral-border bg-white p-6"
             data-scroll-reveal
             data-direction="up"
             data-distance="30"
             data-delay={0.15 + index * 0.05}
           >
-            <h3 class="font-medium text-white mb-2">{note.title}</h3>
-            <p class="text-zinc-400">{note.body}</p>
+            <h3 class="mb-2 font-medium text-mistral-text">{note.title}</h3>
+            <p class="text-mistral-textMuted">{note.body}</p>
           </div>
         ))}
       </div>

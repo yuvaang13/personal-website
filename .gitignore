@@ -44,3 +44,6 @@ coverage/
 # Astro
 .astro/
 astro.config.mjs.timestamp-*.mjs
+
+# Local verification output
+scripts/recon-check/

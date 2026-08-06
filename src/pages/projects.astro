@@ -8,7 +8,7 @@ import SectionDivider from '@/components/SectionDivider.astro';
 import { projects } from '@/data/profile';
 ---
 
-<PageShell title="Projects — Yuvaan Gulati" backgroundVariant="sparse">
+<PageShell title="Projects — Yuvaan Gulati">
   <PageHeader
     eyebrow="projects/"
     title="AI tools, apps, ML experiments, and STEM systems."
@@ -30,7 +30,8 @@ import { projects } from '@/data/profile';
 
           return (
             <article
-              class={`group relative overflow-hidden border border-zinc-800 bg-black/50 backdrop-blur-sm transition-all duration-500 hover:border-zinc-700 hover:bg-white/[0.02] ${
+              data-od-id={`project-${project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+              class={`group relative overflow-hidden rounded-xl border border-mistral-border bg-white transition-colors duration-300 hover:border-mistral-text ${
                 hasImage ? "md:grid md:grid-cols-[1fr_1fr]" : ""
               }`}
               data-scroll-reveal
@@ -40,17 +41,15 @@ import { projects } from '@/data/profile';
             >
               {/* Image/Visual Side */}
               {hasImage && (
-                <div class="relative h-72 md:h-auto md:min-h-[420px] overflow-hidden border-b border-zinc-800 md:border-b-0 md:border-r">
+                <div class="relative h-72 overflow-hidden border-b border-mistral-border bg-mistral-bgElevated md:h-auto md:min-h-[420px] md:border-b-0 md:border-r">
                   <img
                     src={project.image}
                     alt={`${project.title} preview`}
-                    class="object-cover w-full h-full transition-all duration-700 group-hover:scale-105"
+                    class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                     loading="lazy"
                   />
-                  {/* Gradient overlay */}
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
-                  {/* Project type badge */}
-                  <div class="absolute bottom-6 left-6 right-6 md:left-8 md:bottom-8">
+                  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white/50 to-transparent" />
+                  <div class="absolute bottom-5 left-5">
                     <span class="tag-filled">{project.type}</span>
                   </div>
                 </div>
@@ -61,15 +60,15 @@ import { projects } from '@/data/profile';
                 <div class="flex h-full flex-col justify-between gap-10">
                   <div>
                     {!hasImage && (
-                      <div class="mb-6 flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.22em] text-zinc-600">
+                      <div class="mb-6 flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-[0.22em] text-mistral-textMuted">
                         <span>{project.type}</span>
-                        <span class="h-1 w-1 rounded-full bg-zinc-700" />
+                        <span class="h-1 w-1 rounded-full bg-mistral-text" />
                         <span>{project.status}</span>
                       </div>
                     )}
                     <h2 class="heading-3">{project.title}</h2>
                     <p class="mt-5 body-lg">{project.summary}</p>
-                    <p class="mt-5 leading-7 text-zinc-500">{project.details}</p>
+                    <p class="mt-5 leading-7 text-mistral-textMuted">{project.details}</p>
                   </div>
 
                   <div>
@@ -126,8 +125,9 @@ import { projects } from '@/data/profile';
 
           return (
             <article
-              class={`group relative overflow-hidden border border-zinc-800 bg-black/50 backdrop-blur-sm p-6 md:p-8 transition-all duration-500 hover:border-zinc-700 hover:bg-white/[0.02] ${
-                hasImage ? "md:grid md:grid-cols-[1fr_1fr]" : ""
+              data-od-id={`project-${project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+              class={`group relative overflow-hidden rounded-xl border border-mistral-border bg-white p-6 transition-colors duration-300 hover:border-mistral-text md:p-8 ${
+                hasImage ? "md:grid md:grid-cols-[1fr_1fr] md:gap-8" : ""
               }`}
               data-scroll-reveal
               data-direction="up"
@@ -135,33 +135,33 @@ import { projects } from '@/data/profile';
               data-delay={0.1 + index * 0.05}
             >
               {hasImage && (
-                <div class="relative h-64 md:h-auto md:min-h-[350px] overflow-hidden border-b border-zinc-800 md:border-b-0 md:border-r -m-6 md:m-0 md:p-0 mb-6 md:mb-0">
+                <div class="relative -m-6 mb-6 h-64 overflow-hidden bg-mistral-bgElevated md:m-0 md:min-h-[350px] md:rounded-lg">
                   <img
                     src={project.image}
                     alt={`${project.title} preview`}
-                    class="object-cover w-full h-full transition-all duration-700 group-hover:scale-105"
+                    class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                     loading="lazy"
                   />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
-                  <div class="absolute bottom-4 left-4 right-4 md:left-6 md:bottom-6">
+                  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white/50 to-transparent" />
+                  <div class="absolute bottom-4 left-4">
                     <span class="tag-filled">{project.type}</span>
                   </div>
                 </div>
               )}
 
-              <div class={`relative ${hasImage ? "p-0 md:p-8" : ""}`}>
+              <div class={`relative ${hasImage ? "md:p-0" : ""}`}>
                 <div class="flex h-full flex-col justify-between gap-8">
                   <div>
                     {!hasImage && (
-                      <div class="mb-4 flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.22em] text-zinc-600">
+                      <div class="mb-4 flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-[0.22em] text-mistral-textMuted">
                         <span>{project.type}</span>
-                        <span class="h-1 w-1 rounded-full bg-zinc-700" />
+                        <span class="h-1 w-1 rounded-full bg-mistral-text" />
                         <span>{project.status}</span>
                       </div>
                     )}
-                    <h3 class="text-2xl font-medium tracking-tight text-white">{project.title}</h3>
+                    <h3 class="text-2xl font-medium tracking-tight text-mistral-text">{project.title}</h3>
                     <p class="mt-4 body-md">{project.summary}</p>
-                    <p class="mt-4 leading-7 text-zinc-500">{project.details}</p>
+                    <p class="mt-4 leading-7 text-mistral-textMuted">{project.details}</p>
                   </div>
 
                   <div>
@@ -209,15 +209,16 @@ import { projects } from '@/data/profile';
     <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8 text-center">
       <p class="eyebrow mb-6">more_coming/</p>
       <h2 class="heading-3 mb-4">Always building. Always learning.</h2>
-      <p class="max-w-2xl mx-auto text-zinc-400 mb-8">
+      <p class="mx-auto mb-8 max-w-2xl text-mistral-textMuted">
         New experiments in AI, robotics, and education tools are always in progress.
         Check GitHub for the latest commits and works-in-progress.
       </p>
       <a
+        data-od-id="cta-github"
         href="https://github.com/yuvaang13"
         target="_blank"
         rel="noreferrer"
-        class="btn-secondary"
+        class="btn-primary"
       >
         View on GitHub
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
