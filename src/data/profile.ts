@@ -89,9 +89,9 @@ export const profile: Profile = {
   website: 'https://iamyuvaangulati.vercel.app/',
   headline: 'Student developer building AI tools, robotics systems, and STEM learning projects.',
   shortIntro: 'I am a student developer interested in AI, machine learning, applied math, robotics, and product engineering. I like turning ambitious ideas into working software, especially tools that help students learn faster and think more clearly.',
-  extendedIntro: `I'm a high school student from Southern New Hampshire deeply passionate about the intersection of AI, mathematics, and robotics. My journey started with competitive mathematics — MATHCOUNTS, AMC 8/10, MOEMS — which taught me rigorous problem-solving and the beauty of abstract thinking. That foundation led me to computer science, where I discovered I could build things that make a tangible difference.
+  extendedIntro: `I'm a middle school student from Southern New Hampshire deeply passionate about the intersection of AI, mathematics, and robotics. My journey started with competitive mathematics — MATHCOUNTS, AMC 8/10, MOEMS — which taught me rigorous problem-solving and the beauty of abstract thinking. That foundation led me to computer science, where I discovered I could build things that make a tangible difference.
 
-Currently, I'm the lead programmer on FTC Team 21689 (Team Tesseract), where I handle everything from autonomous path planning and computer vision to outreach, fundraising, and graphic design. I've built Infinit AI, a K-8 STEM tutoring platform that uses RAG and grade-level personalization to make quality tutoring accessible — it won 1st place at NHSEE 2026 in Computer Science & Math and was submitted to MIT Solve.
+Currently, I'm the lead programmer on FTC Team 21689 (Team Tesseract), where I handle everything from autonomous path planning and computer vision to outreach, fundraising, and graphic design. I've built Infinit AI, a K-8 STEM tutoring platform that uses RAG and grade-level personalization to make quality tutoring accessible — it won 1st place at NHSEE 2026 in Computer Science & Math and was selected as a Solver for MIT Solve's AI For A Better World.
 
 I'm also exploring computer vision for healthcare through ClearEye, a concept for phone-based concussion screening that analyzes pupil response against personalized baselines. It was submitted to the 3M Young Scientist Challenge.
 
@@ -118,9 +118,9 @@ export const projects: Project[] = [
   {
     title: 'Infinit AI',
     type: 'AI STEM tutoring platform',
-    status: 'Built and submitted to MIT Solve',
+    status: 'MIT Solve Solver, AI For A Better World',
     summary: 'An AI-powered STEM tutoring platform for K-8 learners that answers math, science, engineering, and technology questions at the student\'s grade level.',
-    details: 'Infinit was developed across multiple versions, building toward stronger personalization, larger knowledge bases, Retrieval-Augmented Generation, and custom model tuning. The goal is to close the tutoring access gap by giving students a patient, always-available STEM helper. Version 1 used basic prompt engineering. Version 2 added RAG with a curated K-8 STEM knowledge base. Version 3 introduced grade-level adaptation and personalized learning paths. Currently exploring fine-tuned models for stronger pedagogical reasoning.',
+    details: 'Infinit was developed across multiple versions, building toward stronger personalization, larger knowledge bases, Retrieval-Augmented Generation, and custom model tuning. The goal is to close the tutoring access gap by giving students a patient, always-available STEM helper. The system uses a custom-tuned large language model to explain science, math, technology, and engineering concepts at the student\'s grade level, including RAG and custom model fine-tuning. It was presented at NHSEE 2026 (1st place, Computer Science and Math) and selected as a Solver for MIT Solve\'s AI For A Better World.',
     tags: ['AI/ML', 'RAG', 'Education', 'K-8 STEM', 'TypeScript', 'Next.js'],
     links: [
       { label: 'GitHub', href: 'https://github.com/yuvaang13/Infinit-AI-an-AI-Powered-STEM-tutor-for-K-8-Students' },
@@ -134,8 +134,8 @@ export const projects: Project[] = [
     type: 'Computer vision health concept',
     status: 'Submitted to the 3M Young Scientist Challenge',
     summary: 'A phone-based concussion screening app concept that analyzes pupil response and micro eye movements in under 30 seconds.',
-    details: 'ClearEye is designed around a personalized model that compares an athlete to their own eye movement baseline rather than only to a general average. It aims to make concussion screening more accessible where specialized clinical equipment is not available. The system uses MediaPipe for facial landmarks, custom pupil detection algorithms, and a lightweight neural network for classification — all running on-device for privacy and speed.',
-    tags: ['Computer Vision', 'Healthcare', 'Mobile ML', 'Accessibility', 'MediaPipe', 'Python'],
+    details: 'ClearEye uses computer vision and a personalized machine learning model to detect concussions in under 30 seconds by analyzing pupil response and micro eye movements — no specialized equipment needed. The model learns each athlete\'s own eye movement baseline, comparing them to themselves rather than to a general average, so it runs entirely on the phone camera already in every coach\'s pocket. The goal is to make concussion detection fast, accurate, and accessible to every athlete, wherever they play.',
+    tags: ['Computer Vision', 'Healthcare', 'Mobile ML', 'Accessibility', 'Python'],
     links: [],
     featured: true,
     impactOrder: 2,
@@ -145,7 +145,7 @@ export const projects: Project[] = [
     type: 'Security and verification project',
     status: 'In progress',
     summary: 'A human verification concept for the AI era, exploring stronger ways to separate real users from automated systems.',
-    details: 'The project investigates how verification can evolve as AI agents become more capable, with attention to usability, trust, and modern web integration. Current exploration includes behavioral biometrics, proof-of-work challenges, and cryptographic attestation — moving beyond image selection toward continuous, invisible verification.',
+    details: 'Human verification for the AI era. The project explores how verification should evolve as AI agents become more capable — focusing on separating real users from automated systems while keeping interactions usable, private, and trustworthy on the modern web.',
     tags: ['Web Security', 'AI', 'Verification', 'TypeScript', 'Cryptography'],
     links: [
       { label: 'Repository', href: 'https://github.com/yuvaang13/next-gen-reCAPTCHA' },
@@ -169,9 +169,9 @@ export const projects: Project[] = [
   {
     title: 'FTC Team Tesseract — Robotics Software',
     type: 'FTC Robotics Competition',
-    status: 'Active season (2024-2025)',
-    summary: 'Lead programmer for FTC Team 21689. Autonomous path planning, computer vision for AprilTag detection, Odometry, and driver control systems.',
-    details: 'Built the full software stack for a competitive FTC robot: Odometry-based localization with GoBILDA Pinpoint, autonomous trajectory generation with spline paths, AprilTag-based localization using OpenCV + TensorFlow Lite, dynamic path replanning, and a modular command-based architecture. Also handle outreach, fundraising ($15K+ raised), social media, graphic design, video editing, and hardware fabrication.',
+    status: 'Active season (2025-2026)',
+    summary: 'Lead programmer for FTC Team 21689. Autonomous path planning, computer vision, odometry, and driver control systems.',
+    details: 'Built the software stack for a competitive FTC robot, including autonomous path planning, computer vision, odometry-based localization, and driver control. Also contribute as the outreach, fundraising, and social media specialist, graphic designer and video editor, and builder/hardware contributor for the team.',
     tags: ['Robotics', 'FTC', 'Java', 'OpenCV', 'TensorFlow Lite', 'Path Planning', 'Odometry'],
     links: [],
     featured: true,
@@ -204,8 +204,8 @@ export const projects: Project[] = [
     type: 'Portfolio system',
     status: 'Live on Vercel',
     summary: 'A portfolio site for projects, STEM work, competitions, and technical interests — rebuilt with Astro for performance and scroll-driven storytelling.',
-    details: 'Built with Astro 4, Tailwind CSS, and vanilla TypeScript for scroll animations. Features neural field visualizations, scrollytelling sections, and a dev-terminal aesthetic. Optimized for Core Web Vitals with static generation and minimal client-side JS.',
-    tags: ['Astro', 'Tailwind', 'TypeScript', 'Scroll Animations', 'Canvas', 'Vercel'],
+    details: 'Built with Astro 4, Tailwind CSS, and vanilla TypeScript for scroll-driven storytelling. Features a Mistral-inspired editorial design, a scroll-driven project showcase, self-hosted typography, and a fully responsive layout. Optimized for Core Web Vitals with static generation and minimal client-side JS.',
+    tags: ['Astro', 'Tailwind', 'TypeScript', 'Scroll Animations', 'Editorial Design', 'Vercel'],
     links: [{ label: 'Live site', href: 'https://iamyuvaangulati.vercel.app/' }],
     featured: false,
     impactOrder: 8,
@@ -217,13 +217,13 @@ export const highlights: Highlight[] = [
     icon: 'trophy',
     label: 'Competitions',
     title: 'Math, science, and engineering competitions',
-    body: '3rd place at MATHCOUNTS Southern NH Chapter 2026, top 12 at chapter, 20th at the NH state competition, AMC 8 score of 14/25, AMC 10 competitor, MOEMS competitor, Science Bowl competitor, and NHSEE 2026 first place in Computer Science and Math for Infinit.',
+    body: '3rd place at MATHCOUNTS Southern NH Chapter 2026, 13th at the 2025 chapter, top 12 at chapter, 20th at the NH state competition, AMC 8 score of 14/25, AMC 10 competitor, MOEMS competitor, Science Bowl competitor, and NHSEE 2026 first place in Computer Science and Math for Infinit.',
   },
   {
     icon: 'brain',
     label: 'AI & ML',
     title: 'Applied AI experiments and education tools',
-    body: 'Built Infinit AI, explored RAG, APIs, fine-tuning, logistic regression, CNNs, pandas, Matplotlib, Kaggle workflows, Ollama, and modern AI coding tools.',
+    body: 'Built Infinit AI (a MIT Solve Solver), explored RAG, APIs, fine-tuning, logistic regression, CNNs, pandas, Matplotlib, Kaggle workflows, Ollama, and modern AI coding tools.',
   },
   {
     icon: 'code2',
@@ -271,8 +271,8 @@ export const stats: Stat[] = [
 
 export const roles: Role[] = [
   { title: 'Lead Programmer for FTC Team 21689, Team Tesseract', description: 'Autonomous path planning, computer vision, odometry, command-based architecture' },
-  { title: 'Outreach, fundraising, and social media specialist for Team Tesseract', description: 'Raised $15K+ in sponsorships; manage team brand, social presence, and community events' },
-  { title: 'Builder and hardware contributor for Team Tesseract', description: 'Mechanical design, fabrication, iteration cycles; GoBILDA and custom parts' },
+  { title: 'Outreach, fundraising, and social media specialist for Team Tesseract', description: 'Team brand, social presence, sponsorships, and community events' },
+  { title: 'Builder and hardware contributor for Team Tesseract', description: 'Mechanical design, fabrication, and iteration cycles' },
   { title: 'Graphic designer and video editor for Team Tesseract', description: 'Team visual identity, season videos, engineering notebook layouts, sponsor materials' },
   { title: 'Graphic designer for the IHF Boston Nashua Chapter', description: 'Event flyers, social media assets, chapter branding for nonprofit health organization' },
   { title: 'Middle school math tutor at SCA', description: 'One-on-one and small group tutoring; algebra, geometry, competition prep' },
@@ -308,6 +308,7 @@ export const skills: Skill[] = [
   { name: 'Claude Code', category: 'Tools' },
   { name: 'Windsurf', category: 'Tools' },
   { name: 'Warp', category: 'Tools' },
+  { name: 'Puter.js', category: 'Tools' },
 ];
 
 export const educationInterests: EducationInterest[] = [
