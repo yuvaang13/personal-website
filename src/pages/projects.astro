@@ -15,12 +15,12 @@ import { projects } from '@/data/profile';
   />
 
   <!-- Featured Projects -->
-  <ScrollContent class="pb-28">
+  <ScrollContent class="pb-36">
     <div data-scroll-reveal data-direction="up" data-distance="60" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
       <p class="eyebrow mb-14">featured_work</p>
     </div>
 
-    <div data-stagger-container data-stagger="0.12" data-delay-children="0.15" class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div data-stagger-container data-stagger="0.12" data-delay-children="0.15" class="mx-auto flex max-w-7xl flex-col gap-12 px-5 sm:px-8">
       {projects
         .filter(p => p.featured)
         .sort((a, b) => a.impactOrder - b.impactOrder)
@@ -110,12 +110,12 @@ import { projects } from '@/data/profile';
   </ScrollContent>
 
   <!-- Other Projects -->
-  <ScrollContent class="pb-28">
+  <ScrollContent class="pb-36">
     <div data-scroll-reveal data-direction="up" data-distance="60" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
       <p class="eyebrow mb-14">other_work</p>
     </div>
 
-    <div data-stagger-container data-stagger="0.1" data-delay-children="0.15" class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div data-stagger-container data-stagger="0.1" data-delay-children="0.15" class="mx-auto flex max-w-7xl flex-col gap-8 px-5 sm:px-8">
       {projects
         .filter(p => !p.featured)
         .sort((a, b) => a.impactOrder - b.impactOrder)

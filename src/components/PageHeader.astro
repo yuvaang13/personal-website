@@ -5,10 +5,10 @@ interface Props {
   eyebrow: string;
   title: string;
   body: string;
-  className?: string;
+  class?: string;
 }
 
-const { eyebrow, title, body, className = '' } = Astro.props;
+const { eyebrow, title, body, class: className = '' } = Astro.props;
 ---
 
 <section

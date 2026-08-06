@@ -2,10 +2,10 @@
 // SectionDivider.astro - Horizontal divider between sections
 
 interface Props {
-  className?: string;
+  class?: string;
 }
 
-const { className = '' } = Astro.props;
+const { class: className = '' } = Astro.props;
 ---
 
 <div class={`border-t border-mistral-border my-16 ${className}`} role="separator" aria-hidden="true" />

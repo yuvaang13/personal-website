@@ -8,13 +8,13 @@ import Footer from '@/components/Footer.astro';
 interface Props {
   title?: string;
   description?: string;
-  className?: string;
+  class?: string;
 }
 
 const {
   title = 'Yuvaan Gulati — Student Developer',
   description = 'Student developer building AI tools, robotics systems, and STEM learning projects.',
-  className = '',
+  class: className = '',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
