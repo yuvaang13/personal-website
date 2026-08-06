@@ -226,13 +226,17 @@ pre::selection {
 }
 
 /* Reveal animation classes */
+html.js [data-scroll-reveal] {
+  opacity: 0;
+}
+
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  filter: blur(8px);
-  transition: opacity 800ms cubic-bezier(0.22, 1, 0.36, 1),
-              transform 800ms cubic-bezier(0.22, 1, 0.36, 1),
-              filter 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(24px);
+  filter: blur(4px);
+  transition: opacity 650ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 650ms cubic-bezier(0.22, 1, 0.36, 1),
+              filter 650ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reveal.visible {
@@ -259,27 +263,33 @@ pre::selection {
 /* Heading styles — ALTMistral display serif */
 .heading-1 {
   @apply font-serif text-5xl font-normal leading-[0.98] tracking-tight text-mistral-text sm:text-6xl lg:text-7xl xl:text-8xl;
+  text-wrap: balance;
 }
 
 .heading-2 {
   @apply font-serif text-3xl font-normal leading-[1.02] tracking-tight text-mistral-text sm:text-4xl lg:text-5xl;
+  text-wrap: balance;
 }
 
 .heading-3 {
   @apply font-serif text-2xl font-normal leading-tight tracking-tight text-mistral-text sm:text-3xl;
+  text-wrap: balance;
 }
 
 /* Body text */
 .body-lg {
   @apply text-lg leading-8 text-mistral-textSecondary;
+  text-wrap: pretty;
 }
 
 .body-md {
   @apply text-base leading-7 text-mistral-textSecondary;
+  text-wrap: pretty;
 }
 
 .body-sm {
   @apply text-sm leading-6 text-mistral-textMuted;
+  text-wrap: pretty;
 }
 
 /* Card hover effects */
@@ -421,10 +431,11 @@ canvas {
   margin: 0;
   max-width: 100%;
   font-family: var(--font-display);
-  font-size: clamp(2.75rem, 6.2vw, 6.25rem);
-  line-height: 0.92;
+  font-size: clamp(2.5rem, 5.25vw, 5.5rem);
+  line-height: 0.95;
   color: #000;
   letter-spacing: 0;
+  text-wrap: balance;
   overflow-wrap: break-word;
 }
 
@@ -434,6 +445,7 @@ canvas {
   color: #3a3a3a;
   font-size: clamp(1rem, 1.35vw, 1.25rem);
   line-height: 1.75;
+  text-wrap: pretty;
 }
 
 .scroll-showcase__tags {

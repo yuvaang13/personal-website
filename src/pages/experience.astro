@@ -53,19 +53,19 @@ import { stats, timeline, roles } from '@/data/profile';
         <h2 class="mt-5 heading-3">recent_work</h2>
       </div>
       <div class="relative">
-        {/* Timeline line */}
-        <div class="absolute bottom-0 left-4 top-0 w-px bg-mistral-border" aria-hidden="true" />
+        {/* Timeline line — aligned to the dot markers */}
+        <div class="absolute bottom-0 left-10 top-0 w-px bg-mistral-border" aria-hidden="true" />
 
-        <div data-stagger-container data-stagger="0.08" data-delay-children="0.15" class="border-l border-mistral-border pl-8">
+        <div data-stagger-container data-stagger="0.08" data-delay-children="0.15" class="pl-10">
           {timeline.map((item, index) => (
             <div
-              class="relative border-b border-mistral-border pb-8 last:border-b-0"
+              class="relative border-b border-mistral-border pb-8 pl-8 last:border-b-0"
               data-scroll-reveal
               data-direction="right"
-              data-distance="30"
+              data-distance="24"
               data-delay={0.15 + index * 0.03}
             >
-              <span class="absolute -left-[10px] top-4 h-3 w-3 rounded-full border-4 border-mistral-bg bg-mistral-text" aria-hidden="true" />
+              <span class="absolute left-0 top-4 h-3 w-3 -translate-x-1/2 rounded-full border-4 border-mistral-bg bg-mistral-text" aria-hidden="true" />
               <p class="font-mono text-sm text-mistral-textMuted">/{item.year}</p>
               <h3 class="mt-2 text-2xl font-medium tracking-tight text-mistral-text">{item.title}</h3>
               <p class="mt-3 max-w-2xl leading-7 text-mistral-textMuted">{item.body}</p>

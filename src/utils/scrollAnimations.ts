@@ -76,13 +76,13 @@ export class ScrollReveal {
 
   private applyRevealAnimation(element: HTMLElement, options: ScrollRevealOptions): void {
     const direction = options.direction || 'up';
-    const distance = options.distance || 40;
+    const distance = options.distance || 28;
 
     // Set initial state
     element.style.opacity = '0';
     element.style.transform = this.getInitialTransform(direction, distance);
-    element.style.transition = 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1), transform 800ms cubic-bezier(0.22, 1, 0.36, 1), filter 800ms cubic-bezier(0.22, 1, 0.36, 1)';
-    element.style.filter = 'blur(8px)';
+    element.style.transition = 'opacity 650ms cubic-bezier(0.22, 1, 0.36, 1), transform 650ms cubic-bezier(0.22, 1, 0.36, 1), filter 650ms cubic-bezier(0.22, 1, 0.36, 1)';
+    element.style.filter = 'blur(4px)';
     element.style.willChange = 'opacity, transform, filter';
 
     // Force reflow
@@ -108,11 +108,11 @@ export class ScrollReveal {
 
   private resetElement(element: Element, options: ScrollRevealOptions): void {
     const direction = options.direction || 'up';
-    const distance = options.distance || 40;
+    const distance = options.distance || 28;
 
     element.style.opacity = '0';
     element.style.transform = this.getInitialTransform(direction, distance);
-    element.style.filter = 'blur(8px)';
+    element.style.filter = 'blur(4px)';
     this.animatedElements.delete(element);
   }
 
@@ -123,7 +123,7 @@ export class ScrollReveal {
       triggerOnce: true,
       delay: 0,
       direction: 'up',
-      distance: 40,
+      distance: 28,
       stagger: 0,
       ...options,
     };
@@ -244,7 +244,7 @@ export function initScrollAnimations(): void {
       Array.from(children).forEach((child, index) => {
         getScrollReveal().observe(child, {
           direction: 'up',
-          distance: 30,
+          distance: 24,
           delay: delayChildren + index * stagger,
           stagger: 0,
           triggerOnce: true,

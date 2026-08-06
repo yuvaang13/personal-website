@@ -90,7 +90,7 @@ const featuredAreas = [
             target={link.href.startsWith("http") ? "_blank" : undefined}
             rel={link.href.startsWith("http") ? "noreferrer" : undefined}
             data-od-id={index === 0 ? 'cta-github' : link.label.toLowerCase()}
-            class={`focus-ring inline-flex h-12 items-center justify-center gap-2 rounded-full px-7 text-sm font-medium transition-colors duration-300 ${
+            class={`group focus-ring inline-flex h-12 items-center justify-center gap-2 rounded-full px-7 text-sm font-medium transition-colors duration-300 ${
               index === 0
                 ? "bg-mistral-text text-white hover:bg-[#1c1c1c]"
                 : "border border-mistral-text bg-white text-mistral-text hover:bg-mistral-bgElevated"
@@ -121,11 +121,11 @@ const featuredAreas = [
   </ScrollContent>
 
   <!-- Scroll Indicator -->
-  <div class="fixed bottom-10 left-1/2 -translate-x-1/2 z-20 pointer-events-none" style="animation: fadeIn 500ms ease-out 1.5s both;">
+  <div id="scroll-indicator" class="fixed bottom-10 left-1/2 z-20 -translate-x-1/2 pointer-events-none" style="animation: fadeIn 500ms ease-out 1.5s both;">
     <div class="flex flex-col items-center gap-2 text-mistral-textMuted">
       <p class="font-mono text-[10px] uppercase tracking-[0.3em]">scroll</p>
       <div class="h-6 w-1.5 rounded-full border border-mistral-text/40 overflow-hidden">
-        <div class="h-full w-full bg-mistral-text" style="animation: slideUp 1.5s ease-in-out infinite;"></div>
+        <div class="h-full w-full bg-mistral-text" style="animation: scrollBar 1.5s ease-in-out infinite;"></div>
       </div>
     </div>
   </div>
@@ -135,5 +135,30 @@ const featuredAreas = [
       from { opacity: 0; }
       to { opacity: 1; }
     }
+
+    @keyframes scrollBar {
+      0% { transform: translateY(-100%); }
+      45%, 100% { transform: translateY(0); }
+    }
+
+    #scroll-indicator {
+      transition: opacity 500ms ease, visibility 500ms ease;
+    }
+
+    #scroll-indicator.indicator-hidden {
+      opacity: 0 !important;
+      visibility: hidden;
+    }
   </style>
+
+  <script>
+    const scrollIndicator = document.getElementById('scroll-indicator');
+    if (scrollIndicator) {
+      const hideIndicator = () => {
+        scrollIndicator.classList.add('indicator-hidden');
+        window.removeEventListener('scroll', hideIndicator);
+      };
+      window.addEventListener('scroll', hideIndicator, { passive: true });
+    }
+  </script>
 </PageShell>
