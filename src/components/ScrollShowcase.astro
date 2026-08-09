@@ -27,7 +27,6 @@ const showcaseProjects = showcaseOrder
       </div>
 
       <div class="scroll-showcase__visual" aria-hidden="true">
-        <div class="scroll-showcase__grid"></div>
         {showcaseProjects.map((project, index) => (
           <figure class:list={["scroll-showcase__project", { "is-active": index === 0 }]} data-showcase-visual>
             {project.image && (
