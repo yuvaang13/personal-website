@@ -516,7 +516,7 @@ canvas {
   width: min(76%, 36rem);
   aspect-ratio: 16 / 10;
   object-fit: contain;
-  background: #f5f5f0;
+  background: #fbfbf8;
   box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.18);
 }
 
