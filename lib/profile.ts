@@ -9,7 +9,7 @@ import {
 
 export const profile = {
   name: "Yuvaan Gulati",
-  location: "Nashua, New Hampshire",
+  location: "Greater Boston",
   email: "yuvaangulati7689@gmail.com",
   github: "https://github.com/yuvaang13",
   website: "https://iamyuvaangulati.vercel.app/",

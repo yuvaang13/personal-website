@@ -24,9 +24,9 @@ const contactLinks = [
   {
     label: "Location",
     value: profile.location,
-    href: "https://www.google.com/maps/place/Nashua,+NH",
+    href: "https://www.google.com/maps/place/Boston,+MA",
     icon: MapPin,
-    description: "Based in Southern New Hampshire, open to remote work",
+    description: "Based in the Greater Boston area, open to remote work",
   },
 ];
 

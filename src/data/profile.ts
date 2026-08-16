@@ -83,13 +83,13 @@ export interface ContactNote {
 
 export const profile: Profile = {
   name: 'Yuvaan Gulati',
-  location: 'Nashua, New Hampshire',
+  location: 'Greater Boston',
   email: 'yuvaangulati7689@gmail.com',
   github: 'https://github.com/yuvaang13',
   website: 'https://iamyuvaangulati.vercel.app/',
   headline: 'Student developer building AI tools, robotics systems, and STEM learning projects.',
   shortIntro: 'I am a student developer interested in AI, machine learning, applied math, robotics, and product engineering. I like turning ambitious ideas into working software, especially tools that help students learn faster and think more clearly.',
-  extendedIntro: `I'm a middle school student from Southern New Hampshire deeply passionate about the intersection of AI, mathematics, and robotics. My journey started with competitive mathematics — MATHCOUNTS, AMC 8/10, MOEMS — which taught me rigorous problem-solving and the beauty of abstract thinking. That foundation led me to computer science, where I discovered I could build things that make a tangible difference.
+  extendedIntro: `I'm a middle school student from the Greater Boston area deeply passionate about the intersection of AI, mathematics, and robotics. My journey started with competitive mathematics — MATHCOUNTS, AMC 8/10, MOEMS — which taught me rigorous problem-solving and the beauty of abstract thinking. That foundation led me to computer science, where I discovered I could build things that make a tangible difference.
 
 Currently, I'm the lead programmer on FTC Team 21689 (Team Tesseract), where I handle everything from autonomous path planning and computer vision to outreach, fundraising, and graphic design. I've built Infinit AI, a K-8 STEM tutoring platform that uses RAG and grade-level personalization to make quality tutoring accessible — it won 1st place at NHSEE 2026 in Computer Science & Math and was selected as a Solver for MIT Solve's AI For A Better World.
 
@@ -337,10 +337,10 @@ export const contactLinks: ContactLink[] = [
   },
   {
     label: 'Location',
-    value: 'Nashua, New Hampshire',
-    href: 'https://www.google.com/maps/place/Nashua,+NH',
+    value: 'Greater Boston',
+    href: 'https://www.google.com/maps/place/Boston,+MA',
     icon: 'map-pin',
-    description: 'Based in Southern New Hampshire, open to remote work',
+    description: 'Based in the Greater Boston area, open to remote work',
   },
 ];
 
