@@ -1,6 +1,6 @@
 ---
-// IntroGate.astro - Cinematic intro for every route, customized per tab
-// Split-shutter reveal with route-specific titles while keeping the same theme
+// IntroGate.astro - Scroll-driven split-shutter intro (no auto-play, no click hint)
+// Shutter progress is tied to window.scrollY — user scrolls to reveal content.
 
 const rawPath = (Astro.url.pathname.replace(/\/$/, '') || '/');
 const introMap: Record<string, { title: string; eyebrow: string }> = {
@@ -18,9 +18,7 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     (() => {
       try {
         const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const path = (location.pathname.replace(/\/$/, '') || '/');
-        const key = 'yg_intro_v1:' + path;
-        if (reduced || sessionStorage.getItem(key) === '1') {
+        if (reduced) {
           document.documentElement.classList.add('intro-skip');
         }
       } catch (_) {}
@@ -29,26 +27,24 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
 
   <div class="intro-shutter intro-shutter--top">
     <div class="intro-stage">
-      <p class="intro-eyebrow"><span class="intro-eyebrow__text"></span><span class="intro-caret" aria-hidden="true"></span></p>
+      <p class="intro-eyebrow"><span class="intro-eyebrow__text">{cfg.eyebrow}</span><span class="intro-caret" aria-hidden="true"></span></p>
       <h2 class="intro-name" aria-hidden="true">
         {cfg.title.split('').map((ch, i) => (
           <span class="intro-letter" style={`--letter-i: ${i}`}><span class="intro-letter__inner">{ch === ' ' ? '\u00A0' : ch}</span></span>
         ))}
       </h2>
       <div class="intro-rule"></div>
-      <p class="intro-hint">click or press any key to enter</p>
     </div>
   </div>
   <div class="intro-shutter intro-shutter--bottom">
     <div class="intro-stage">
-      <p class="intro-eyebrow"><span class="intro-eyebrow__text"></span><span class="intro-caret" aria-hidden="true"></span></p>
+      <p class="intro-eyebrow" aria-hidden="true"><span class="intro-eyebrow__text">{cfg.eyebrow}</span><span class="intro-caret" aria-hidden="true"></span></p>
       <h2 class="intro-name" aria-hidden="true">
         {cfg.title.split('').map((ch, i) => (
           <span class="intro-letter" style={`--letter-i: ${i}`}><span class="intro-letter__inner">{ch === ' ' ? '\u00A0' : ch}</span></span>
         ))}
       </h2>
-      <div class="intro-rule"></div>
-      <p class="intro-hint">click or press any key to enter</p>
+      <div class="intro-rule" aria-hidden="true"></div>
     </div>
   </div>
 </div>
@@ -58,8 +54,9 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     position: fixed;
     inset: 0;
     z-index: 100;
-    background: var(--color-bg);
-    pointer-events: all;
+    background: transparent;
+    pointer-events: none;
+    --intro-progress: 0;
   }
 
   .intro-shutter {
@@ -69,27 +66,19 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     height: 50.05%;
     overflow: hidden;
     background: var(--color-bg);
-    transition: transform 950ms cubic-bezier(0.76, 0, 0.24, 1);
     will-change: transform;
   }
 
   .intro-shutter--top {
     top: 0;
     border-bottom: 1px solid var(--color-border);
+    transform: translateY(calc(var(--intro-progress) * -101%));
   }
 
   .intro-shutter--bottom {
     bottom: 0;
     border-top: 1px solid var(--color-border);
-    transition-delay: 60ms;
-  }
-
-  .intro-gate.is-leaving .intro-shutter--top {
-    transform: translateY(-101%);
-  }
-
-  .intro-gate.is-leaving .intro-shutter--bottom {
-    transform: translateY(101%);
+    transform: translateY(calc(var(--intro-progress) * 101%));
   }
 
   .intro-stage {
@@ -104,6 +93,10 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     gap: 1.5rem;
     padding: 2rem;
     box-sizing: border-box;
+    opacity: calc(1 - var(--intro-progress) * 0.9);
+    filter: blur(calc(var(--intro-progress) * 8px));
+    transform: scale(calc(1 - var(--intro-progress) * 0.04));
+    will-change: opacity, filter, transform;
   }
 
   .intro-shutter--top .intro-stage {
@@ -114,13 +107,6 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     bottom: 0;
   }
 
-  .intro-gate.is-leaving .intro-stage {
-    transition: opacity 400ms ease, filter 400ms ease, transform 950ms cubic-bezier(0.76, 0, 0.24, 1);
-    opacity: 0.6;
-    filter: blur(2px);
-    transform: scale(1.04);
-  }
-
   .intro-eyebrow {
     font-family: var(--font-mono);
     font-size: clamp(0.65rem, 1.2vw, 0.85rem);
@@ -129,13 +115,6 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     color: var(--color-text-muted);
     white-space: nowrap;
     overflow: hidden;
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 300ms ease, transform 300ms ease;
-  }
-
-  .intro-gate.ff .intro-eyebrow,
-  .intro-gate.letters-in .intro-eyebrow {
     opacity: 1;
     transform: translateY(0);
   }
@@ -153,16 +132,7 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     background: currentColor;
     vertical-align: bottom;
     animation: caret-blink 1s steps(2) infinite;
-    opacity: 0;
-    transition: opacity 150ms ease;
-  }
-
-  .intro-gate.is-typing .intro-caret {
-    opacity: 1;
-  }
-
-  .intro-gate:not(.is-typing) .intro-caret {
-    display: none;
+    opacity: 0.9;
   }
 
   @keyframes caret-blink {
@@ -179,10 +149,6 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     text-wrap: balance;
     text-align: center;
     margin: 0;
-    opacity: 0;
-  }
-
-  .intro-gate.letters-in .intro-name {
     opacity: 1;
   }
 
@@ -190,19 +156,6 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     display: inline-block;
     overflow: hidden;
     vertical-align: bottom;
-    opacity: 0;
-    transform: translateY(110%);
-    transition: opacity 650ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
-    transition-delay: calc(var(--letter-i) * 55ms);
-  }
-
-  .intro-gate.letters-in .intro-letter {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .intro-gate.ff .intro-letter {
-    transition-duration: 0ms !important;
     opacity: 1;
     transform: translateY(0);
   }
@@ -212,57 +165,19 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
   }
 
   .intro-rule {
-    width: 0;
+    width: 100%;
+    max-width: 420px;
     height: 1px;
     background: var(--color-text-primary);
-    opacity: 0;
-    transition: width 500ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease;
-  }
-
-  .intro-gate.rule-in .intro-rule {
-    width: 100%;
-    max-width: 420px;
     opacity: 1;
   }
 
-  .intro-gate.ff .intro-rule {
-    transition-duration: 0ms !important;
-    width: 100%;
-    max-width: 420px;
-    opacity: 1;
-  }
-
-  .intro-hint {
-    font-family: var(--font-mono);
-    font-size: clamp(0.6rem, 1vw, 0.75rem);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 400ms ease 200ms, transform 400ms ease 200ms;
-  }
-
-  .intro-gate.hint-in .intro-hint {
-    opacity: 0.7;
-    transform: translateY(0);
-  }
-
-  .intro-gate.ff .intro-hint {
-    transition-delay: 0ms !important;
-    transition-duration: 0ms !important;
-    opacity: 0.7;
-    transform: translateY(0);
+  .intro-gate.is-done {
+    display: none !important;
   }
 
   html.intro-skip .intro-gate {
     display: none !important;
-  }
-
-  html.intro-lock,
-  html.intro-lock body {
-    overflow: hidden !important;
-    overscroll-behavior: none;
   }
 </style>
 
@@ -272,106 +187,60 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     document.dispatchEvent(new CustomEvent('intro:done'));
   } else if (document.documentElement.classList.contains('intro-skip')) {
     gate.remove();
-    document.documentElement.classList.remove('intro-lock');
     document.dispatchEvent(new CustomEvent('intro:done'));
   } else {
-    document.documentElement.classList.add('intro-lock');
-    try {
-      const p = (location.pathname.replace(/\/$/, '') || '/');
-      sessionStorage.setItem('yg_intro_v1:' + p, '1');
-    } catch (_) {}
+    const threshold = () => window.innerHeight * 0.85;
+    let done = false;
+    let rafId = 0;
 
-    const eyebrowText = gate.querySelectorAll('.intro-eyebrow__text');
-    const fullEyebrow = gate.getAttribute('data-eyebrow') || '~/yuvaan_gulati --init portfolio';
-    let charIndex = 0;
-    let typingTimer = 0;
-    let sequenceTimer = 0;
-    let isFastForward = false;
+    const update = () => {
+      const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+      const progress = Math.min(1, Math.max(0, scrollY / threshold()));
+      gate.style.setProperty('--intro-progress', progress.toFixed(4));
 
-    const phases = [
-      { delay: 200, fn: () => { gate.classList.add('is-typing'); startTyping(); } },
-      { delay: 400, fn: () => { gate.classList.add('letters-in'); } },
-      { delay: 1650, fn: () => { gate.classList.add('rule-in'); } },
-      { delay: 2300, fn: () => { gate.classList.add('hint-in'); } },
-      { delay: 2600, fn: () => { } }
-    ];
-
-    let phaseIndex = 0;
-
-    function startTyping() {
-      const typeNext = () => {
-        if (charIndex < fullEyebrow.length) {
-          eyebrowText.forEach(el => { el.textContent = fullEyebrow.slice(0, charIndex + 1); });
-          charIndex++;
-          typingTimer = setTimeout(typeNext, 28);
-        } else {
-          gate.classList.remove('is-typing');
-        }
-      };
-      typeNext();
-    }
-
-    function runSequence() {
-      if (phaseIndex >= phases.length) return;
-      const phase = phases[phaseIndex];
-      sequenceTimer = setTimeout(() => {
-        phase.fn();
-        phaseIndex++;
-        runSequence();
-      }, phase.delay - (phaseIndex > 0 ? phases[phaseIndex - 1].delay : 0));
-    }
-
-    function fastForwardAndLeave() {
-      if (isFastForward) return;
-      isFastForward = true;
-      clearTimeout(typingTimer);
-      clearTimeout(sequenceTimer);
-      eyebrowText.forEach(el => { el.textContent = fullEyebrow; });
-      gate.classList.remove('is-typing');
-      gate.classList.add('ff', 'letters-in', 'rule-in', 'hint-in');
-      setTimeout(beginLeave, 250);
-    }
-
-    function beginLeave() {
-      gate.classList.add('is-leaving');
-      const handleTransitionEnd = (e) => {
-        if (e.target.classList.contains('intro-shutter--bottom')) {
-          gate.removeEventListener('transitionend', handleTransitionEnd);
-          complete();
-        }
-      };
-      gate.addEventListener('transitionend', handleTransitionEnd);
-      setTimeout(complete, 1500);
-    }
-
-    function complete() {
-      gate.remove();
-      document.documentElement.classList.remove('intro-lock');
-      document.dispatchEvent(new CustomEvent('intro:done'));
-    }
-
-    const skipHandler = () => {
-      if (gate.classList.contains('letters-in') || isFastForward) {
-        fastForwardAndLeave();
+      if (progress >= 0.995 && !done) {
+        done = true;
+        gate.classList.add('is-done');
+        // keep gate in DOM but hidden, allow scroll-reveal to run
+        document.dispatchEvent(new CustomEvent('intro:done'));
+        // fully remove after a short delay to avoid flash
+        setTimeout(() => {
+          if (gate.parentNode) gate.remove();
+        }, 400);
+      } else if (progress < 0.98 && done) {
+        // if user scrolls back up, re-show (optional — keeps it reversible)
+        done = false;
+        gate.classList.remove('is-done');
       }
     };
 
-    gate.addEventListener('click', skipHandler);
-    document.addEventListener('keydown', skipHandler, { passive: true });
-    gate.addEventListener('touchstart', skipHandler, { passive: true });
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        update();
+      });
+    };
 
-    setTimeout(() => {
-      if (!isFastForward && gate.classList.contains('hint-in')) {
-        fastForwardAndLeave();
+    // initial state — gate closed at top
+    gate.style.setProperty('--intro-progress', '0');
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+
+    // Also poll via rAF for Lenis smooth scroll (which animates scrollY via rAF)
+    let lastY = -1;
+    const poll = () => {
+      const y = window.scrollY || document.documentElement.scrollTop || 0;
+      if (y !== lastY) {
+        lastY = y;
+        update();
       }
-    }, 3200);
+      if (!done) requestAnimationFrame(poll);
+    };
+    requestAnimationFrame(poll);
 
-    runSequence();
-
-    setTimeout(() => {
-      if (document.getElementById('intro-gate')) {
-        fastForwardAndLeave();
-      }
-    }, 9000);
+    // failsafe: if user never scrolls, gate stays — but we still allow interaction
+    // no auto-leave, no click/key handlers — purely scroll-driven
   }
 </script>

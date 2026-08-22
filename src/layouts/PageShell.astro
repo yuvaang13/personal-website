@@ -83,26 +83,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         requestAnimationFrame(raf);
       }
 
-      // Initialize scroll animations — gated by intro completion on every route
-      const startReveals = () => initScrollAnimations();
-      const gate = document.getElementById('intro-gate');
-
-      if (gate && !document.documentElement.classList.contains('intro-skip')) {
-        // Intro is present and will play — wait for it to finish
-        let started = false;
-        const begin = () => {
-          if (!started) {
-            started = true;
-            startReveals();
-          }
-        };
-        window.addEventListener('intro:done', begin, { once: true });
-        // Failsafe: if intro never fires, start after 8s
-        setTimeout(begin, 8000);
-      } else {
-        // No intro gate, or intro already skipped — start immediately
-        startReveals();
-      }
+      // Scroll-driven intro: reveals start immediately, intro gate opens with scroll
+      initScrollAnimations();
 
       // Scroll progress indicator
       const progressBar = document.getElementById('scroll-progress-indicator');
