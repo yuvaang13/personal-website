@@ -1,5 +1,5 @@
 ---
-// CursorField.astro - Cursor-drawn neural web with math/CS glyphs
+// CursorField.astro - Cursor-drawn neural web with per-route glyph sets
 // Global component rendered in PageShell
 ---
 
@@ -39,6 +39,15 @@
       return;
     }
 
+    function glyphsForPath(path: string): string[] {
+      const p = path.replace(/\/$/, '') || '/';
+      if (p === '/projects') return ['{}', '<>', 'AI', 'ML', 'RAG', '01', '//', 'fn', '∑'];
+      if (p === '/about') return ['\u2211', '\u03c0', '\u03bb', '\u0394', '\u221e', '\u221a', '\u03b8', '\u03c8', 'ML', 'K-8'];
+      if (p === '/experience') return ['\u25cb', '\u25cf', '\u2192', '2026', 'FTC', '\u2605', '01', '\u2206'];
+      if (p === '/contact') return ['@', '\u2192', '\u2709', '01', '<', '>', '//'];
+      return ['\u2211', '\u03c0', '\u03bb', '\u2207', '\u03b8', '\u0394', '\u2202', '\u221e', '\u221a', '01', 'AI', 'ML', '\u222b'];
+    }
+
     let width = 0;
     let height = 0;
     let dpr = 1;
@@ -50,7 +59,7 @@
 
     const MAX_GLYPHS = 40;
     const glyphs: { x: number; y: number; char: string; life: number; maxLife: number; vy: number; alpha: number; size: number; rot: number }[] = [];
-    const GLYPH_CHARS = ['\u2211', '\u03c0', '\u03bb', '\u2207', '\u03b8', '\u0394', '\u2202', '\u221e', '\u221a', '01', 'AI', 'ML', '\u222b'];
+    const GLYPH_CHARS = glyphsForPath(location.pathname);
 
     const CONNECT_DIST = 160;
     const CONNECT_MAX = 3;

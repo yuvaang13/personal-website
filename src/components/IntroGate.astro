@@ -1,9 +1,19 @@
 ---
-// IntroGate.astro - Cinematic intro for every route
-// Split-shutter reveal: "Yuvaan Gulati" tears open into the page content
+// IntroGate.astro - Cinematic intro for every route, customized per tab
+// Split-shutter reveal with route-specific titles while keeping the same theme
+
+const rawPath = (Astro.url.pathname.replace(/\/$/, '') || '/');
+const introMap: Record<string, { title: string; eyebrow: string }> = {
+  '/': { title: 'Yuvaan Gulati.', eyebrow: '~/yuvaan_gulati --init portfolio' },
+  '/about': { title: 'About Me.', eyebrow: '~/about_me --cat profile.md' },
+  '/projects': { title: 'Projects.', eyebrow: '~/projects --ls -la' },
+  '/experience': { title: 'Experience.', eyebrow: '~/experience --timeline' },
+  '/contact': { title: 'Contact.', eyebrow: '~/contact --ping' },
+};
+const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath} --init` };
 ---
 
-<div id="intro-gate" class="intro-gate" aria-hidden="true" role="presentation">
+<div id="intro-gate" class="intro-gate" aria-hidden="true" role="presentation" data-eyebrow={cfg.eyebrow}>
   <script is:inline>
     (() => {
       try {
@@ -21,7 +31,7 @@
     <div class="intro-stage">
       <p class="intro-eyebrow"><span class="intro-eyebrow__text"></span><span class="intro-caret" aria-hidden="true"></span></p>
       <h2 class="intro-name" aria-hidden="true">
-        {'Yuvaan Gulati.'.split('').map((ch, i) => (
+        {cfg.title.split('').map((ch, i) => (
           <span class="intro-letter" style={`--letter-i: ${i}`}><span class="intro-letter__inner">{ch === ' ' ? '\u00A0' : ch}</span></span>
         ))}
       </h2>
@@ -33,7 +43,7 @@
     <div class="intro-stage">
       <p class="intro-eyebrow"><span class="intro-eyebrow__text"></span><span class="intro-caret" aria-hidden="true"></span></p>
       <h2 class="intro-name" aria-hidden="true">
-        {'Yuvaan Gulati.'.split('').map((ch, i) => (
+        {cfg.title.split('').map((ch, i) => (
           <span class="intro-letter" style={`--letter-i: ${i}`}><span class="intro-letter__inner">{ch === ' ' ? '\u00A0' : ch}</span></span>
         ))}
       </h2>
@@ -259,15 +269,12 @@
 <script>
   const gate = document.getElementById('intro-gate');
   if (!gate) {
-    // No gate in DOM (shouldn't happen)
     document.dispatchEvent(new CustomEvent('intro:done'));
   } else if (document.documentElement.classList.contains('intro-skip')) {
-    // Reduced motion or already played this session
     gate.remove();
     document.documentElement.classList.remove('intro-lock');
     document.dispatchEvent(new CustomEvent('intro:done'));
   } else {
-    // Play the intro — per-route so each tab gets its own first-play
     document.documentElement.classList.add('intro-lock');
     try {
       const p = (location.pathname.replace(/\/$/, '') || '/');
@@ -275,7 +282,7 @@
     } catch (_) {}
 
     const eyebrowText = gate.querySelectorAll('.intro-eyebrow__text');
-    const fullEyebrow = '~/yuvaan_gulati --init portfolio';
+    const fullEyebrow = gate.getAttribute('data-eyebrow') || '~/yuvaan_gulati --init portfolio';
     let charIndex = 0;
     let typingTimer = 0;
     let sequenceTimer = 0;
@@ -286,11 +293,10 @@
       { delay: 400, fn: () => { gate.classList.add('letters-in'); } },
       { delay: 1650, fn: () => { gate.classList.add('rule-in'); } },
       { delay: 2300, fn: () => { gate.classList.add('hint-in'); } },
-      { delay: 2600, fn: () => { /* wait for user interaction or auto-leave at 3100 */ } }
+      { delay: 2600, fn: () => { } }
     ];
 
     let phaseIndex = 0;
-    let skipTimer = 0;
 
     function startTyping() {
       const typeNext = () => {
@@ -318,23 +324,16 @@
     function fastForwardAndLeave() {
       if (isFastForward) return;
       isFastForward = true;
-
       clearTimeout(typingTimer);
       clearTimeout(sequenceTimer);
-
-      // Finish typing instantly
       eyebrowText.forEach(el => { el.textContent = fullEyebrow; });
       gate.classList.remove('is-typing');
       gate.classList.add('ff', 'letters-in', 'rule-in', 'hint-in');
-
-      // Small pause then leave
       setTimeout(beginLeave, 250);
     }
 
     function beginLeave() {
       gate.classList.add('is-leaving');
-
-      // Wait for shutter transition to complete
       const handleTransitionEnd = (e) => {
         if (e.target.classList.contains('intro-shutter--bottom')) {
           gate.removeEventListener('transitionend', handleTransitionEnd);
@@ -342,8 +341,6 @@
         }
       };
       gate.addEventListener('transitionend', handleTransitionEnd);
-
-      // Failsafe if transitionend doesn't fire
       setTimeout(complete, 1500);
     }
 
@@ -353,9 +350,7 @@
       document.dispatchEvent(new CustomEvent('intro:done'));
     }
 
-    // Input handlers for skip
-    const skipHandler = (e) => {
-      // Allow skip only after letters start (don't skip before seeing anything)
+    const skipHandler = () => {
       if (gate.classList.contains('letters-in') || isFastForward) {
         fastForwardAndLeave();
       }
@@ -365,17 +360,14 @@
     document.addEventListener('keydown', skipHandler, { passive: true });
     gate.addEventListener('touchstart', skipHandler, { passive: true });
 
-    // Auto-leave after delay if no interaction
-    skipTimer = setTimeout(() => {
+    setTimeout(() => {
       if (!isFastForward && gate.classList.contains('hint-in')) {
         fastForwardAndLeave();
       }
     }, 3200);
 
-    // Start the sequence
     runSequence();
 
-    // Global failsafe
     setTimeout(() => {
       if (document.getElementById('intro-gate')) {
         fastForwardAndLeave();
