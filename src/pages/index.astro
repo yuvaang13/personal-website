@@ -5,7 +5,6 @@ import PageShell from '@/layouts/PageShell.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import ScrollContent from '@/components/ScrollContent.astro';
 import ScrollShowcase from '@/components/ScrollShowcase.astro';
-import IntroGate from '@/components/IntroGate.astro';
 import { profile, homeLinks } from '@/data/profile';
 
 const featuredAreas = [
@@ -31,9 +30,6 @@ const featuredAreas = [
 ---
 
 <PageShell title={`${profile.name} — Student Developer`}>
-  <!-- Cinematic Intro Gate (plays once per session) -->
-  <IntroGate />
-
   <!-- Hero Section -->
   <PageHeader
     eyebrow="home"

@@ -5,6 +5,7 @@
 import NavBar from '@/components/NavBar.astro';
 import Footer from '@/components/Footer.astro';
 import CursorField from '@/components/CursorField.astro';
+import IntroGate from '@/components/IntroGate.astro';
 
 interface Props {
   title?: string;
@@ -41,6 +42,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:description" content={description} />
   </head>
   <body class={`min-h-screen bg-mistral-bg text-mistral-text overflow-x-hidden ${className}`}>
+    <!-- Cinematic Intro Gate — per-route (Yuvaan Gulati split-shutter) -->
+    <IntroGate />
+
     <!-- Navigation -->
     <NavBar />
 
@@ -79,7 +83,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         requestAnimationFrame(raf);
       }
 
-      // Initialize scroll animations — gated by intro completion on home page
+      // Initialize scroll animations — gated by intro completion on every route
       const startReveals = () => initScrollAnimations();
       const gate = document.getElementById('intro-gate');
 

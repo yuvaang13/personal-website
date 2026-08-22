@@ -1,6 +1,6 @@
 ---
-// IntroGate.astro - Cinematic one-time intro for the home page
-// Split-shutter reveal: "Yuvaan Gulati" tears open into the site
+// IntroGate.astro - Cinematic intro for every route
+// Split-shutter reveal: "Yuvaan Gulati" tears open into the page content
 ---
 
 <div id="intro-gate" class="intro-gate" aria-hidden="true" role="presentation">
@@ -8,7 +8,9 @@
     (() => {
       try {
         const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (reduced || sessionStorage.getItem('yg_intro_v1') === '1') {
+        const path = (location.pathname.replace(/\/$/, '') || '/');
+        const key = 'yg_intro_v1:' + path;
+        if (reduced || sessionStorage.getItem(key) === '1') {
           document.documentElement.classList.add('intro-skip');
         }
       } catch (_) {}
@@ -265,9 +267,12 @@
     document.documentElement.classList.remove('intro-lock');
     document.dispatchEvent(new CustomEvent('intro:done'));
   } else {
-    // Play the intro
+    // Play the intro — per-route so each tab gets its own first-play
     document.documentElement.classList.add('intro-lock');
-    sessionStorage.setItem('yg_intro_v1', '1');
+    try {
+      const p = (location.pathname.replace(/\/$/, '') || '/');
+      sessionStorage.setItem('yg_intro_v1:' + p, '1');
+    } catch (_) {}
 
     const eyebrowText = gate.querySelectorAll('.intro-eyebrow__text');
     const fullEyebrow = '~/yuvaan_gulati --init portfolio';
