@@ -69,7 +69,7 @@ export const projects = [
     details:
       "The project explores how software can protect attention instead of constantly competing for it. It focuses on commitment design, session structure, and practical accountability.",
     tags: ["iOS", "Productivity", "Swift", "Open Source"],
-    links: [{ label: "GitHub", href: "https://github.com/yuvaang13" }],
+    links: [{ label: "GitHub", href: "https://github.com/yuvaang13/MonkMode-An-Open-Sourced-iOS-Application-For-Maximizing-Productivity" }],
   },
   {
     title: "Digit Recognition Models",
@@ -101,6 +101,10 @@ export const projects = [
       "The project investigates how verification can evolve as AI agents become more capable, with attention to usability, trust, and modern web integration.",
     tags: ["Web Security", "AI", "Verification", "TypeScript"],
     links: [
+      {
+        label: "Live Demo",
+        href: "https://verus0.vercel.app/demo",
+      },
       {
         label: "Repository",
         href: "https://github.com/yuvaang13/next-gen-reCAPTCHA",

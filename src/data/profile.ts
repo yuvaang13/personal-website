@@ -148,6 +148,7 @@ export const projects: Project[] = [
     details: 'Human verification for the AI era. The project explores how verification should evolve as AI agents become more capable — focusing on separating real users from automated systems while keeping interactions usable, private, and trustworthy on the modern web.',
     tags: ['Web Security', 'AI', 'Verification', 'TypeScript', 'Cryptography'],
     links: [
+      { label: 'Live Demo', href: 'https://verus0.vercel.app/demo' },
       { label: 'Repository', href: 'https://github.com/yuvaang13/next-gen-reCAPTCHA' },
     ],
     image: '/projects/verus.png',
@@ -161,7 +162,7 @@ export const projects: Project[] = [
     summary: 'An iOS-first focus app for deep work sessions, deliberate friction, Screen Time-based blocking, rituals, and accountability tracking.',
     details: 'The project explores how software can protect attention instead of constantly competing for it. It focuses on commitment design, session structure, and practical accountability. Features include: customizable deep work sessions with ritual openers/closers, Screen Time API integration for app blocking, streak tracking, accountability partners, and a philosophy of "friction as a feature" — making distraction harder, not focus easier.',
     tags: ['iOS', 'Productivity', 'Swift', 'Open Source', 'SwiftUI', 'Screen Time API'],
-    links: [{ label: 'GitHub', href: 'https://github.com/yuvaang13' }],
+    links: [{ label: 'GitHub', href: 'https://github.com/yuvaang13/MonkMode-An-Open-Sourced-iOS-Application-For-Maximizing-Productivity' }],
     image: '/projects/monkmode.png',
     featured: false,
     impactOrder: 4,
