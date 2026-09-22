@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, Mail, MapPin } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin } from "lucide-react";
 import { NavBar } from "@/components/NavBar";
 import { profile } from "@/lib/profile";
 import { NeuralFieldBackground } from "@/components/NeuralFieldBackground";
@@ -40,6 +40,15 @@ export function PageShell({
             >
               <Github className="h-4 w-4" />
               GitHub
+            </a>
+            <a
+              href={profile.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="focus-ring inline-flex items-center gap-2 transition-colors hover:text-white"
+            >
+              <Linkedin className="h-4 w-4" />
+              LinkedIn
             </a>
             <a
               href={`mailto:${profile.email}`}

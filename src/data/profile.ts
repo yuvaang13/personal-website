@@ -3,6 +3,7 @@ export interface Profile {
   location: string;
   email: string;
   github: string;
+  linkedin: string;
   website: string;
   headline: string;
   shortIntro: string;
@@ -86,6 +87,7 @@ export const profile: Profile = {
   location: 'Greater Boston',
   email: 'yuvaangulati7689@gmail.com',
   github: 'https://github.com/yuvaang13',
+  linkedin: 'https://www.linkedin.com/in/yuvaan-gulati/',
   website: 'https://iamyuvaangulati.vercel.app/',
   headline: 'Student developer building AI tools, robotics systems, and STEM learning projects.',
   shortIntro: 'I am a student developer interested in AI, machine learning, applied math, robotics, and product engineering. I like turning ambitious ideas into working software, especially tools that help students learn faster and think more clearly.',
@@ -110,6 +112,7 @@ export const navItems: NavItem[] = [
 
 export const homeLinks: HomeLink[] = [
   { label: 'GitHub', href: 'https://github.com/yuvaang13' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/yuvaan-gulati/' },
   { label: 'Projects', href: '/projects' },
   { label: 'Email', href: 'mailto:yuvaangulati7689@gmail.com' },
 ];
@@ -335,6 +338,13 @@ export const contactLinks: ContactLink[] = [
     href: 'https://github.com/yuvaang13',
     icon: 'github',
     description: 'All repositories, experiments, and works in progress',
+  },
+  {
+    label: 'LinkedIn',
+    value: 'linkedin.com/in/yuvaan-gulati',
+    href: 'https://www.linkedin.com/in/yuvaan-gulati/',
+    icon: 'linkedin',
+    description: 'Professional background, achievements, and updates',
   },
   {
     label: 'Location',

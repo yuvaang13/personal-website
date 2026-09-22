@@ -23,6 +23,19 @@ import { profile } from '@/data/profile';
       </a>
 
       <a
+        href={profile.linkedin}
+        target="_blank"
+        rel="noreferrer"
+        class="focus-ring inline-flex items-center gap-2 underline-offset-4 transition-colors hover:text-mistral-text hover:underline"
+        aria-label="LinkedIn"
+      >
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" />
+        </svg>
+        LinkedIn
+      </a>
+
+      <a
         href={`mailto:${profile.email}`}
         class="focus-ring inline-flex items-center gap-2 underline-offset-4 transition-colors hover:text-mistral-text hover:underline"
         aria-label="Email"

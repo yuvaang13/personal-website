@@ -12,6 +12,7 @@ export const profile = {
   location: "Greater Boston",
   email: "yuvaangulati7689@gmail.com",
   github: "https://github.com/yuvaang13",
+  linkedin: "https://www.linkedin.com/in/yuvaan-gulati/",
   website: "https://iamyuvaangulati.vercel.app/",
   headline:
     "Student developer building AI tools, robotics systems, and STEM learning projects.",
@@ -29,6 +30,7 @@ export const navItems = [
 
 export const homeLinks = [
   { label: "GitHub", href: profile.github },
+  { label: "LinkedIn", href: profile.linkedin },
   { label: "Projects", href: "/projects" },
   { label: "Email", href: `mailto:${profile.email}` },
 ];

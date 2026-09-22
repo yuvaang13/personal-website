@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Github, Mail, MapPin } from "lucide-react";
+import { ArrowUpRight, Github, Linkedin, Mail, MapPin } from "lucide-react";
 import { PageShell, PageHeader, ScrollContent, SectionDivider } from "@/components/PageShell";
 import { profile } from "@/lib/profile";
 import { Reveal, StaggerContainer, StaggerItem, ScrollSection } from "@/components/ScrollSection";
@@ -22,6 +22,13 @@ const contactLinks = [
     description: "All repositories, experiments, and works in progress",
   },
   {
+    label: "LinkedIn",
+    value: "linkedin.com/in/yuvaan-gulati",
+    href: profile.linkedin,
+    icon: Linkedin,
+    description: "Professional background, achievements, and updates",
+  },
+  {
     label: "Location",
     value: profile.location,
     href: "https://www.google.com/maps/place/Boston,+MA",
@@ -36,7 +43,7 @@ export default function ContactPage() {
       <PageHeader
         eyebrow="contact"
         title="Projects, STEM ideas, robotics, or AI work."
-        body="The best way to reach me is email. You can also find my code and current experiments on GitHub."
+        body="The best way to reach me is email. You can also find my code and current experiments on GitHub, and connect with me on LinkedIn."
       />
 
       <ScrollContent className="pb-16">

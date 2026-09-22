@@ -9,6 +9,7 @@ export const iconMap: Record<string, string> = {
   'graduation-cap': 'graduation-cap',
   mail: 'mail',
   github: 'github',
+  linkedin: 'linkedin',
   'map-pin': 'map-pin',
   'arrow-up-right': 'arrow-up-right',
   'external-link': 'external-link',
