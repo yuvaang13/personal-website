@@ -149,7 +149,7 @@ export const highlights = [
     icon: Users,
     label: "Teaching",
     title: "STEM mentoring and volunteer teaching",
-    body: "Volunteer math and science teaching through NorthSouth Foundation, pre-MATHCOUNTS instruction for 5th graders, and middle school math tutoring at SCA.",
+    body: "FLL mentor for a team at Bicentennial Elementary School, volunteer math and science teaching through NorthSouth Foundation, pre-MATHCOUNTS instruction for 5th graders, and middle school math tutoring at SCA.",
   },
   {
     icon: Microscope,
@@ -166,6 +166,11 @@ export const highlights = [
 ];
 
 export const timeline = [
+  {
+    year: "2026",
+    title: "FLL mentor at Bicentennial Elementary",
+    body: "Mentoring a FIRST LEGO League team at Bicentennial Elementary School — coaching robot design, block coding, core values, and the innovation project through the competition season.",
+  },
   {
     year: "2026",
     title: "Building Infinit AI",

@@ -97,7 +97,7 @@ Currently, I'm the lead programmer on FTC Team 21689 (Team Tesseract), where I h
 
 I'm also exploring computer vision for healthcare through ClearEye, a concept for phone-based concussion screening that analyzes pupil response against personalized baselines. It was submitted to the 3M Young Scientist Challenge.
 
-Beyond competitions, I care deeply about STEM education access. I volunteer teaching math and science through NorthSouth Foundation and tutor middle school students at SCA. I've completed OpenAI and Anthropic AI courses, took the MIT PRIMES STEP entrance quiz, and am aiming for a CS + Electrical Engineering path with AI/ML specialization.
+Beyond competitions, I care deeply about STEM education access. I mentor a FIRST LEGO League (FLL) team at Bicentennial Elementary School, volunteer teaching math and science through NorthSouth Foundation and tutor middle school students at SCA. I've completed OpenAI and Anthropic AI courses, took the MIT PRIMES STEP entrance quiz, and am aiming for a CS + Electrical Engineering path with AI/ML specialization.
 
 When I'm not coding, you'll find me experimenting with ML models (logistic regression to CNNs), building productivity tools like MonkMode (an iOS focus app), or diving into the math behind machine learning — because understanding the "why" matters as much as the "how."`,
 };
@@ -239,7 +239,7 @@ export const highlights: Highlight[] = [
     icon: 'users',
     label: 'Teaching',
     title: 'STEM mentoring and volunteer teaching',
-    body: 'Volunteer math and science teaching through NorthSouth Foundation, pre-MATHCOUNTS instruction for 5th graders, and middle school math tutoring at SCA.',
+    body: 'FLL mentor for a team at Bicentennial Elementary School, volunteer math and science teaching through NorthSouth Foundation, pre-MATHCOUNTS instruction for 5th graders, and middle school math tutoring at SCA.',
   },
   {
     icon: 'microscope',
@@ -256,6 +256,7 @@ export const highlights: Highlight[] = [
 ];
 
 export const timeline: TimelineEntry[] = [
+  { year: '2026', title: 'FLL mentor at Bicentennial Elementary', body: 'Mentoring a FIRST LEGO League team at Bicentennial Elementary School — coaching robot design, block coding, core values, and the innovation project through the competition season.' },
   { year: '2026', title: 'Building Infinit AI', body: 'Built an AI-powered STEM tutoring platform for K-8 students, using grade-level explanations and a roadmap toward larger knowledge bases, RAG, and custom model tuning.' },
   { year: '2026', title: 'Building Verus', body: 'Working on a human verification project for the AI era, focused on better ways to separate real users from automated systems as AI agents become more capable.' },
   { year: '2026', title: 'Open-source iOS productivity work', body: 'Built MonkMode, an iOS-first focus app that uses deep work sessions, Screen Time blocking, commitment rituals, and accountability tracking.' },
@@ -265,6 +266,7 @@ export const timeline: TimelineEntry[] = [
 ];
 
 export const stats: Stat[] = [
+  { value: 'FLL', label: 'Mentor for a FIRST LEGO League team at Bicentennial Elementary School' },
   { value: '3rd', label: 'MATHCOUNTS Southern NH Chapter 2026' },
   { value: '20th', label: 'MATHCOUNTS NH State Competition 2026' },
   { value: '1st', label: 'NHSEE 2026 Computer Science and Math' },
@@ -274,6 +276,7 @@ export const stats: Stat[] = [
 ];
 
 export const roles: Role[] = [
+  { title: 'FLL mentor — Bicentennial Elementary School', description: 'Coaching a FIRST LEGO League team: robot design, block coding, innovation project, and core values' },
   { title: 'Lead Programmer for FTC Team 21689, Team Tesseract', description: 'Autonomous path planning, computer vision, odometry, command-based architecture' },
   { title: 'Outreach, fundraising, and social media specialist for Team Tesseract', description: 'Team brand, social presence, sponsorships, and community events' },
   { title: 'Builder and hardware contributor for Team Tesseract', description: 'Mechanical design, fabrication, and iteration cycles' },
@@ -366,6 +369,6 @@ export const contactNotes: ContactNote[] = [
   },
   {
     title: 'Currently Exploring',
-    body: 'Computer vision for healthcare, personalized AI tutoring, FTC robotics, competitive math.',
+    body: 'Computer vision for healthcare, personalized AI tutoring, FTC robotics, FLL mentoring at Bicentennial Elementary, competitive math.',
   },
 ];

@@ -30,6 +30,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <script>document.documentElement.classList.add('js');</script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#fbfbf8" />
+    <meta name="author" content="Yuvaan Gulati" />
+    <meta name="robots" content="index, follow" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
@@ -37,11 +40,26 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={new URL('/og.svg', Astro.site)} />
+    <meta property="og:image:alt" content="Yuvaan Gulati — AI, Math, Robotics" />
+    <meta property="og:site_name" content="Yuvaan Gulati" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL('/og.svg', Astro.site)} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Yuvaan Gulati',
+      url: 'https://iamyuvaangulati.vercel.app/',
+      jobTitle: 'Student Developer',
+      address: { '@type': 'PostalAddress', addressLocality: 'Greater Boston' },
+      sameAs: ['https://github.com/yuvaang13', 'https://www.linkedin.com/in/yuvaan-gulati/'],
+      knowsAbout: ['Artificial Intelligence', 'Robotics', 'Applied Mathematics', 'STEM Education', 'FIRST LEGO League mentoring'],
+    })} />
   </head>
   <body class={`min-h-screen bg-mistral-bg text-mistral-text overflow-x-hidden ${className}`}>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <!-- Cinematic Intro Gate — per-route (Yuvaan Gulati split-shutter) -->
     <IntroGate />
 
@@ -52,12 +70,19 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <CursorField />
 
     <!-- Main Content -->
-    <main class="relative z-10">
+    <main id="main-content" class="relative z-10">
       <slot />
     </main>
 
     <!-- Footer -->
     <Footer />
+
+    <!-- Back to top -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top" type="button">
+      <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+      </svg>
+    </button>
 
     <!-- Scroll Progress Indicator -->
     <div id="scroll-progress-indicator" aria-hidden="true"></div>
@@ -107,6 +132,19 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
         // Initial update
         updateProgress();
+      }
+
+      // Back to top
+      const backToTop = document.getElementById('back-to-top');
+      if (backToTop) {
+        const toggleBackToTop = () => {
+          backToTop.classList.toggle('is-visible', window.scrollY > 600);
+        };
+        window.addEventListener('scroll', toggleBackToTop, { passive: true });
+        toggleBackToTop();
+        backToTop.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+        });
       }
     </script>
   </body>
