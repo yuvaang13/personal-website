@@ -1,6 +1,5 @@
 ---
-// IntroGate.astro - Scroll-driven split-shutter intro (no auto-play, no click hint)
-// Shutter progress is tied to window.scrollY — user scrolls to reveal content.
+// Scroll-driven split-shutter intro. The shutters open with the first scroll.
 
 const rawPath = (Astro.url.pathname.replace(/\/$/, '') || '/');
 const introMap: Record<string, { title: string; eyebrow: string }> = {
@@ -27,7 +26,7 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
 
   <div class="intro-shutter intro-shutter--top">
     <div class="intro-stage">
-      <p class="intro-eyebrow"><span class="intro-eyebrow__text">{cfg.eyebrow}</span><span class="intro-caret" aria-hidden="true"></span></p>
+      <p class="intro-eyebrow">{cfg.eyebrow}</p>
       <h2 class="intro-name" aria-hidden="true">
         {cfg.title.split('').map((ch, i) => (
           <span class="intro-letter" style={`--letter-i: ${i}`}><span class="intro-letter__inner">{ch === ' ' ? '\u00A0' : ch}</span></span>
@@ -38,7 +37,7 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
   </div>
   <div class="intro-shutter intro-shutter--bottom">
     <div class="intro-stage">
-      <p class="intro-eyebrow" aria-hidden="true"><span class="intro-eyebrow__text">{cfg.eyebrow}</span><span class="intro-caret" aria-hidden="true"></span></p>
+      <p class="intro-eyebrow" aria-hidden="true">{cfg.eyebrow}</p>
       <h2 class="intro-name" aria-hidden="true">
         {cfg.title.split('').map((ch, i) => (
           <span class="intro-letter" style={`--letter-i: ${i}`}><span class="intro-letter__inner">{ch === ' ' ? '\u00A0' : ch}</span></span>
@@ -63,7 +62,7 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     position: absolute;
     left: 0;
     width: 100%;
-    height: 50.05%;
+    height: 50%;
     overflow: hidden;
     background: var(--color-bg);
     will-change: transform;
@@ -93,10 +92,9 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     gap: 1.5rem;
     padding: 2rem;
     box-sizing: border-box;
-    opacity: calc(1 - var(--intro-progress) * 0.9);
-    filter: blur(calc(var(--intro-progress) * 8px));
-    transform: scale(calc(1 - var(--intro-progress) * 0.04));
-    will-change: opacity, filter, transform;
+    opacity: calc(1 - var(--intro-progress));
+    transform: translateY(calc(var(--intro-progress) * -10px));
+    will-change: opacity, transform;
   }
 
   .intro-shutter--top .intro-stage {
@@ -105,6 +103,7 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
 
   .intro-shutter--bottom .intro-stage {
     bottom: 0;
+    transform: translateY(calc(var(--intro-progress) * 10px));
   }
 
   .intro-eyebrow {
@@ -117,27 +116,6 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     overflow: hidden;
     opacity: 1;
     transform: translateY(0);
-  }
-
-  .intro-eyebrow__text {
-    display: inline-block;
-    vertical-align: bottom;
-  }
-
-  .intro-caret {
-    display: inline-block;
-    width: 0.7ch;
-    height: 1.1em;
-    margin-left: 0.3ch;
-    background: currentColor;
-    vertical-align: bottom;
-    animation: caret-blink 1s steps(2) infinite;
-    opacity: 0.9;
-  }
-
-  @keyframes caret-blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
   }
 
   .intro-name {
@@ -166,14 +144,10 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
 
   .intro-rule {
     width: 100%;
-    max-width: 420px;
+    max-width: 280px;
     height: 1px;
     background: var(--color-text-primary);
     opacity: 1;
-  }
-
-  .intro-gate.is-done {
-    display: none !important;
   }
 
   html.intro-skip .intro-gate {
@@ -189,9 +163,17 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     gate.remove();
     document.dispatchEvent(new CustomEvent('intro:done'));
   } else {
-    const threshold = () => window.innerHeight * 0.85;
+    const threshold = () => Math.min(760, Math.max(480, window.innerHeight * 0.75));
     let done = false;
     let rafId = 0;
+
+    const finish = () => {
+      done = true;
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      document.dispatchEvent(new CustomEvent('intro:done'));
+      requestAnimationFrame(() => gate.remove());
+    };
 
     const update = () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
@@ -199,18 +181,7 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
       gate.style.setProperty('--intro-progress', progress.toFixed(4));
 
       if (progress >= 0.995 && !done) {
-        done = true;
-        gate.classList.add('is-done');
-        // keep gate in DOM but hidden, allow scroll-reveal to run
-        document.dispatchEvent(new CustomEvent('intro:done'));
-        // fully remove after a short delay to avoid flash
-        setTimeout(() => {
-          if (gate.parentNode) gate.remove();
-        }, 400);
-      } else if (progress < 0.98 && done) {
-        // if user scrolls back up, re-show (optional — keeps it reversible)
-        done = false;
-        gate.classList.remove('is-done');
+        finish();
       }
     };
 
@@ -228,7 +199,7 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
 
-    // Also poll via rAF for Lenis smooth scroll (which animates scrollY via rAF)
+    // Lenis updates scroll position in its own animation frame.
     let lastY = -1;
     const poll = () => {
       const y = window.scrollY || document.documentElement.scrollTop || 0;
@@ -240,7 +211,6 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     };
     requestAnimationFrame(poll);
 
-    // failsafe: if user never scrolls, gate stays — but we still allow interaction
-    // no auto-leave, no click/key handlers — purely scroll-driven
+    // The gate stays at rest until the visitor starts scrolling.
   }
 </script>
