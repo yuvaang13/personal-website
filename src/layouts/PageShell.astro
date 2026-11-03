@@ -64,38 +64,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <a href="#main-content" class="skip-link">Skip to content</a>
 
-    <!-- Top status bar — small editorial labels -->
-    <header class="top-bar fixed inset-x-0 top-0 z-40 pointer-events-none">
-      <div class="mx-auto max-w-7xl px-5 sm:px-8 flex justify-between items-start gap-6 py-3">
-        <div class="pointer-events-auto flex flex-col gap-0.5">
-          <p class="text-[10px] uppercase tracking-widest text-mistral-textMuted">Practice</p>
-          <p class="text-[11px] font-medium text-mistral-text">AI/ML · Robotics · STEM Education</p>
-        </div>
-        <div class="pointer-events-auto text-center">
-          <p class="text-[10px] uppercase tracking-widest text-mistral-textMuted">Based</p>
-          <p class="text-[11px] font-medium text-mistral-text">Greater Boston</p>
-        </div>
-        <div class="pointer-events-auto flex flex-col gap-0.5 items-end">
-          <p class="text-[10px] uppercase tracking-widest text-mistral-textMuted">Status</p>
-          <p class="text-[11px] font-medium text-mistral-text flex items-center gap-1.5">
-            <span class="h-1.5 w-1.5 rounded-full bg-[#ff6b35]" aria-hidden="true"></span>
-            Open to collaborations
-          </p>
-        </div>
-        <a
-          href="/contact"
-          class="pointer-events-auto focus-ring inline-flex h-8 items-center justify-center rounded-full border border-white/10 bg-white/5 px-4 text-[11px] font-medium uppercase tracking-widest text-mistral-text transition-colors hover:border-mistral-text hover:bg-white/10"
-        >
-          Contact
-        </a>
-      </div>
-    </header>
+    <!-- Navigation (liquid glass top bar with status labels) -->
+    <NavBar />
 
     <!-- Cinematic Intro Gate — per-route (Yuvaan Gulati split-shutter) -->
     <IntroGate />
-
-    <!-- Navigation -->
-    <NavBar />
 
     <!-- Cursor field (global, draws neural web + glyphs on mouse move) -->
     <CursorField />

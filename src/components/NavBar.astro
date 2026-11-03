@@ -1,50 +1,95 @@
 ---
-// NavBar.astro - Fixed navigation bar, Mistral editorial style
+// NavBar.astro - Liquid glass top bar with navigation + status labels
 
 import { navItems } from '@/data/profile';
 const currentPath = Astro.url.pathname;
 ---
 
-<header data-od-id="site-nav" class="fixed inset-x-0 top-0 z-50 border-b border-mistral-border bg-mistral-bg/85 backdrop-blur-xl">
-  <nav class="mx-auto flex max-w-7xl flex-col items-start gap-3 px-5 py-3.5 sm:h-16 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-8" aria-label="Main navigation">
-    <a
-      href="/"
-      class="focus-ring shrink-0 font-serif text-lg tracking-tight text-mistral-text transition-opacity hover:opacity-70"
-      aria-label="Home"
-    >
-      yuvaan_gulati
-    </a>
+<header data-od-id="site-nav" class="fixed inset-x-0 top-0 z-50 pointer-events-none">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="pointer-events-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0 py-3 sm:py-4">
+      {/* Left: brand + practice label */}
+      <div class="flex items-center gap-3 sm:gap-4">
+        <a
+          href="/"
+          class="focus-ring shrink-0 font-serif text-lg tracking-tight text-mistral-text transition-opacity hover:opacity-70"
+          aria-label="Home"
+        >
+          yuvaan_gulati
+        </a>
+        <p class="text-[10px] uppercase tracking-widest text-mistral-textMuted">Practice</p>
+        <p class="text-[11px] font-medium text-mistral-text">AI/ML · Robotics · STEM Education</p>
+      </div>
 
-    <div class="flex flex-wrap items-center gap-1 sm:gap-2" role="navigation" aria-label="Site sections">
-      {navItems.map((item) => {
-        const isActive = item.href === '/' ? currentPath === '/' : currentPath.startsWith(item.href);
+      {/* Center: navigation links */}
+      <div
+        class="hidden sm:flex items-center gap-2 sm:gap-4"
+        role="navigation"
+        aria-label="Site sections"
+      >
+        {navItems.map((item) => {
+          const isActive = item.href === '/' ? currentPath === '/' : currentPath.startsWith(item.href);
 
-        if (item.href === '/contact') {
+          if (item.href === '/contact') {
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                aria-current={isActive ? 'page' : undefined}
+                class="focus-ring inline-flex h-9 shrink-0 items-center rounded-full bg-mistral-accent px-5 text-sm font-medium text-mistral-bg transition-colors hover:bg-[#e5e5e5]"
+              >
+                {item.label}
+              </a>
+            );
+          }
+
           return (
             <a
               key={item.href}
               href={item.href}
               aria-current={isActive ? 'page' : undefined}
-              class="focus-ring inline-flex h-9 shrink-0 items-center rounded-full bg-mistral-accent px-5 text-sm font-medium text-mistral-bg transition-colors hover:bg-[#e5e5e5]"
+              class={`focus-ring whitespace-nowrap rounded-full px-3 py-2 text-sm transition-colors hover:bg-mistral-accentDim sm:px-4 ${
+                isActive ? 'font-medium text-mistral-text' : 'text-mistral-textSecondary hover:text-mistral-text'
+              }`}
             >
               {item.label}
             </a>
           );
-        }
+        })}
+      </div>
 
-        return (
-          <a
-            key={item.href}
-            href={item.href}
-            aria-current={isActive ? 'page' : undefined}
-            class={`focus-ring whitespace-nowrap rounded-full px-3 py-2 text-sm transition-colors hover:bg-mistral-accentDim sm:px-4 ${
-              isActive ? 'font-medium text-mistral-text' : 'text-mistral-textSecondary hover:text-mistral-text'
-            }`}
-          >
-            {item.label}
-          </a>
-        );
-      })}
+      {/* Right: based + status + contact */}
+      <div class="flex items-start sm:items-end gap-3 sm:gap-6 sm:flex-col sm:items-end">
+        <div class="text-right sm:text-left">
+          <p class="text-[10px] uppercase tracking-widest text-mistral-textMuted">Based</p>
+          <p class="text-[11px] font-medium text-mistral-text">Greater Boston</p>
+        </div>
+        <div class="text-right sm:text-left flex items-center sm:items-start gap-1.5">
+          <p class="text-[10px] uppercase tracking-widest text-mistral-textMuted">Status</p>
+          <p class="text-[11px] font-medium text-mistral-text flex items-center gap-1.5">
+            <span class="h-1.5 w-1.5 rounded-full bg-[#ff6b35]" aria-hidden="true"></span>
+            Open to collaborations
+          </p>
+        </div>
+        <a
+          href="/contact"
+          class="focus-ring inline-flex h-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 px-4 text-[11px] font-medium uppercase tracking-widest text-mistral-text transition-colors hover:border-mistral-text hover:bg-white/10"
+        >
+          Contact
+        </a>
+      </div>
     </div>
-  </nav>
+
+    <div class="border-t border-white/5 mt-2 sm:mt-0" aria-hidden="true" />
+  </div>
 </header>
+
+<style>
+  /* Liquid glass nav bar */
+  header[data-od-id="site-nav"] {
+    background: rgba(13, 13, 16, 0.8);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+</style>

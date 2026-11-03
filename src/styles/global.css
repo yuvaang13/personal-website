@@ -162,14 +162,6 @@ body {
   -webkit-mask-image: radial-gradient(circle at center, black 25%, transparent 85%);
 }
 
-/* Top status bar — liquid glass */
-.top-bar {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(13, 13, 16, 0.55);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
 /* Dot grid background (math/robotics texture) */
 .dot-grid {
   background-image:
@@ -486,18 +478,16 @@ html.js [data-scroll-reveal] {
 .bottom-bar {
   position: fixed;
   inset: auto 0 0 0;
-  z-index: 30;
+  z-index: 70;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.5rem;
   pointer-events: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(13, 13, 16, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  mask-image: linear-gradient(to top, black 60%, transparent);
-  -webkit-mask-image: linear-gradient(to top, black 60%, transparent);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(13, 13, 16, 0.8);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
 }
 
 .bottom-bar__scroll,
@@ -819,8 +809,8 @@ canvas {
 .back-to-top {
   position: fixed;
   right: 1.25rem;
-  bottom: 1.25rem;
-  z-index: 60;
+  bottom: 5rem;
+  z-index: 80;
   display: inline-flex;
   align-items: center;
   justify-content: center;
