@@ -68,7 +68,7 @@ const iconPaths: Record<string, string> = {
         return (
           <div
             data-od-id={`highlight-${item.label}`}
-            class="group rounded-xl border border-mistral-border bg-white p-8 transition-colors duration-300 hover:border-mistral-text hover:bg-mistral-bgElevated"
+            class="group rounded-xl border border-mistral-border bg-mistral-bgElevated p-8 transition-colors duration-300 hover:border-mistral-text hover:bg-white/5"
             data-scroll-reveal
             data-direction="up"
             data-distance="30"
@@ -98,7 +98,7 @@ const iconPaths: Record<string, string> = {
       {/* Interests */}
       <div>
         <p class="eyebrow mb-8">interests[]</p>
-        <div data-stagger-container data-stagger="0.04" data-delay-children="0.1" class="overflow-hidden rounded-xl border border-mistral-border bg-white">
+        <div data-stagger-container data-stagger="0.04" data-delay-children="0.1" class="overflow-hidden rounded-xl border border-mistral-border bg-mistral-bgElevated">
           {educationInterests.map((interest) => (
             <div
               class="px-6 py-5 transition-colors duration-300 hover:bg-mistral-bgElevated"

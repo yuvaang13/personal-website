@@ -1,14 +1,14 @@
 const root = document.documentElement;
 
-root.style.setProperty('--color-bg', '#fbfbf8');
-root.style.setProperty('--color-bg-elevated', '#f5f5f0');
-root.style.setProperty('--color-text-primary', '#000000');
-root.style.setProperty('--color-text-secondary', '#3a3a3a');
-root.style.setProperty('--color-text-muted', '#737373');
-root.style.setProperty('--color-border', '#e4e3de');
-root.style.setProperty('--color-border-hover', '#d4d3ce');
-root.style.setProperty('--color-accent', '#000000');
-root.style.setProperty('--color-accent-dim', 'rgba(0, 0, 0, 0.06)');
+root.style.setProperty('--color-bg', '#0a0a0a');
+root.style.setProperty('--color-bg-elevated', '#131316');
+root.style.setProperty('--color-text-primary', '#f5f5f4');
+root.style.setProperty('--color-text-secondary', '#a8a8a8');
+root.style.setProperty('--color-text-muted', '#717171');
+root.style.setProperty('--color-border', '#232323');
+root.style.setProperty('--color-border-hover', '#3a3a3a');
+root.style.setProperty('--color-accent', '#ffffff');
+root.style.setProperty('--color-accent-dim', 'rgba(255, 255, 255, 0.06)');
 
 root.style.setProperty('--font-sans', 'Inter, ui-sans-serif, system-ui, sans-serif');
 root.style.setProperty('--font-mono', 'Space Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace');

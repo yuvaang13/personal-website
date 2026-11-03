@@ -151,7 +151,7 @@ export const projects: Project[] = [
     details: 'Human verification for the AI era. The project explores how verification should evolve as AI agents become more capable — focusing on separating real users from automated systems while keeping interactions usable, private, and trustworthy on the modern web.',
     tags: ['Web Security', 'AI', 'Verification', 'TypeScript', 'Cryptography'],
     links: [
-      { label: 'Live Demo', href: 'https://verus0.vercel.app/demo' },
+      { label: 'Live Demo', href: 'https://verus0.vercel.app' },
       { label: 'Repository', href: 'https://github.com/yuvaang13/next-gen-reCAPTCHA' },
     ],
     image: '/projects/verus.png',

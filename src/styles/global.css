@@ -74,17 +74,17 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 
-  --color-bg: #fbfbf8;
-  --color-bg-elevated: #f5f5f0;
-  --color-text-primary: #000000;
-  --color-text-secondary: #3a3a3a;
-  --color-text-muted: #737373;
-  --color-border: #e4e3de;
-  --color-border-hover: #d4d3ce;
-  --color-accent: #000000;
-  --color-accent-dim: rgba(0, 0, 0, 0.06);
+  --color-bg: #0a0a0a;
+  --color-bg-elevated: #131316;
+  --color-text-primary: #f5f5f4;
+  --color-text-secondary: #a8a8a8;
+  --color-text-muted: #717171;
+  --color-border: #232323;
+  --color-border-hover: #3a3a3a;
+  --color-accent: #ffffff;
+  --color-accent-dim: rgba(255, 255, 255, 0.06);
 
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-mono: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -98,14 +98,14 @@
 
 html {
   scroll-behavior: smooth;
-  background: #fbfbf8;
+  background: #0a0a0a;
 }
 
 body {
   min-height: 100vh;
   margin: 0;
-  background: #fbfbf8;
-  color: #000;
+  background: #0a0a0a;
+  color: #f5f5f4;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -113,8 +113,8 @@ body {
 }
 
 ::selection {
-  background: #000;
-  color: #fff;
+  background: #ffffff;
+  color: #0a0a0a;
 }
 
 /* Focus styles */
@@ -133,11 +133,11 @@ body {
   outline-offset: 2px;
 }
 
-/* Noise mask overlay — light grid texture */
+/* Noise mask overlay — subtle dark grid texture */
 .noise-mask {
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 72px 72px;
   mask-image: linear-gradient(to bottom, black, transparent 82%);
   -webkit-mask-image: linear-gradient(to bottom, black, transparent 82%);
@@ -145,7 +145,14 @@ body {
 
 /* Section divider */
 .section-shell {
-  border-top: 1px solid #000;
+  border-top: 1px solid var(--color-border);
+}
+
+/* Dot grid background (math/robotics texture) */
+.dot-grid {
+  background-image:
+    radial-gradient(var(--color-border) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 /* Scrollbar styling */
@@ -155,22 +162,22 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #fbfbf8;
+  background: #0a0a0a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d4d3ce;
+  background: #3a3a3a;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b9b8b2;
+  background: #525252;
 }
 
 /* Selection for code blocks */
 code::selection,
 pre::selection {
-  background: rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 /* Reduced motion */
@@ -197,21 +204,21 @@ pre::selection {
 
 /* Text gradient utility */
 .text-gradient {
-  background: linear-gradient(135deg, #000 0%, #737373 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #a8a8a8 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Glass morphism */
+/* Glass morphism (dark) */
 .glass {
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid #e4e3de;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Gradient border */
+/* Gradient border (dark) */
 .gradient-border {
   position: relative;
 }
@@ -221,9 +228,77 @@ pre::selection {
   position: absolute;
   inset: -1px;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.04));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
   z-index: -1;
 }
+
+/* Reveal animations — scroll-driven reveals */
+html.js [data-scroll-reveal] {
+  opacity: 0;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(4px);
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+              filter 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Scale + fade reveal variant */
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92) translateY(22px);
+  filter: blur(6px);
+  transition: opacity 750ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 750ms cubic-bezier(0.22, 1, 0.36, 1),
+              filter 750ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  filter: blur(0);
+}
+
+/* Line reveal — underline that draws on scroll */
+.line-reveal {
+  position: relative;
+}
+
+.line-reveal::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1px;
+  background: var(--color-text-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.visible .line-reveal::after,
+.line-reveal.revealed::after {
+  transform: scaleX(1);
+}
+
+/* Stagger delays */
+.stagger-1 { transition-delay: 60ms; }
+.stagger-2 { transition-delay: 120ms; }
+.stagger-3 { transition-delay: 180ms; }
+.stagger-4 { transition-delay: 240ms; }
+.stagger-5 { transition-delay: 300ms; }
+.stagger-6 { transition-delay: 360ms; }
+.stagger-7 { transition-delay: 420ms; }
+.stagger-8 { transition-delay: 480ms; }
 
 /* Reveal animation classes */
 html.js [data-scroll-reveal] {
@@ -297,26 +372,26 @@ html.js [data-scroll-reveal] {
   @apply transition-all duration-300 hover:border-mistral-text hover:shadow-[0_10px_40px_rgba(0,0,0,0.06)];
 }
 
-/* Button styles */
+/* Button styles (dark) */
 .btn-primary {
-  @apply focus-ring inline-flex h-12 items-center justify-center gap-2 rounded-full bg-mistral-text px-7 text-sm font-medium text-white transition-colors duration-300 hover:bg-[#1c1c1c];
+  @apply focus-ring inline-flex h-12 items-center justify-center gap-2 rounded-full bg-mistral-accent px-7 text-sm font-medium text-mistral-bg transition-colors duration-300 hover:bg-[#e5e5e5];
 }
 
 .btn-secondary {
-  @apply focus-ring inline-flex h-12 items-center justify-center gap-2 rounded-full border border-mistral-text bg-white px-7 text-sm font-medium text-mistral-text transition-colors duration-300 hover:bg-mistral-bgElevated;
+  @apply focus-ring inline-flex h-12 items-center justify-center gap-2 rounded-full border border-mistral-text bg-transparent px-7 text-sm font-medium text-mistral-text transition-colors duration-300 hover:bg-white/5;
 }
 
 .btn-ghost {
   @apply focus-ring inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-mistral-text underline-offset-4 transition-colors hover:underline;
 }
 
-/* Tag/badge styles */
+/* Tag/badge styles (dark) */
 .tag {
-  @apply inline-block border border-mistral-border px-3 py-1 text-xs text-mistral-textSecondary transition-colors hover:border-mistral-text hover:text-mistral-text;
+  @apply inline-block border border-mistral-border px-3 py-1 text-xs text-mistral-textSecondary transition-colors hover:border-mistral-text hover:text-mistral-text hover:bg-white/5;
 }
 
 .tag-filled {
-  @apply inline-block border border-mistral-text bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.22em] text-mistral-text shadow-sm;
+  @apply inline-block border border-mistral-text bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.22em] text-mistral-bg shadow-sm;
 }
 
 /* Link styles */
@@ -325,11 +400,12 @@ html.js [data-scroll-reveal] {
 }
 
 /* Scroll progress bar */
-#scroll-progress-indicator {  position: fixed;
+#scroll-progress-indicator {
+  position: fixed;
   top: 0;
   left: 0;
   height: 2px;
-  background: linear-gradient(90deg, #000, #737373);
+  background: linear-gradient(90deg, #ffffff, #717171);
   z-index: 9999;
   transform-origin: left;
   transform: scaleX(0);
@@ -399,7 +475,7 @@ canvas {
   align-items: center;
   padding: 5.5rem 1.25rem 3rem;
   overflow: hidden;
-  background: #fbfbf8;
+  background: var(--color-bg-elevated);
 }
 
 .scroll-showcase__frame {
@@ -445,7 +521,7 @@ canvas {
   margin: 0 0 1.25rem;
   font-family: var(--font-mono);
   font-size: 0.76rem;
-  color: #737373;
+  color: var(--color-text-muted);
 }
 
 .scroll-showcase__stage h2 {
@@ -454,7 +530,7 @@ canvas {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 5.25vw, 5.5rem);
   line-height: 0.95;
-  color: #000;
+  color: var(--color-text-primary);
   letter-spacing: 0;
   text-wrap: balance;
   overflow-wrap: break-word;
@@ -463,7 +539,7 @@ canvas {
 .scroll-showcase__stage p:not(.scroll-showcase__index) {
   max-width: 34rem;
   margin: 1.5rem 0 0;
-  color: #3a3a3a;
+  color: var(--color-text-secondary);
   font-size: clamp(1rem, 1.35vw, 1.25rem);
   line-height: 1.75;
   text-wrap: pretty;
@@ -477,13 +553,13 @@ canvas {
 }
 
 .scroll-showcase__tags span {
-  border: 1px solid #000;
+  border: 1px solid var(--color-text-primary);
   padding: 0.45rem 0.7rem;
-  color: #000;
+  color: var(--color-text-primary);
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  background: #fff;
+  background: var(--color-bg);
 }
 
 .scroll-showcase__visual {
@@ -498,14 +574,20 @@ canvas {
   margin: 0;
   opacity: 0;
   transform: translate3d(calc(var(--visual-distance, 0) * 4rem), calc(var(--visual-distance, 0) * -2rem), 0) scale(0.94);
-  transition: opacity 520ms ease, transform 760ms cubic-bezier(0.22, 1, 0.36, 1), filter 520ms ease;
+  transition: opacity 520ms ease, transform 760ms cubic-bezier(0.22, 1, 0.36, 1), filter 520ms ease, visibility 0s linear 520ms;
   filter: blur(16px);
+  pointer-events: none;
+  visibility: hidden;
 }
 
 .scroll-showcase__project.is-active {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
   filter: blur(0);
+  pointer-events: auto;
+  visibility: visible;
+  z-index: 1;
+  transition: opacity 520ms ease, transform 760ms cubic-bezier(0.22, 1, 0.36, 1), filter 520ms ease, visibility 0s;
 }
 
 .scroll-showcase__project img {
@@ -573,8 +655,8 @@ canvas {
   top: -100px;
   left: 1rem;
   z-index: 10000;
-  background: #000;
-  color: #fff;
+  background: var(--color-accent);
+  color: var(--color-bg);
   padding: 0.625rem 1.25rem;
   border-radius: 999px;
   font-size: 0.8125rem;
@@ -585,7 +667,7 @@ canvas {
 
 .skip-link:focus-visible {
   top: 1rem;
-  outline: 2px solid #000;
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
@@ -626,10 +708,10 @@ canvas {
   width: 2.75rem;
   height: 2.75rem;
   border-radius: 999px;
-  background: #000;
-  color: #fff;
-  border: 1px solid #000;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border: 1px solid var(--color-accent);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
   opacity: 0;
   visibility: hidden;
   transform: translateY(12px);
@@ -638,7 +720,7 @@ canvas {
 }
 
 .back-to-top:hover {
-  background: #1c1c1c;
+  background: #e5e5e5;
 }
 
 .back-to-top.is-visible {

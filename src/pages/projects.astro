@@ -30,7 +30,7 @@ import { projects } from '@/data/profile';
           return (
             <article
               data-od-id={`project-${project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
-              class={`group relative overflow-hidden rounded-xl border border-mistral-border bg-white transition-colors duration-300 hover:border-mistral-text ${
+              class={`group relative overflow-hidden rounded-xl border border-mistral-border bg-mistral-bgElevated transition-colors duration-300 hover:border-mistral-text hover:bg-white/5 ${
                 hasImage ? "md:grid md:grid-cols-[1fr_1fr]" : ""
               }`}
               data-scroll-reveal
@@ -47,7 +47,7 @@ import { projects } from '@/data/profile';
                     class="h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                     loading="lazy"
                   />
-                  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white/50 to-transparent" />
+                  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/60 to-transparent" />
                   <div class="absolute bottom-5 left-5">
                     <span class="tag-filled">{project.type}</span>
                   </div>
@@ -125,7 +125,7 @@ import { projects } from '@/data/profile';
           return (
             <article
               data-od-id={`project-${project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
-              class={`group relative overflow-hidden rounded-xl border border-mistral-border bg-white p-6 transition-colors duration-300 hover:border-mistral-text md:p-8 ${
+              class={`group relative overflow-hidden rounded-xl border border-mistral-border bg-mistral-bgElevated p-6 transition-colors duration-300 hover:border-mistral-text hover:bg-white/5 md:p-8 ${
                 hasImage ? "md:grid md:grid-cols-[1fr_1fr] md:gap-8" : ""
               }`}
               data-scroll-reveal
@@ -141,7 +141,7 @@ import { projects } from '@/data/profile';
                     class="h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                     loading="lazy"
                   />
-                  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white/50 to-transparent" />
+                  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/60 to-transparent" />
                   <div class="absolute bottom-4 left-4">
                     <span class="tag-filled">{project.type}</span>
                   </div>

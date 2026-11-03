@@ -30,7 +30,7 @@ import { stats, timeline, roles } from '@/data/profile';
       {stats.map((stat, index) => (
         <div
           data-od-id={`stat-${stat.value.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
-          class="group relative min-h-[170px] rounded-xl border border-mistral-border bg-white p-6 transition-colors duration-300 hover:border-mistral-text"
+          class="group relative min-h-[170px] rounded-xl border border-mistral-border bg-mistral-bgElevated p-6 transition-colors duration-300 hover:border-mistral-text hover:bg-white/5"
           data-scroll-reveal
           data-direction="up"
           data-distance="30"
@@ -86,7 +86,7 @@ import { stats, timeline, roles } from '@/data/profile';
       {roles.map((role, index) => (
         <div
           data-od-id={`role-${index + 1}`}
-          class="rounded-xl border border-mistral-border bg-white p-6 text-lg text-mistral-textSecondary transition-colors duration-300 hover:border-mistral-text"
+          class="rounded-xl border border-mistral-border bg-mistral-bgElevated p-6 text-lg text-mistral-textSecondary transition-colors duration-300 hover:border-mistral-text hover:bg-white/5"
           data-scroll-reveal
           data-direction="up"
           data-distance="20"

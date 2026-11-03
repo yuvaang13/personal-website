@@ -105,7 +105,7 @@ export const projects = [
     links: [
       {
         label: "Live Demo",
-        href: "https://verus0.vercel.app/demo",
+        href: "https://verus0.vercel.app",
       },
       {
         label: "Repository",

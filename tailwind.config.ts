@@ -9,15 +9,15 @@ const config: Config = {
     extend: {
       colors: {
         mistral: {
-          bg: '#fbfbf8',
-          bgElevated: '#f5f5f0',
-          text: '#000000',
-          textSecondary: '#3a3a3a',
-          textMuted: '#737373',
-          border: '#e4e3de',
-          borderHover: '#d4d3ce',
-          accent: '#000000',
-          accentDim: 'rgba(0, 0, 0, 0.06)',
+          bg: '#0a0a0a',
+          bgElevated: '#131316',
+          text: '#f5f5f4',
+          textSecondary: '#a8a8a8',
+          textMuted: '#717171',
+          border: '#232323',
+          borderHover: '#3a3a3a',
+          accent: '#ffffff',
+          accentDim: 'rgba(255, 255, 255, 0.06)',
         },
       },
       fontFamily: {
@@ -28,10 +28,13 @@ const config: Config = {
       },
       animation: {
         'fade-up': 'fadeUp 900ms cubic-bezier(0.22, 1, 0.36, 1) both',
-        'soft-pulse': 'softPulse 5s ease-in-out infinite',
         'fade-in': 'fadeIn 600ms ease-out both',
         'slide-up': 'slideUp 800ms cubic-bezier(0.22, 1, 0.36, 1) both',
         'scale-in': 'scaleIn 500ms cubic-bezier(0.22, 1, 0.36, 1) both',
+        'scale-fade': 'scaleFade 700ms cubic-bezier(0.22, 1, 0.36, 1) both',
+        'line-reveal': 'lineReveal 700ms cubic-bezier(0.22, 1, 0.36, 1) both',
+        'float': 'float 6s ease-in-out infinite',
+        'soft-pulse': 'softPulse 5s ease-in-out infinite',
       },
       keyframes: {
         fadeUp: {
@@ -53,6 +56,18 @@ const config: Config = {
         scaleIn: {
           '0%': { opacity: '0', transform: 'scale(0.95)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        scaleFade: {
+          '0%': { opacity: '0', transform: 'scale(0.92) translateY(20px)' },
+          '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
+        },
+        lineReveal: {
+          '0%': { width: '0%' },
+          '100%': { width: '100%' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-8px)' },
         },
       },
     },

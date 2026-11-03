@@ -54,7 +54,7 @@
     let rafId = 0;
     let lastMoveTime = 0;
 
-    const MAX_NODES = 120;
+    const MAX_NODES = 100;
     const nodes: { x: number; y: number; vx: number; vy: number; life: number; maxLife: number; size: number }[] = [];
 
     const MAX_GLYPHS = 40;
@@ -154,8 +154,8 @@
           const d = Math.sqrt(dx * dx + dy * dy);
           if (d < CONNECT_DIST) {
             const t = 1 - d / CONNECT_DIST;
-            const alpha = t * 0.18 * Math.min(a.life, b.life);
-            ctx!.strokeStyle = `rgba(0, 0, 0, ${alpha})`;
+            const alpha = t * 0.22 * Math.min(a.life, b.life);
+            ctx!.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
             ctx!.beginPath();
             ctx!.moveTo(a.x, a.y);
             ctx!.lineTo(b.x, b.y);
@@ -166,9 +166,9 @@
       }
 
       for (const n of nodes) {
-        const alpha = 0.35 * n.life;
+        const alpha = 0.45 * n.life;
         const r = n.size * n.life;
-        ctx!.fillStyle = `rgba(0, 0, 0, ${alpha})`;
+        ctx!.fillStyle = `rgba(255, 255, 255, ${alpha})`;
         ctx!.beginPath();
         ctx!.arc(n.x, n.y, r, 0, Math.PI * 2);
         ctx!.fill();
@@ -177,8 +177,8 @@
       ctx!.textAlign = 'center';
       ctx!.textBaseline = 'middle';
       for (const g of glyphs) {
-        const alpha = g.alpha * g.life;
-        ctx!.fillStyle = `rgba(0, 0, 0, ${alpha})`;
+        const alpha = (g.alpha * 0.7) * g.life;
+        ctx!.fillStyle = `rgba(255, 255, 255, ${alpha})`;
         ctx!.save();
         ctx!.translate(g.x, g.y);
         ctx!.rotate(g.rot);

@@ -30,7 +30,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <script>document.documentElement.classList.add('js');</script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#fbfbf8" />
+    <meta name="theme-color" content="#0a0a0a" />
     <meta name="author" content="Yuvaan Gulati" />
     <meta name="robots" content="index, follow" />
     <title>{title}</title>
@@ -110,6 +110,20 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
       // Scroll-driven intro: reveals start immediately, intro gate opens with scroll
       initScrollAnimations();
+
+      // Parallax scroll — subtle drift for elements marked data-parallax
+      const parallaxEls = Array.from(document.querySelectorAll<HTMLElement>('[data-parallax]'));
+      if (parallaxEls.length) {
+        const updateParallax = () => {
+          const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+          parallaxEls.forEach((el) => {
+            const speed = parseFloat(el.getAttribute('data-parallax') || '0.08');
+            el.style.transform = `translate3d(0, ${scrollY * speed}px, 0)`;
+          });
+        };
+        window.addEventListener('scroll', updateParallax, { passive: true });
+        updateParallax();
+      }
 
       // Scroll progress indicator
       const progressBar = document.getElementById('scroll-progress-indicator');

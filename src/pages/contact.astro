@@ -29,7 +29,7 @@ const iconPaths = {
           type="button"
           id="copy-email"
           data-email={profile.email}
-          class="focus-ring inline-flex h-10 items-center gap-2 rounded-full border border-mistral-border bg-white px-5 text-[13px] font-medium text-mistral-text transition-colors hover:border-mistral-text"
+          class="focus-ring inline-flex h-10 items-center gap-2 rounded-full border border-mistral-border bg-mistral-bgElevated px-5 text-[13px] font-medium text-mistral-text transition-colors hover:border-mistral-text hover:bg-white/5"
         >
           <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -51,7 +51,7 @@ const iconPaths = {
         return (
           <div
             data-od-id={`contact-${item.label.toLowerCase()}`}
-            class="group relative min-h-[260px] rounded-xl border border-mistral-border bg-white transition-colors duration-300 hover:border-mistral-text"
+            class="group relative min-h-[260px] rounded-xl border border-mistral-border bg-mistral-bgElevated transition-colors duration-300 hover:border-mistral-text hover:bg-white/5"
             data-scroll-reveal
             data-direction="up"
             data-distance="30"
@@ -92,7 +92,7 @@ const iconPaths = {
         {contactNotes.map((note, index) => (
           <div
             data-od-id={`note-${note.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
-            class="rounded-xl border border-mistral-border bg-white p-8"
+            class="rounded-xl border border-mistral-border bg-mistral-bgElevated p-8"
             data-scroll-reveal
             data-direction="up"
             data-distance="30"

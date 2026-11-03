@@ -9,6 +9,7 @@ interface ScrollRevealOptions {
   direction?: 'up' | 'down' | 'left' | 'right';
   distance?: number;
   stagger?: number;
+  variant?: 'fade' | 'scale';
 }
 
 interface ScrollProgressOptions {
@@ -77,12 +78,15 @@ export class ScrollReveal {
   private applyRevealAnimation(element: HTMLElement, options: ScrollRevealOptions): void {
     const direction = options.direction || 'up';
     const distance = options.distance || 28;
+    const variant = options.variant || 'fade';
 
     // Set initial state
     element.style.opacity = '0';
-    element.style.transform = this.getInitialTransform(direction, distance);
-    element.style.transition = 'opacity 650ms cubic-bezier(0.22, 1, 0.36, 1), transform 650ms cubic-bezier(0.22, 1, 0.36, 1), filter 650ms cubic-bezier(0.22, 1, 0.36, 1)';
-    element.style.filter = 'blur(4px)';
+    element.style.transform = variant === 'scale'
+      ? `scale(0.9) ${this.getInitialTransform(direction, distance)}`
+      : this.getInitialTransform(direction, distance);
+    element.style.transition = 'opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1), filter 700ms cubic-bezier(0.22, 1, 0.36, 1)';
+    element.style.filter = 'blur(6px)';
     element.style.willChange = 'opacity, transform, filter';
 
     // Force reflow
@@ -91,7 +95,7 @@ export class ScrollReveal {
     // Animate to visible
     requestAnimationFrame(() => {
       element.style.opacity = '1';
-      element.style.transform = 'translate(0, 0) scale(1)';
+      element.style.transform = variant === 'scale' ? 'scale(1) translate(0, 0)' : 'translate(0, 0) scale(1)';
       element.style.filter = 'blur(0px)';
     });
   }
@@ -125,6 +129,7 @@ export class ScrollReveal {
       direction: 'up',
       distance: 28,
       stagger: 0,
+      variant: 'fade',
       ...options,
     };
 
@@ -230,6 +235,7 @@ export function initScrollAnimations(): void {
         distance: parseInt(el.getAttribute('data-distance') || '40', 10),
         delay: parseFloat(el.getAttribute('data-delay') || '0'),
         stagger: parseFloat(el.getAttribute('data-stagger') || '0'),
+        variant: (el.getAttribute('data-variant') as 'fade' | 'scale') || 'fade',
         triggerOnce: el.getAttribute('data-once') !== 'false',
       };
       getScrollReveal().observe(el, options);
@@ -263,7 +269,7 @@ export function createScrollProgressIndicator(): HTMLElement {
     top: 0;
     left: 0;
     height: 2px;
-    background: linear-gradient(90deg, #fff, #71717a);
+    background: linear-gradient(90deg, #fff, #a8a8a8);
     z-index: 9999;
     transform-origin: left;
     transform: scaleX(0);
