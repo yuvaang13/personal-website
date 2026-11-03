@@ -32,20 +32,20 @@ import { projects } from '@/data/profile';
             <article
               data-od-id={`project-${project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
               class={`group relative overflow-hidden rounded-xl border border-mistral-border bg-mistral-bgElevated transition-colors duration-300 hover:border-mistral-text hover:bg-white/5 ${
-                hasImage ? "md:grid md:grid-cols-[1fr_1fr]" : ""
+                hasImage ? "grid grid-cols-1 lg:grid-cols-[1fr_1fr] lg:gap-8" : ""
               }`}
               data-scroll-reveal
               data-direction="up"
               data-distance="40"
               data-delay={0.1 + index * 0.05}
             >
-              <div class="flex items-start gap-3 mb-4">
+              <div class="lg:col-span-2 flex items-start gap-3 mb-4">
                 <span class="font-mono text-[10px] uppercase tracking-widest text-mistral-textMuted">0{index + 1}</span>
                 <span class="h-0.5 w-3 bg-mistral-text" aria-hidden="true" />
               </div>
               {/* Image/Visual Side */}
               {hasImage && (
-                <div class="relative h-72 overflow-hidden bg-mistral-bgElevated md:h-auto md:min-h-[420px]">
+                <div class="relative h-64 overflow-hidden bg-mistral-bgElevated lg:h-auto lg:min-h-[420px]">
                   <img
                     src={project.image}
                     alt={`${project.title} preview`}
@@ -60,8 +60,8 @@ import { projects } from '@/data/profile';
               )}
 
               {/* Content Side */}
-              <div class={`relative p-6 md:p-8 ${hasImage ? "" : "min-h-[420px]"}`}>
-                <div class="flex h-full flex-col justify-between gap-10">
+              <div class={`relative p-6 lg:p-8 ${hasImage ? "" : "min-h-[420px]"}`}>
+                <div class="flex h-full flex-col justify-between gap-8">
                   <div>
                     {!hasImage && (
                       <div class="mb-6 flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-[0.22em] text-mistral-textMuted">
@@ -131,19 +131,19 @@ import { projects } from '@/data/profile';
             <article
               data-od-id={`project-${project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
               class={`group relative overflow-hidden rounded-xl border border-mistral-border bg-mistral-bgElevated p-6 transition-colors duration-300 hover:border-mistral-text hover:bg-white/5 md:p-8 ${
-                hasImage ? "md:grid md:grid-cols-[1fr_1fr] md:gap-8" : ""
+                hasImage ? "grid grid-cols-1 lg:grid-cols-[1fr_1fr] lg:gap-8" : ""
               }`}
               data-scroll-reveal
               data-direction="up"
               data-distance="30"
               data-delay={0.1 + index * 0.05}
             >
-              <div class="flex items-start gap-3 mb-4">
+              <div class="lg:col-span-2 flex items-start gap-3 mb-4">
                 <span class="font-mono text-[10px] uppercase tracking-widest text-mistral-textMuted">0{index + 1}</span>
                 <span class="h-0.5 w-3 bg-mistral-text" aria-hidden="true" />
               </div>
               {hasImage && (
-                <div class="relative -m-6 mb-6 h-64 overflow-hidden bg-mistral-bgElevated md:m-0 md:min-h-[350px] md:rounded-lg">
+                <div class="relative -m-6 mb-6 h-64 overflow-hidden bg-mistral-bgElevated lg:m-0 lg:min-h-[350px] lg:rounded-lg">
                   <img
                     src={project.image}
                     alt={`${project.title} preview`}
@@ -157,7 +157,7 @@ import { projects } from '@/data/profile';
                 </div>
               )}
 
-              <div class={`relative ${hasImage ? "md:p-0" : ""}`}>
+              <div class={`relative ${hasImage ? "lg:p-0" : ""}`}>
                 <div class="flex h-full flex-col justify-between gap-8">
                   <div>
                     {!hasImage && (
