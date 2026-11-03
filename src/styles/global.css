@@ -192,6 +192,17 @@ pre::selection {
   }
 }
 
+/* Manual reduce-motion toggle override */
+html.motion-reduce,
+html.motion-reduce *,
+html.motion-reduce *::before,
+html.motion-reduce *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
 /* Print styles */
 @media print {
   .noise-mask,
@@ -411,6 +422,53 @@ html.js [data-scroll-reveal] {
   transform: scaleX(0);
   pointer-events: none;
   transition: transform 0.1s linear;
+}
+
+/* Lights-out cinematic overlay */
+.lights-out {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: var(--color-bg);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lights-out__hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.lights-out__hint p {
+  letter-spacing: 0.25em;
+}
+
+.lights-out__hint::after {
+  content: '↓';
+  display: block;
+  margin-top: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
+  animation: scrollHintBounce 2s ease-in-out infinite;
+}
+
+@keyframes scrollHintBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lights-out {
+    display: none !important;
+  }
 }
 
 /* Smooth scroll for anchor links */

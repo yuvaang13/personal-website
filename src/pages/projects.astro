@@ -9,7 +9,8 @@ import { projects } from '@/data/profile';
 
 <PageShell title="Projects — Yuvaan Gulati">
   <PageHeader
-    eyebrow="projects/"
+    eyebrow="sector 3 · projects/"
+    number="03"
     title="AI tools, apps, ML experiments, and STEM systems."
     body="A fuller look at the things I am building: from tutoring platforms and health-focused computer vision concepts to productivity software and machine learning experiments."
   />
@@ -38,6 +39,10 @@ import { projects } from '@/data/profile';
               data-distance="40"
               data-delay={0.1 + index * 0.05}
             >
+              <div class="flex items-start gap-3 mb-4">
+                <span class="font-mono text-[10px] uppercase tracking-widest text-mistral-textMuted">0{index + 1}</span>
+                <span class="h-0.5 w-3 bg-mistral-text" aria-hidden="true" />
+              </div>
               {/* Image/Visual Side */}
               {hasImage && (
                 <div class="relative h-72 overflow-hidden bg-mistral-bgElevated md:h-auto md:min-h-[420px]">
@@ -133,6 +138,10 @@ import { projects } from '@/data/profile';
               data-distance="30"
               data-delay={0.1 + index * 0.05}
             >
+              <div class="flex items-start gap-3 mb-4">
+                <span class="font-mono text-[10px] uppercase tracking-widest text-mistral-textMuted">0{index + 1}</span>
+                <span class="h-0.5 w-3 bg-mistral-text" aria-hidden="true" />
+              </div>
               {hasImage && (
                 <div class="relative -m-6 mb-6 h-64 overflow-hidden bg-mistral-bgElevated md:m-0 md:min-h-[350px] md:rounded-lg">
                   <img

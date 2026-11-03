@@ -69,6 +69,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- Cursor field (global, draws neural web + glyphs on mouse move) -->
     <CursorField />
 
+    <!-- Lights-out cinematic overlay — content fades in as you scroll (aaryapatel-style) -->
+    <div id="lights-out" class="lights-out" aria-hidden="true" role="presentation">
+      <div class="lights-out__hint">
+        <p class="font-mono text-xs uppercase tracking-widest text-mistral-textMuted">scroll to explore</p>
+      </div>
+    </div>
+
     <!-- Main Content -->
     <main id="main-content" class="relative z-10">
       <slot />
@@ -125,6 +132,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         updateParallax();
       }
 
+      // Lights-out overlay — fades as the visitor scrolls
+      const lightsOut = document.getElementById('lights-out');
+      if (lightsOut && !prefersReducedMotion) {
+        let ticking = false;
+        const updateLights = () => {
+          const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+          const opacity = Math.max(0, Math.min(1, 1 - scrollY / 500));
+          lightsOut.style.opacity = String(opacity);
+          ticking = false;
+        };
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            requestAnimationFrame(updateLights);
+            ticking = true;
+          }
+        }, { passive: true });
+        updateLights();
+      }
+
       // Scroll progress indicator
       const progressBar = document.getElementById('scroll-progress-indicator');
       if (progressBar) {
@@ -160,6 +186,32 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
         });
       }
+
+      // Reduce-motion toggle (aaryapatel-style)
+      const motionToggle = document.getElementById('reduce-motion-toggle');
+      const htmlEl = document.documentElement;
+      const applyMotion = (reduced: boolean) => {
+        if (reduced) {
+          htmlEl.classList.add('motion-reduce');
+          htmlEl.setAttribute('data-reduced-motion', 'true');
+          motionToggle?.setAttribute('aria-pressed', 'true');
+        } else {
+          htmlEl.classList.remove('motion-reduce');
+          htmlEl.removeAttribute('data-reduced-motion');
+          motionToggle?.setAttribute('aria-pressed', 'false');
+        }
+      };
+
+      const stored = localStorage.getItem('yuvaan_reduce_motion');
+      if (stored === '1' || (stored === null && prefersReducedMotion)) {
+        applyMotion(true);
+      }
+
+      motionToggle?.addEventListener('click', () => {
+        const currentlyReduced = htmlEl.classList.contains('motion-reduce');
+        applyMotion(!currentlyReduced);
+        localStorage.setItem('yuvaan_reduce_motion', currentlyReduced ? '0' : '1');
+      });
     </script>
   </body>
 </html>

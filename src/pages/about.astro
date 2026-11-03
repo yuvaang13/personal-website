@@ -20,7 +20,8 @@ const iconPaths: Record<string, string> = {
 
 <PageShell title="About — Yuvaan Gulati">
   <PageHeader
-    eyebrow="about_me"
+    eyebrow="sector 1 · about_me"
+    number="01"
     title="A math-heavy builder with a practical AI streak."
     body={profile.shortIntro}
   />
@@ -74,6 +75,10 @@ const iconPaths: Record<string, string> = {
             data-distance="30"
             data-delay={0.1 + index * 0.05}
           >
+            <div class="flex items-start gap-3 mb-3">
+              <span class="font-mono text-[10px] uppercase tracking-widest text-mistral-textMuted">0{index + 1}</span>
+              <span class="h-0.5 w-3 bg-mistral-text" aria-hidden="true" />
+            </div>
             <div class="flex h-full flex-col gap-6">
               <div>
                 <svg class="h-7 w-7 text-mistral-text transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
