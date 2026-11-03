@@ -59,7 +59,38 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     })} />
   </head>
   <body class={`min-h-screen bg-mistral-bg text-mistral-text overflow-x-hidden ${className}`}>
+    <!-- Subtle terminal grid overlay -->
+    <div id="page-grid" class="page-grid" aria-hidden="true"></div>
+
     <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <!-- Top status bar — small editorial labels -->
+    <header class="top-bar fixed inset-x-0 top-0 z-40 pointer-events-none">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8 flex justify-between items-start gap-6 py-3">
+        <div class="pointer-events-auto flex flex-col gap-0.5">
+          <p class="text-[10px] uppercase tracking-widest text-mistral-textMuted">Practice</p>
+          <p class="text-[11px] font-medium text-mistral-text">AI/ML · Robotics · STEM Education</p>
+        </div>
+        <div class="pointer-events-auto text-center">
+          <p class="text-[10px] uppercase tracking-widest text-mistral-textMuted">Based</p>
+          <p class="text-[11px] font-medium text-mistral-text">Greater Boston</p>
+        </div>
+        <div class="pointer-events-auto flex flex-col gap-0.5 items-end">
+          <p class="text-[10px] uppercase tracking-widest text-mistral-textMuted">Status</p>
+          <p class="text-[11px] font-medium text-mistral-text flex items-center gap-1.5">
+            <span class="h-1.5 w-1.5 rounded-full bg-[#ff6b35]" aria-hidden="true"></span>
+            Open to collaborations
+          </p>
+        </div>
+        <a
+          href="/contact"
+          class="pointer-events-auto focus-ring inline-flex h-8 items-center justify-center rounded-full border border-mistral-border bg-transparent px-4 text-[11px] font-medium uppercase tracking-widest text-mistral-text transition-colors hover:border-mistral-text hover:bg-white/5"
+        >
+          Contact
+        </a>
+      </div>
+    </header>
+
     <!-- Cinematic Intro Gate — per-route (Yuvaan Gulati split-shutter) -->
     <IntroGate />
 
@@ -80,6 +111,32 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <main id="main-content" class="relative z-10">
       <slot />
     </main>
+
+    <!-- Bottom status bar — Scroll hint, socials, metadata -->
+    <div class="bottom-bar">
+      <div class="bottom-bar__scroll">Scroll</div>
+      <nav class="bottom-bar__socials" aria-label="Social">
+        <a href="https://github.com/yuvaang13" target="_blank" rel="noreferrer" title="GitHub">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/yuvaan-gulati/" target="_blank" rel="noreferrer" title="LinkedIn">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" />
+          </svg>
+        </a>
+        <a href="https://iamyuvaangulati.vercel.app/" title="Web">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 12h20M12 2v20" />
+          </svg>
+        </a>
+      </nav>
+      <div class="bottom-bar__meta">
+        <p>Years <span class="text-mistral-text">7</span></p>
+        <p class="mt-1">Fig. 1</p>
+      </div>
+    </div>
 
     <!-- Footer -->
     <Footer />
@@ -186,32 +243,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
         });
       }
-
-      // Reduce-motion toggle (aaryapatel-style)
-      const motionToggle = document.getElementById('reduce-motion-toggle');
-      const htmlEl = document.documentElement;
-      const applyMotion = (reduced: boolean) => {
-        if (reduced) {
-          htmlEl.classList.add('motion-reduce');
-          htmlEl.setAttribute('data-reduced-motion', 'true');
-          motionToggle?.setAttribute('aria-pressed', 'true');
-        } else {
-          htmlEl.classList.remove('motion-reduce');
-          htmlEl.removeAttribute('data-reduced-motion');
-          motionToggle?.setAttribute('aria-pressed', 'false');
-        }
-      };
-
-      const stored = localStorage.getItem('yuvaan_reduce_motion');
-      if (stored === '1' || (stored === null && prefersReducedMotion)) {
-        applyMotion(true);
-      }
-
-      motionToggle?.addEventListener('click', () => {
-        const currentlyReduced = htmlEl.classList.contains('motion-reduce');
-        applyMotion(!currentlyReduced);
-        localStorage.setItem('yuvaan_reduce_motion', currentlyReduced ? '0' : '1');
-      });
     </script>
   </body>
 </html>

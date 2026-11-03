@@ -148,6 +148,20 @@ body {
   border-top: 1px solid var(--color-border);
 }
 
+/* Subtle full-page terminal grid (Sarah Chen-style) */
+.page-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(circle at center, black 25%, transparent 85%);
+  -webkit-mask-image: radial-gradient(circle at center, black 25%, transparent 85%);
+}
+
 /* Dot grid background (math/robotics texture) */
 .dot-grid {
   background-image:
@@ -190,17 +204,6 @@ pre::selection {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-/* Manual reduce-motion toggle override */
-html.motion-reduce,
-html.motion-reduce *,
-html.motion-reduce *::before,
-html.motion-reduce *::after {
-  animation-duration: 0.01ms !important;
-  animation-iteration-count: 1 !important;
-  transition-duration: 0.01ms !important;
-  scroll-behavior: auto !important;
 }
 
 /* Print styles */
@@ -348,7 +351,7 @@ html.js [data-scroll-reveal] {
 
 /* Heading styles — ALTMistral display serif */
 .heading-1 {
-  @apply font-serif text-5xl font-normal leading-[0.98] tracking-tight text-mistral-text sm:text-6xl lg:text-7xl xl:text-8xl;
+  @apply font-serif font-normal leading-[0.98] tracking-tight text-mistral-text sm:text-6xl lg:text-7xl xl:text-8xl;
   text-wrap: balance;
 }
 
@@ -469,6 +472,52 @@ html.js [data-scroll-reveal] {
   .lights-out {
     display: none !important;
   }
+}
+
+/* Bottom status bar — Scroll hint, socials, metadata (Sarah Chen-style) */
+.bottom-bar {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  pointer-events: none;
+  border-top: 1px solid var(--color-border);
+  background: linear-gradient(to top, #0a0a0a, transparent);
+}
+
+.bottom-bar__scroll,
+.bottom-bar__meta {
+  pointer-events: auto;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  uppercase: true;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.bottom-bar__socials {
+  pointer-events: auto;
+  display: flex;
+  gap: 1.1rem;
+  align-items: center;
+}
+
+.bottom-bar__socials a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.bottom-bar__socials a:hover {
+  color: var(--color-text-primary);
+}
+
+.bottom-bar__socials svg {
+  display: block;
 }
 
 /* Smooth scroll for anchor links */
