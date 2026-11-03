@@ -272,7 +272,7 @@ export const stats: Stat[] = [
   { value: '1st', label: 'NHSEE 2026 Computer Science and Math' },
   { value: 'K-8', label: 'Audience for Infinit AI STEM tutoring' },
   { value: 'FTC', label: 'Lead programming and build work on Team 21689' },
-  { value: '7th', label: 'Grade level for SAT 1280 and ACT Math 32' },
+  { value: '7th', label: 'Grade level for SAT 1280 and ACT Math 32, with 780 SAT Math' },
 ];
 
 export const roles: Role[] = [
