@@ -162,6 +162,14 @@ body {
   -webkit-mask-image: radial-gradient(circle at center, black 25%, transparent 85%);
 }
 
+/* Top status bar — liquid glass */
+.top-bar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(13, 13, 16, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
 /* Dot grid background (math/robotics texture) */
 .dot-grid {
   background-image:
@@ -474,7 +482,7 @@ html.js [data-scroll-reveal] {
   }
 }
 
-/* Bottom status bar — Scroll hint, socials, metadata (Sarah Chen-style) */
+/* Bottom status bar — liquid glass */
 .bottom-bar {
   position: fixed;
   inset: auto 0 0 0;
@@ -482,10 +490,14 @@ html.js [data-scroll-reveal] {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.25rem 1.5rem;
+  padding: 1rem 1.5rem;
   pointer-events: none;
-  border-top: 1px solid var(--color-border);
-  background: linear-gradient(to top, #0a0a0a, transparent);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(13, 13, 16, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  mask-image: linear-gradient(to top, black 60%, transparent);
+  -webkit-mask-image: linear-gradient(to top, black 60%, transparent);
 }
 
 .bottom-bar__scroll,
