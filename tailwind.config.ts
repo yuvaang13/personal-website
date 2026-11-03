@@ -13,7 +13,7 @@ const config: Config = {
           bgElevated: '#131316',
           text: '#f5f5f4',
           textSecondary: '#a8a8a8',
-          textMuted: '#717171',
+          textMuted: '#7a7a7a',
           border: '#232323',
           borderHover: '#3a3a3a',
           accent: '#ffffff',

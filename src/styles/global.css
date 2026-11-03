@@ -80,7 +80,7 @@
   --color-bg-elevated: #131316;
   --color-text-primary: #f5f5f4;
   --color-text-secondary: #a8a8a8;
-  --color-text-muted: #717171;
+  --color-text-muted: #7a7a7a;
   --color-border: #232323;
   --color-border-hover: #3a3a3a;
   --color-accent: #ffffff;
@@ -474,54 +474,6 @@ html.js [data-scroll-reveal] {
   }
 }
 
-/* Bottom status bar — liquid glass */
-.bottom-bar {
-  position: fixed;
-  inset: auto 0 0 0;
-  z-index: 70;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1.5rem;
-  pointer-events: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(13, 13, 16, 0.8);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
-}
-
-.bottom-bar__scroll,
-.bottom-bar__meta {
-  pointer-events: auto;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  uppercase: true;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-}
-
-.bottom-bar__socials {
-  pointer-events: auto;
-  display: flex;
-  gap: 1.1rem;
-  align-items: center;
-}
-
-.bottom-bar__socials a {
-  color: var(--color-text-muted);
-  text-decoration: none;
-  transition: color 200ms ease;
-}
-
-.bottom-bar__socials a:hover {
-  color: var(--color-text-primary);
-}
-
-.bottom-bar__socials svg {
-  display: block;
-}
-
 /* Smooth scroll for anchor links */
 html:not([data-reduced-motion]) {
   scroll-behavior: smooth;
@@ -783,18 +735,26 @@ canvas {
 .pulse-dot {
   position: relative;
   display: inline-block;
-  width: 0.5625rem;
-  height: 0.5625rem;
+  width: 1.0625rem;
+  height: 1.0625rem;
   border-radius: 999px;
-  background: #16a34a;
   flex-shrink: 0;
 }
 
+.pulse-dot::before,
 .pulse-dot::after {
   content: '';
   position: absolute;
-  inset: -4px;
   border-radius: 999px;
+}
+
+.pulse-dot::before {
+  inset: 4px;
+  background: #16a34a;
+}
+
+.pulse-dot::after {
+  inset: 0;
   border: 2px solid #16a34a;
   opacity: 0.5;
   animation: pulseRing 2.2s ease-out infinite;

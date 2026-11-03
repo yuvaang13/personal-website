@@ -4,7 +4,7 @@ root.style.setProperty('--color-bg', '#0a0a0a');
 root.style.setProperty('--color-bg-elevated', '#131316');
 root.style.setProperty('--color-text-primary', '#f5f5f4');
 root.style.setProperty('--color-text-secondary', '#a8a8a8');
-root.style.setProperty('--color-text-muted', '#717171');
+root.style.setProperty('--color-text-muted', '#7a7a7a');
 root.style.setProperty('--color-border', '#232323');
 root.style.setProperty('--color-border-hover', '#3a3a3a');
 root.style.setProperty('--color-accent', '#ffffff');
