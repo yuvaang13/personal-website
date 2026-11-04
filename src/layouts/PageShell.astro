@@ -6,6 +6,7 @@ import NavBar from '@/components/NavBar.astro';
 import Footer from '@/components/Footer.astro';
 import CursorField from '@/components/CursorField.astro';
 import IntroGate from '@/components/IntroGate.astro';
+import { profile } from '@/data/profile';
 
 interface Props {
   title?: string;
@@ -81,9 +82,26 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </div>
 
     <!-- Main Content -->
-    <main id="main-content" class="relative z-10">
+    <main id="main-content" class="relative z-10 pb-24 sm:pb-28">
       <slot />
     </main>
+
+    <!-- Lightweight glass rail — kept off small screens to preserve reading space. -->
+    <nav class="bottom-glass-bar" aria-label="Social links">
+      <a href={profile.github} target="_blank" rel="noreferrer" class="focus-ring">
+        <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        </svg>
+        GitHub
+      </a>
+      <span aria-hidden="true"></span>
+      <a href={profile.linkedin} target="_blank" rel="noreferrer" class="focus-ring">
+        <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" />
+        </svg>
+        LinkedIn
+      </a>
+    </nav>
 
     <!-- Footer -->
     <Footer />
