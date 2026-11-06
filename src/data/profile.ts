@@ -119,6 +119,20 @@ export const homeLinks: HomeLink[] = [
 
 export const projects: Project[] = [
   {
+    title: 'Auren',
+    type: 'Open-source AI agent guardrail',
+    status: 'Public beta — macOS & Windows',
+    summary:
+      'A local-only guardrail for AI agents that sits below the browser and terminal, giving you one switch to control what agents can actually access on your machine.',
+    details:
+      'Auren runs entirely on-device — no cloud processing, screen recording, or keystroke logging. Protection Mode blocks sites, apps, and network endpoints at the OS level. File Guard limits agents to folders you explicitly mount and always denies sensitive files like .env, .ssh, and .aws credentials. Agent Detection alerts you to automated control. Biometric-gated and fail-closed by design. Free during public beta for macOS and Windows.',
+    tags: ['AI Safety', 'Local-first', 'macOS', 'Windows', 'Open Source'],
+    links: [],
+    image: '/projects/auren.png',
+    featured: true,
+    impactOrder: 1,
+  },
+  {
     title: 'Infinit AI',
     type: 'AI STEM tutoring platform',
     status: 'MIT Solve Solver, AI For A Better World',
@@ -256,6 +270,11 @@ export const highlights: Highlight[] = [
 ];
 
 export const timeline: TimelineEntry[] = [
+  {
+    year: '2026',
+    title: 'Building Auren',
+    body: 'Building Auren, a local-only guardrail for AI agents that sits below the browser and terminal to control what agents can access on a machine. Protection Mode blocks sites, apps, and network endpoints at the OS level; File Guard limits agents to folders you explicitly mount and always denies .env, .ssh, and .aws credentials; Agent Detection flags automated control without cloud processing, screen recording, or keystroke logging.',
+  },
   { year: '2026', title: 'FLL mentor at Bicentennial Elementary', body: 'Mentoring a FIRST LEGO League team at Bicentennial Elementary School — coaching robot design, block coding, core values, and the innovation project through the competition season.' },
   { year: '2026', title: 'Building Infinit AI', body: 'Built an AI-powered STEM tutoring platform for K-8 students, using grade-level explanations and a roadmap toward larger knowledge bases, RAG, and custom model tuning.' },
   { year: '2026', title: 'Building Verus', body: 'Working on a human verification project for the AI era, focused on better ways to separate real users from automated systems as AI agents become more capable.' },
@@ -276,6 +295,7 @@ export const stats: Stat[] = [
 ];
 
 export const roles: Role[] = [
+  { title: 'Founder / Builder — Auren', description: 'Local-only AI agent guardrail: OS-level Protection Mode, File Guard mounted-folder controls, biometric-gated Agent Detection, fail-closed by design.' },
   { title: 'FLL mentor — Bicentennial Elementary School', description: 'Coaching a FIRST LEGO League team: robot design, block coding, innovation project, and core values' },
   { title: 'Lead Programmer for FTC Team 21689, Team Tesseract', description: 'Autonomous path planning, computer vision, odometry, command-based architecture' },
   { title: 'Outreach, fundraising, and social media specialist for Team Tesseract', description: 'Team brand, social presence, sponsorships, and community events' },
