@@ -367,7 +367,7 @@ html.js [data-scroll-reveal] {
 
 /* Heading styles — ALTMistral display serif */
 .heading-1 {
-  @apply font-serif font-normal leading-[0.98] tracking-tight text-mistral-text sm:text-6xl lg:text-7xl xl:text-8xl;
+  @apply font-serif font-normal text-4xl leading-[0.98] tracking-tight text-mistral-text sm:text-6xl lg:text-7xl xl:text-8xl;
   text-wrap: balance;
 }
 
@@ -733,7 +733,7 @@ canvas {
   .scroll-showcase__sticky {
     position: relative;
     min-height: auto;
-    padding-top: 2rem;
+    padding-top: 5.5rem;
   }
 
   .scroll-showcase__frame {
