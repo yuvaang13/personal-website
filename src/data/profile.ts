@@ -189,7 +189,7 @@ export const projects: Project[] = [
     type: 'FTC Robotics Competition',
     status: 'Active season (2025-2026)',
     summary: 'Lead programmer for FTC Team 21689. Autonomous path planning, computer vision, odometry, and driver control systems.',
-    details: 'Built the software stack for a competitive FTC robot, including autonomous path planning, computer vision, odometry-based localization, and driver control. Also contribute as the outreach, fundraising, and social media specialist, graphic designer and video editor, and builder/hardware contributor for the team.',
+    details: 'Built the software stack for a competitive FTC robot, including autonomous path planning, computer vision, odometry-based localization, and driver control. Also contribute as the outreach, fundraising, and social media specialist, graphic designer and video editor, and builder/hardware contributor for the team. Raised $250 from the Stabile Family Foundation for the 2026-2027 season.',
     tags: ['Robotics', 'FTC', 'Java', 'OpenCV', 'TensorFlow Lite', 'Path Planning', 'Odometry'],
     links: [],
     featured: true,
@@ -281,7 +281,7 @@ export const timeline: TimelineEntry[] = [
   { year: '2026', title: 'Open-source iOS productivity work', body: 'Built MonkMode, an iOS-first focus app that uses deep work sessions, Screen Time blocking, commitment rituals, and accountability tracking.' },
   { year: '2026', title: 'NHSEE first place with Infinit', body: 'Placed first in the Computer Science and Math category while presenting Infinit as an applied AI education project.' },
   { year: '2026', title: 'MATHCOUNTS state competitor', body: 'Placed 3rd at the Southern NH Chapter competition, reached the state competition, and placed 20th statewide.' },
-  { year: '2026', title: 'FTC Team Tesseract', body: 'Joined FTC Team 21689 as lead programmer, outreach/fundraising/social media specialist, graphic designer/video editor, and builder/hardware contributor.' },
+  { year: '2026', title: 'FTC Team Tesseract', body: 'Joined FTC Team 21689 as lead programmer, outreach/fundraising/social media specialist, graphic designer/video editor, and builder/hardware contributor. Raised $250 from the Stabile Family Foundation for the 2026-2027 season.' },
 ];
 
 export const stats: Stat[] = [
@@ -291,6 +291,7 @@ export const stats: Stat[] = [
   { value: '1st', label: 'NHSEE 2026 Computer Science and Math' },
   { value: 'K-8', label: 'Audience for Infinit AI STEM tutoring' },
   { value: 'FTC', label: 'Lead programming and build work on Team 21689' },
+  { value: '$250', label: 'Raised from the Stabile Family Foundation for FTC Team 21689 (2026-2027 season)' },
   { value: '7th', label: 'Grade level for SAT 1280 and ACT Math 32, with 780 SAT Math' },
 ];
 
@@ -298,7 +299,7 @@ export const roles: Role[] = [
   { title: 'Founder / Builder — Auren', description: 'Local-only AI agent guardrail: OS-level Protection Mode, File Guard mounted-folder controls, biometric-gated Agent Detection, fail-closed by design.' },
   { title: 'FLL mentor — Bicentennial Elementary School', description: 'Coaching a FIRST LEGO League team: robot design, block coding, innovation project, and core values' },
   { title: 'Lead Programmer for FTC Team 21689, Team Tesseract', description: 'Autonomous path planning, computer vision, odometry, command-based architecture' },
-  { title: 'Outreach, fundraising, and social media specialist for Team Tesseract', description: 'Team brand, social presence, sponsorships, and community events' },
+  { title: 'Outreach, fundraising, and social media specialist for Team Tesseract', description: 'Team brand, social presence, sponsorships, and community events. Raised $250 from the Stabile Family Foundation for the 2026-2027 season.' },
   { title: 'Builder and hardware contributor for Team Tesseract', description: 'Mechanical design, fabrication, and iteration cycles' },
   { title: 'Graphic designer and video editor for Team Tesseract', description: 'Team visual identity, season videos, engineering notebook layouts, sponsor materials' },
   { title: 'Graphic designer for the IHF Boston Nashua Chapter', description: 'Event flyers, social media assets, chapter branding for nonprofit health organization' },
