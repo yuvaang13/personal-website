@@ -166,9 +166,12 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     const threshold = () => Math.min(760, Math.max(480, window.innerHeight * 0.75));
     let done = false;
     let rafId = 0;
+    let autoOpen = 0;
 
     const finish = () => {
+      if (done) return;
       done = true;
+      window.clearTimeout(autoOpen);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
       document.dispatchEvent(new CustomEvent('intro:done'));
@@ -211,6 +214,10 @@ const cfg = introMap[rawPath] ?? { title: 'Yuvaan Gulati.', eyebrow: `~${rawPath
     };
     requestAnimationFrame(poll);
 
-    // The gate stays at rest until the visitor starts scrolling.
+    // The gate also opens on its own after a beat, so the work is never hidden
+    // behind a black screen for visitors who don't scroll immediately.
+    autoOpen = window.setTimeout(() => {
+      if ((window.scrollY || document.documentElement.scrollTop || 0) < 40) finish();
+    }, 1700);
   }
 </script>

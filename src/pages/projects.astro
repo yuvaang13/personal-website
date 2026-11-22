@@ -4,7 +4,43 @@
 import PageShell from '@/layouts/PageShell.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import ScrollContent from '@/components/ScrollContent.astro';
+import GlassFolderDesk from '@/components/GlassFolderDesk.astro';
+import GlassFolder from '@/components/ui/GlassFolder.astro';
 import { projects } from '@/data/profile';
+
+const slug = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+/* Unsplash stock photographs for the folder back panels. */
+const folderImages = {
+  featured: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=80',
+  building: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=900&q=80',
+  experiments: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=900&q=80',
+};
+
+const fileFor = (title: string, meta: string, art?: string) => ({
+  name: title,
+  meta,
+  ...(art ? { art } : {}),
+  href: `#project-${slug(title)}`,
+});
+
+const featuredFolder = [
+  fileFor('Auren', 'AI agent guardrail', 'ember'),
+  fileFor('Infinit AI', 'MIT Solve Solver', 'verdant'),
+  fileFor('ClearEye', 'Concussion screening', 'glacier'),
+  fileFor('Verus', 'Human verification'),
+];
+
+const buildingFolder = [
+  fileFor('FTC Team Tesseract', 'Lead programmer', 'ember'),
+  fileFor('MonkMode', 'iOS focus app', 'dusk'),
+  fileFor('Personal Website v2', 'Astro + TypeScript'),
+];
+
+const experimentsFolder = [
+  fileFor('Digit Recognition', 'Logistic → CNN', 'glacier'),
+  fileFor('Math Calculator', '100+ functions', 'verdant'),
+];
 ---
 
 <PageShell title="Projects — Yuvaan Gulati">
@@ -14,6 +50,49 @@ import { projects } from '@/data/profile';
     title="AI tools, apps, ML experiments, and STEM systems."
     body="A fuller look at the things I am building: from tutoring platforms and health-focused computer vision concepts to productivity software and machine learning experiments."
   />
+
+  <!-- Folder desk — the same projects, arranged as a physical workspace -->
+  <GlassFolderDesk
+    id="folder-desk-projects"
+    eyebrow="sector 3 · workspace"
+    title="The projects, filed and ready."
+    body="Three folders hold the work in progress, the experiments, and the projects that have gone furthest. Open one and choose a file to jump straight to its full write-up below."
+    caption="Click a folder to open it · Choose a file to jump to its details"
+  >
+    <GlassFolder
+      label="Featured work"
+      art="dusk"
+      seed={7}
+      image={folderImages.featured}
+      action="more"
+      labelPlacement="bottom-left"
+      files={featuredFolder}
+      menu={[{ label: 'Duplicate folder' }, { label: 'Archive', danger: true }]}
+      appearDelay={0}
+    />
+    <GlassFolder
+      label="In progress"
+      meta="2026 season"
+      tone="dark"
+      art="ember"
+      seed={19}
+      image={folderImages.building}
+      action="none"
+      labelPlacement="top-left"
+      files={buildingFolder}
+      appearDelay={140}
+    />
+    <GlassFolder
+      label="Experiments"
+      art="glacier"
+      seed={31}
+      image={folderImages.experiments}
+      action="add"
+      labelPlacement="bottom-left"
+      files={experimentsFolder}
+      appearDelay={280}
+    />
+  </GlassFolderDesk>
 
   <!-- Featured Projects -->
   <ScrollContent class="pb-28">
@@ -30,6 +109,7 @@ import { projects } from '@/data/profile';
 
           return (
             <article
+              id={`project-${slug(project.title)}`}
               data-od-id={`project-${project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
               class={`group relative overflow-hidden rounded-xl border border-mistral-border bg-mistral-bgElevated transition-colors duration-300 hover:border-mistral-text hover:bg-white/5 ${
                 hasImage ? "grid grid-cols-1 lg:grid-cols-[1fr_1fr] lg:gap-8" : ""
@@ -129,6 +209,7 @@ import { projects } from '@/data/profile';
 
           return (
             <article
+              id={`project-${slug(project.title)}`}
               data-od-id={`project-${project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
               class={`group relative overflow-hidden rounded-xl border border-mistral-border bg-mistral-bgElevated p-6 transition-colors duration-300 hover:border-mistral-text hover:bg-white/5 md:p-8 ${
                 hasImage ? "grid grid-cols-1 lg:grid-cols-[1fr_1fr] lg:gap-8" : ""

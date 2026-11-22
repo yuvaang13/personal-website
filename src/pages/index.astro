@@ -5,7 +5,36 @@ import PageShell from '@/layouts/PageShell.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import ScrollContent from '@/components/ScrollContent.astro';
 import ScrollShowcase from '@/components/ScrollShowcase.astro';
+import GlassFolderDesk from '@/components/GlassFolderDesk.astro';
+import GlassFolder from '@/components/ui/GlassFolder.astro';
 import { profile, homeLinks } from '@/data/profile';
+
+/* Unsplash stock photographs used as the artwork inside the folder back panels. */
+const deskArt = {
+  workspace: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80',
+  research: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=80',
+  network: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80',
+};
+
+const exploreFiles = [
+  { name: 'about_me', meta: 'profile.md', href: '/about' },
+  { name: 'projects/', meta: 'selected work', href: '/projects' },
+  { name: 'experience', meta: 'timeline', href: '/experience' },
+  { name: 'contact', meta: 'get in touch', href: '/contact' },
+];
+
+const workFiles = [
+  { name: 'Auren', meta: 'AI guardrail', art: 'ember', href: '/projects' },
+  { name: 'Infinit AI', meta: 'MIT Solve Solver', art: 'verdant', href: '/projects' },
+  { name: 'ClearEye', meta: 'Computer vision', art: 'glacier', href: '/projects' },
+  { name: 'Verus', meta: 'Verification', href: '/projects' },
+];
+
+const connectFiles = [
+  { name: 'Email', meta: profile.email, href: `mailto:${profile.email}` },
+  { name: 'GitHub', meta: '@yuvaang13', art: 'dusk', href: profile.github },
+  { name: 'LinkedIn', meta: 'in/yuvaan-gulati', href: profile.linkedin },
+];
 
 const featuredAreas = [
   {
@@ -37,6 +66,46 @@ const featuredAreas = [
     body={profile.headline}
     number="00"
   />
+
+  <!-- Tactile folder desk — a working, interactive map of the site -->
+  <GlassFolderDesk
+    id="folder-desk-home"
+    eyebrow="sector 0 · workspace"
+    title="Open a folder. Find the work."
+    body="This portfolio is organised like a desk: a folder for every direction, each one holding the real files — projects, roles, and ways to reach me."
+    caption="Hover to lean · Click to open · + to add a file"
+  >
+    <GlassFolder
+      label="Explore"
+      art="aurora"
+      seed={3}
+      image={deskArt.workspace}
+      files={exploreFiles}
+      appearDelay={0}
+    />
+    <GlassFolder
+      label="Featured work"
+      art="none"
+      image={deskArt.research}
+      action="more"
+      labelPlacement="top-left"
+      files={workFiles}
+      menu={[{ label: 'Rename' }, { label: 'Share…' }, { label: 'Move to Trash', danger: true }]}
+      appearDelay={140}
+    />
+    <GlassFolder
+      label="Connect"
+      meta="Greater Boston"
+      tone="dark"
+      art="ember"
+      seed={11}
+      image={deskArt.network}
+      action="none"
+      labelPlacement="top-right"
+      files={connectFiles}
+      appearDelay={280}
+    />
+  </GlassFolderDesk>
 
   <!-- Recognition strip -->
   <ScrollContent class="pb-4 pt-6">
