@@ -9,13 +9,7 @@ import GlassFolderDesk from '@/components/GlassFolderDesk.astro';
 import GlassFolder from '@/components/ui/GlassFolder.astro';
 import { profile, homeLinks } from '@/data/profile';
 
-/* Unsplash stock photographs used as the artwork inside the folder back panels. */
-const deskArt = {
-  workspace: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80',
-  research: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=80',
-  network: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80',
-};
-
+/* Every folder is smoked glass over generated, site-palette artwork — no stock photos. */
 const exploreFiles = [
   { name: 'about_me', meta: 'profile.md', href: '/about' },
   { name: 'projects/', meta: 'selected work', href: '/projects' },
@@ -24,15 +18,15 @@ const exploreFiles = [
 ];
 
 const workFiles = [
-  { name: 'Auren', meta: 'AI guardrail', art: 'ember', href: '/projects' },
-  { name: 'Infinit AI', meta: 'MIT Solve Solver', art: 'verdant', href: '/projects' },
-  { name: 'ClearEye', meta: 'Computer vision', art: 'glacier', href: '/projects' },
+  { name: 'Auren', meta: 'AI guardrail', art: 'steel', href: '/projects' },
+  { name: 'Infinit AI', meta: 'MIT Solve Solver', art: 'copper', href: '/projects' },
+  { name: 'ClearEye', meta: 'Computer vision', art: 'steel', href: '/projects' },
   { name: 'Verus', meta: 'Verification', href: '/projects' },
 ];
 
 const connectFiles = [
   { name: 'Email', meta: profile.email, href: `mailto:${profile.email}` },
-  { name: 'GitHub', meta: '@yuvaang13', art: 'dusk', href: profile.github },
+  { name: 'GitHub', meta: '@yuvaang13', art: 'steel', href: profile.github },
   { name: 'LinkedIn', meta: 'in/yuvaan-gulati', href: profile.linkedin },
 ];
 
@@ -77,16 +71,17 @@ const featuredAreas = [
   >
     <GlassFolder
       label="Explore"
-      art="aurora"
+      tone="dark"
+      art="graphite"
       seed={3}
-      image={deskArt.workspace}
       files={exploreFiles}
       appearDelay={0}
     />
     <GlassFolder
       label="Featured work"
-      art="none"
-      image={deskArt.research}
+      tone="dark"
+      art="steel"
+      seed={7}
       action="more"
       labelPlacement="top-left"
       files={workFiles}
@@ -97,9 +92,8 @@ const featuredAreas = [
       label="Connect"
       meta="Greater Boston"
       tone="dark"
-      art="ember"
+      art="copper"
       seed={11}
-      image={deskArt.network}
       action="none"
       labelPlacement="top-right"
       files={connectFiles}

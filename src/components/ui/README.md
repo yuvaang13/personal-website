@@ -12,8 +12,11 @@ legacy top-level `components/ui/` folder left over from the old Next.js build.
   (back panel → file sheets → frosted front panel), the same hinge/fan/add/menu
   interactions, keyboard support, and the same entrance choreography.
 - `glassArt.ts` — the generated-artwork engine (domain-warped fBm noise shaded
-  as a liquid surface), with one shared `requestAnimationFrame` paint queue so
+  as brushed metal), with one shared `requestAnimationFrame` paint queue so
   several folders never jank the page. No network requests, no image assets.
+  The `graphite` / `copper` / `steel` presets are the site palette: near-black
+  bases with one restrained metal accent, narrow value ranges, low warp and
+  almost no veining so the surfaces never read as colourful pigment.
 
 The original React component is intentionally **not** vendored as dead code:
 this is an Astro site with no React runtime, and the npm registry is unreachable
@@ -23,7 +26,8 @@ character of the site while preserving the component's behaviour.
 ### Props of interest
 
 `label`, `meta`, `tone` (`light`/`dark`), `art` (preset or `none`), `seed`,
-`image` (stock/Unsplash URL; falls back to generated art if it fails), `files`
+`image` (optional custom URL — deliberately unused by the site; generated art
+is the only artwork in use), `files`
 (`{ name, meta?, art?, image?, href? }[]`), `action` (`add`/`more`/`none`),
 `menu`, `labelPlacement`, `width`, `defaultOpen`, `appear`, `appearDelay`.
 

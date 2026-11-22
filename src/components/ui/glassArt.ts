@@ -7,7 +7,15 @@
  * queue so a whole desk of folders never janks the page.
  */
 
-export type ArtPreset = "aurora" | "ember" | "dusk" | "glacier" | "verdant";
+export type ArtPreset =
+  | "graphite"
+  | "copper"
+  | "steel"
+  | "aurora"
+  | "ember"
+  | "dusk"
+  | "glacier"
+  | "verdant";
 
 export type ArtRecipe = {
   style: "marble" | "streak";
@@ -20,6 +28,24 @@ export type ArtRecipe = {
 };
 
 export const ART_PRESETS: Record<ArtPreset, ArtRecipe> = {
+  // Site palette: near-black graphite with one restrained metal accent each.
+  // Narrow value ranges, low warp and almost no veins keep these from reading
+  // as colourful ink/pigment — they are brushed metal, not marbling.
+  graphite: {
+    style: "marble",
+    colors: ["#0b0b0d", "#121216", "#1b1b20", "#25252b", "#17171b", "#0e0e11"],
+    scale: 1.15, warp: 1.8, angle: 0.6, gloss: 0.18, veins: 0.08,
+  },
+  copper: {
+    style: "marble",
+    colors: ["#0b0b0d", "#151110", "#281c16", "#6d432a", "#b5794d", "#221812"],
+    scale: 1.15, warp: 2.0, angle: -0.45, gloss: 0.26, veins: 0.1,
+  },
+  steel: {
+    style: "marble",
+    colors: ["#0b0b0d", "#11151a", "#1c2530", "#40536d", "#758ba7", "#151a20"],
+    scale: 1.15, warp: 1.9, angle: 1.1, gloss: 0.25, veins: 0.08,
+  },
   aurora: {
     style: "streak",
     colors: ["#f4efe9", "#e9c2b8", "#c2433f", "#2a1e2a", "#22395e", "#6f97c2", "#e5edf4"],
@@ -292,10 +318,10 @@ function paint(recipe: ArtRecipe, seed: number, w: number, h: number, priority: 
 function resolveRecipe(raw: string): ArtRecipe {
   try {
     const parsed = JSON.parse(raw) as ArtRecipe | string;
-    if (typeof parsed === "string") return ART_PRESETS[parsed as ArtPreset] ?? ART_PRESETS.aurora;
+    if (typeof parsed === "string") return ART_PRESETS[parsed as ArtPreset] ?? ART_PRESETS.graphite;
     return parsed;
   } catch {
-    return ART_PRESETS.aurora;
+    return ART_PRESETS.graphite;
   }
 }
 

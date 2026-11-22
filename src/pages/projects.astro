@@ -10,13 +10,7 @@ import { projects } from '@/data/profile';
 
 const slug = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
-/* Unsplash stock photographs for the folder back panels. */
-const folderImages = {
-  featured: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=80',
-  building: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=900&q=80',
-  experiments: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=900&q=80',
-};
-
+/* Dark folders, generated site-palette artwork, no stock photography. */
 const fileFor = (title: string, meta: string, art?: string) => ({
   name: title,
   meta,
@@ -25,21 +19,21 @@ const fileFor = (title: string, meta: string, art?: string) => ({
 });
 
 const featuredFolder = [
-  fileFor('Auren', 'AI agent guardrail', 'ember'),
-  fileFor('Infinit AI', 'MIT Solve Solver', 'verdant'),
-  fileFor('ClearEye', 'Concussion screening', 'glacier'),
+  fileFor('Auren', 'AI agent guardrail', 'steel'),
+  fileFor('Infinit AI', 'MIT Solve Solver', 'copper'),
+  fileFor('ClearEye', 'Concussion screening', 'steel'),
   fileFor('Verus', 'Human verification'),
 ];
 
 const buildingFolder = [
-  fileFor('FTC Team Tesseract', 'Lead programmer', 'ember'),
-  fileFor('MonkMode', 'iOS focus app', 'dusk'),
+  fileFor('FTC Team Tesseract', 'Lead programmer', 'copper'),
+  fileFor('MonkMode', 'iOS focus app', 'steel'),
   fileFor('Personal Website v2', 'Astro + TypeScript'),
 ];
 
 const experimentsFolder = [
-  fileFor('Digit Recognition', 'Logistic → CNN', 'glacier'),
-  fileFor('Math Calculator', '100+ functions', 'verdant'),
+  fileFor('Digit Recognition', 'Logistic → CNN', 'steel'),
+  fileFor('Math Calculator', '100+ functions'),
 ];
 ---
 
@@ -61,9 +55,9 @@ const experimentsFolder = [
   >
     <GlassFolder
       label="Featured work"
-      art="dusk"
+      tone="dark"
+      art="steel"
       seed={7}
-      image={folderImages.featured}
       action="more"
       labelPlacement="bottom-left"
       files={featuredFolder}
@@ -74,9 +68,8 @@ const experimentsFolder = [
       label="In progress"
       meta="2026 season"
       tone="dark"
-      art="ember"
+      art="copper"
       seed={19}
-      image={folderImages.building}
       action="none"
       labelPlacement="top-left"
       files={buildingFolder}
@@ -84,9 +77,9 @@ const experimentsFolder = [
     />
     <GlassFolder
       label="Experiments"
-      art="glacier"
+      tone="dark"
+      art="graphite"
       seed={31}
-      image={folderImages.experiments}
       action="add"
       labelPlacement="bottom-left"
       files={experimentsFolder}
