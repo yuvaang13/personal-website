@@ -292,7 +292,7 @@ export const stats: Stat[] = [
   { value: 'K-8', label: 'Audience for Infinit AI STEM tutoring' },
   { value: 'FTC', label: 'Lead programming and build work on Team 21689' },
   { value: '$250', label: 'Raised from the Stabile Family Foundation for FTC Team 21689 (2026-2027 season)' },
-  { value: '7th', label: 'Grade level for SAT 1280 and ACT Math 32, with 780 SAT Math' },
+  { value: '780', label: 'SAT Math' },
 ];
 
 export const roles: Role[] = [
