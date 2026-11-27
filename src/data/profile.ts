@@ -95,7 +95,7 @@ export const profile: Profile = {
 
 Currently, I'm the lead programmer on FTC Team 21689 (Team Tesseract), where I handle everything from autonomous path planning and computer vision to outreach, fundraising, and graphic design. I've built Infinit AI, a K-8 STEM tutoring platform that uses RAG and grade-level personalization to make quality tutoring accessible — it won 1st place at NHSEE 2026 in Computer Science & Math and was selected as a Solver for MIT Solve's AI For A Better World.
 
-I'm also exploring computer vision for healthcare through ClearEye, a concept for phone-based concussion screening that analyzes pupil response against personalized baselines. It was submitted to the 3M Young Scientist Challenge.
+I'm also exploring computer vision for healthcare through ClearEye, a concept for phone-based concussion screening that analyzes pupil response against personalized baselines.
 
 Beyond competitions, I care deeply about STEM education access. I mentor a FIRST LEGO League (FLL) team at Bicentennial Elementary School, volunteer teaching math and science through NorthSouth Foundation and tutor middle school students at SCA. I've completed OpenAI and Anthropic AI courses, took the MIT PRIMES STEP entrance quiz, and am aiming for a CS + Electrical Engineering path with AI/ML specialization.
 
@@ -149,7 +149,7 @@ export const projects: Project[] = [
   {
     title: 'ClearEye',
     type: 'Computer vision health concept',
-    status: 'Submitted to the 3M Young Scientist Challenge',
+    status: 'Independent concept study',
     summary: 'A phone-based concussion screening app concept that analyzes pupil response and micro eye movements in under 30 seconds.',
     details: 'ClearEye uses computer vision and a personalized machine learning model to detect concussions in under 30 seconds by analyzing pupil response and micro eye movements — no specialized equipment needed. The model learns each athlete\'s own eye movement baseline, comparing them to themselves rather than to a general average, so it runs entirely on the phone camera already in every coach\'s pocket. The goal is to make concussion detection fast, accurate, and accessible to every athlete, wherever they play.',
     tags: ['Computer Vision', 'Healthcare', 'Mobile ML', 'Accessibility', 'Python'],

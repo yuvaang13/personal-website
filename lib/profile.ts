@@ -55,7 +55,7 @@ export const projects = [
   {
     title: "ClearEye",
     type: "Computer vision health concept",
-    status: "Submitted to the 3M Young Scientist Challenge",
+    status: "Independent concept study",
     summary:
       "A phone-based concussion screening app concept that analyzes pupil response and micro eye movements in under 30 seconds.",
     details:
