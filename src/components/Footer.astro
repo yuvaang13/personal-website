@@ -1,98 +1,307 @@
 ---
-// Footer.astro - Site footer with contact links
+// Footer.astro — the closing plate of the monograph.
 
+import Arrow from '@/components/Arrow.astro';
 import { profile } from '@/data/profile';
+
+const sitemap = [
+  { href: '/', label: 'Home', note: 'Index' },
+  { href: '/projects', label: 'Projects', note: 'Work' },
+  { href: '/about', label: 'About', note: 'Profile' },
+  { href: '/experience', label: 'Experience', note: 'Timeline' },
+  { href: '/contact', label: 'Contact', note: 'Reach out' },
+];
+
+const connect = [
+  { href: profile.github, label: 'GitHub', external: true },
+  { href: profile.linkedin, label: 'LinkedIn', external: true },
+  { href: `mailto:${profile.email}`, label: 'Email', external: false },
+];
 ---
 
-<footer data-od-id="site-footer" class="relative z-10 border-t border-mistral-border bg-mistral-bg" role="contentinfo">
-  <!-- Availability band -->
-  <div class="border-b border-mistral-border">
-    <div class="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 sm:px-8 md:flex-row md:items-center md:justify-between">
-      <p class="inline-flex items-center gap-3 text-sm text-mistral-textSecondary">
-        <span class="pulse-dot" aria-hidden="true"></span>
-        <span><strong class="font-medium text-mistral-text">Open to collaborations</strong> — research, AI/ML builds, STEM education, robotics</span>
+<footer class="foot" role="contentinfo" data-od-id="site-footer">
+  <div class="wrap">
+    <div class="foot__top">
+      <p class="foot__status">
+        <span class="foot__dot" aria-hidden="true"></span>
+        <strong>Open to collaborations</strong>
       </p>
-      <a href="/contact" class="btn-secondary !h-10 !px-5 !text-[13px]">
+      <p class="foot__status-note">Research, AI/ML builds, STEM education, robotics</p>
+      <a href="/contact" class="foot__cta">
         Get in touch
-        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 19l7-7m0 0l-7-7m7 7H3" />
-        </svg>
+        <Arrow size={14} />
       </a>
     </div>
-  </div>
 
-  <div class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 py-16 sm:px-8 md:grid-cols-[1.2fr_1fr_1fr]">
-    <div>
-      <p class="font-serif text-base tracking-tight text-mistral-text">{profile.name}</p>
-      <p class="mt-3 max-w-sm text-sm leading-6 text-mistral-textMuted">Student developer building AI tools, robotics systems, and STEM learning projects — including mentoring a FIRST LEGO League team at Bicentennial Elementary School.</p>
-    </div>
+    <div class="foot__cols">
+      <div class="foot__brand">
+        <p class="foot__blurb">
+          Student developer building AI tools, robotics systems, and STEM learning projects —
+          including mentoring a FIRST LEGO League team at Bicentennial Elementary School.
+        </p>
+        <p class="foot__loc mono">Greater Boston · Massachusetts</p>
+      </div>
 
-    <nav aria-label="Sitemap">
-      <p class="eyebrow">sitemap</p>
-      <ul class="mt-4 space-y-2.5 text-sm">
-        <li><a href="/" class="focus-ring text-mistral-textSecondary transition-colors hover:text-mistral-text hover:underline underline-offset-4">~/ — Home</a></li>
-        <li><a href="/projects" class="focus-ring text-mistral-textSecondary transition-colors hover:text-mistral-text hover:underline underline-offset-4">projects/ — Work</a></li>
-        <li><a href="/about" class="focus-ring text-mistral-textSecondary transition-colors hover:text-mistral-text hover:underline underline-offset-4">about_me — About</a></li>
-        <li><a href="/experience" class="focus-ring text-mistral-textSecondary transition-colors hover:text-mistral-text hover:underline underline-offset-4">experience — Timeline</a></li>
-        <li><a href="/contact" class="focus-ring text-mistral-textSecondary transition-colors hover:text-mistral-text hover:underline underline-offset-4">contact — Reach out</a></li>
-      </ul>
-    </nav>
+      <nav class="foot__col" aria-label="Sitemap">
+        <p class="foot__label mono">Sitemap</p>
+        <ul class="foot__list">
+          {sitemap.map((item) => (
+            <li>
+              <a href={item.href} class="foot__link">
+                <span>{item.label}</span>
+                <span class="mono">{item.note}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
-    <div>
-      <p class="eyebrow">connect</p>
-      <div class="mt-4 flex flex-col gap-2.5 text-sm text-mistral-textSecondary">
-      <a
-        href={profile.github}
-        target="_blank"
-        rel="noreferrer"
-        class="focus-ring inline-flex items-center gap-2 underline-offset-4 transition-colors hover:text-mistral-text hover:underline"
-        aria-label="GitHub"
-      >
-        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-        </svg>
-        GitHub
-      </a>
-
-      <a
-        href={profile.linkedin}
-        target="_blank"
-        rel="noreferrer"
-        class="focus-ring inline-flex items-center gap-2 underline-offset-4 transition-colors hover:text-mistral-text hover:underline"
-        aria-label="LinkedIn"
-      >
-        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" />
-        </svg>
-        LinkedIn
-      </a>
-
-      <a
-        href={`mailto:${profile.email}`}
-        class="focus-ring inline-flex items-center gap-2 underline-offset-4 transition-colors hover:text-mistral-text hover:underline"
-        aria-label="Email"
-      >
-        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-        </svg>
-        Email
-      </a>
-
-      <span class="inline-flex items-center gap-2 text-mistral-textMuted" aria-label="Location">
-        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-        {profile.location}
-      </span>
+      <div class="foot__col">
+        <p class="foot__label mono">Connect</p>
+        <ul class="foot__list">
+          {connect.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="foot__link"
+                target={item.external ? '_blank' : undefined}
+                rel={item.external ? 'noreferrer' : undefined}
+              >
+                <span>{item.label}</span>
+                <Arrow size={13} />
+              </a>
+            </li>
+          ))}
+          <li>
+            <span class="foot__link foot__link--static">
+              <span>Location</span>
+              <span class="mono">{profile.location}</span>
+            </span>
+          </li>
+        </ul>
       </div>
     </div>
-  </div>
 
-  <div class="border-t border-mistral-border">
-    <div class="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-6 text-xs text-mistral-textMuted sm:px-8 md:flex-row md:items-center md:justify-between">
+    <p class="foot__signature">Yuvaan Gulati</p>
+
+    <div class="foot__base">
       <p>© {new Date().getFullYear()} {profile.name}. All rights reserved.</p>
       <p>Designed &amp; built with Astro · Deployed on Vercel</p>
     </div>
   </div>
 </footer>
+
+<style>
+  .foot {
+    position: relative;
+    z-index: 10;
+    background: var(--night);
+    color: var(--night-text);
+    overflow: hidden;
+  }
+
+  .foot__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.9rem 1.75rem;
+    padding-block: 1.4rem;
+    border-bottom: 1px solid rgba(244, 239, 227, 0.16);
+  }
+
+  .foot__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0;
+    font-size: 0.86rem;
+  }
+
+  .foot__status strong {
+    font-weight: 500;
+  }
+
+  .foot__dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--night-text);
+  }
+
+  .foot__status-note {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--night-muted);
+  }
+
+  .foot__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+    min-height: 2.6rem;
+    padding: 0.55rem 0.95rem;
+    border: 1px solid var(--night-text);
+    color: var(--night-text);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+
+  .foot__cta:hover {
+    background: var(--night-text);
+    color: var(--night);
+  }
+
+  .foot__cta :global(svg) {
+    transition: transform 220ms ease;
+  }
+
+  .foot__cta:hover :global(svg) {
+    transform: translate(3px, -3px);
+  }
+
+  .foot__cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    padding-block: clamp(2.5rem, 5vw, 4.5rem);
+  }
+
+  .foot__blurb {
+    margin: 0;
+    max-width: 34ch;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--night-text);
+    text-wrap: pretty;
+  }
+
+  .foot__loc {
+    margin-top: 1.6rem;
+    color: var(--night-muted);
+  }
+
+  .foot__label {
+    margin: 0 0 1rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid rgba(244, 239, 227, 0.16);
+    color: var(--night-muted);
+  }
+
+  .foot__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .foot__link {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(244, 239, 227, 0.1);
+    color: var(--night-text);
+    font-size: 0.88rem;
+    text-decoration: none;
+    transition: color 180ms ease, padding-left 180ms ease;
+  }
+
+  a.foot__link:hover {
+    padding-left: 0.35rem;
+    color: var(--night-muted);
+  }
+
+  .foot__link .mono {
+    color: var(--night-muted);
+    font-size: 0.52rem;
+  }
+
+  .foot__link :global(svg) {
+    width: 0.85rem;
+    height: 0.85rem;
+    color: var(--night-muted);
+    transition: transform 200ms ease;
+  }
+
+  a.foot__link:hover :global(svg) {
+    transform: translate(2px, -2px);
+  }
+
+  .foot__link--static {
+    cursor: default;
+  }
+
+  .foot__signature {
+    margin: 0;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(244, 239, 227, 0.16);
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 12.5vw, 11rem);
+    line-height: 0.82;
+    letter-spacing: -0.045em;
+    color: var(--night-text);
+    white-space: nowrap;
+  }
+
+  .foot__base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+    padding-block: 1.5rem 1.75rem;
+    color: var(--night-muted);
+    font-size: 0.72rem;
+  }
+
+  .foot__base p {
+    margin: 0;
+  }
+
+  .foot :global(:focus-visible) {
+    outline-color: var(--night-text);
+  }
+
+  @media (max-width: 900px) {
+    .foot__cols {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .foot__brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .foot__top {
+      align-items: flex-start;
+    }
+
+    .foot__cta {
+      margin-left: 0;
+    }
+
+    .foot__cols {
+      grid-template-columns: 1fr;
+      gap: 2.25rem;
+    }
+
+    .foot__signature {
+      font-size: clamp(2.4rem, 13vw, 5rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .foot__cta,
+    .foot__cta :global(svg),
+    .foot__link,
+    .foot__link :global(svg) {
+      transition: none;
+    }
+  }
+</style>

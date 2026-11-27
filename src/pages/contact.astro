@@ -1,126 +1,257 @@
 ---
-// Contact page - Contact links with animations and additional info
+// Contact — channels and notes.
 
 import PageShell from '@/layouts/PageShell.astro';
 import PageHeader from '@/components/PageHeader.astro';
-import ScrollContent from '@/components/ScrollContent.astro';
+import Arrow from '@/components/Arrow.astro';
 import { profile, contactLinks, contactNotes } from '@/data/profile';
 
-const iconPaths = {
-  mail: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />',
-  github: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />',
-  linkedin: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" />',
-  'map-pin': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />',
-};
+const pad = (value: number) => String(value).padStart(2, '0');
 ---
 
-<PageShell title="Contact — Yuvaan Gulati">
+<PageShell
+  title="Contact — Yuvaan Gulati"
+  description="Projects, STEM ideas, robotics, or AI work — reach Yuvaan Gulati by email, GitHub, or LinkedIn."
+>
   <PageHeader
-    eyebrow="sector 4 · contact"
+    eyebrow="Contact / channels"
     number="04"
     title="Projects, STEM ideas, robotics, or AI work."
     body="The best way to reach me is email. You can also find my code and current experiments on GitHub, and connect with me on LinkedIn."
   />
 
-  <ScrollContent class="pb-24">
-    <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
-      <div class="mb-12 flex flex-wrap items-end justify-between gap-4">
-        <p class="eyebrow">channels/</p>
+  <!-- 01 — Channels -->
+  <section class="section channels" aria-labelledby="channels-title">
+    <div class="wrap">
+      <div class="channels__head">
+        <h2 id="channels-title" class="h2">Channels</h2>
         <button
           type="button"
           id="copy-email"
           data-email={profile.email}
-          class="focus-ring inline-flex h-10 items-center gap-2 rounded-full border border-mistral-border bg-mistral-bgElevated px-5 text-[13px] font-medium text-mistral-text transition-colors hover:border-mistral-text hover:bg-white/5"
+          class="btn btn--ghost btn--small"
         >
-          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-          </svg>
           <span id="copy-email-label">Copy email</span>
         </button>
       </div>
-    </div>
 
-    <div
-      data-stagger-container
-      data-stagger="0.1"
-      data-delay-children="0.15"
-      class="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-5 md:grid-cols-2 lg:grid-cols-4 sm:px-8"
-    >
-      {contactLinks.map((item, index) => {
-        const iconPath = iconPaths[item.icon] || iconPaths.mail;
-
-        return (
-          <div
+      <div class="channels__list">
+        {contactLinks.map((item, index) => (
+          <a
+            href={item.href}
+            class="channel"
+            target={item.href.startsWith('http') ? '_blank' : undefined}
+            rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
             data-od-id={`contact-${item.label.toLowerCase()}`}
-            class="group relative min-h-[260px] rounded-xl border border-mistral-border bg-mistral-bgElevated transition-colors duration-300 hover:border-mistral-text hover:bg-white/5"
-            data-scroll-reveal
-            data-direction="up"
-            data-distance="30"
-            data-delay={0.1 + index * 0.05}
           >
-            <a
-              href={item.href}
-              target={item.href.startsWith("http") ? "_blank" : undefined}
-              rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-              class="focus-ring flex h-full flex-col justify-between gap-10 p-8"
-            >
-              <div>
-                <svg class="h-7 w-7 text-mistral-text transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" set:html={iconPath} />
-                <p class="mt-6 eyebrow">{item.label}</p>
-              </div>
-              <div>
-                <p class="break-words text-xl text-mistral-textSecondary transition-colors group-hover:text-mistral-text">{item.value}</p>
-                <p class="mt-3 text-sm text-mistral-textMuted">{item.description}</p>
-                <span class="mt-5 inline-flex items-center gap-2 text-sm font-medium text-mistral-text transition-transform group-hover:translate-x-1">
-                  open
-                  <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 19l7-7m0 0l-7-7m7 7H3" />
-                  </svg>
-                </span>
-              </div>
-            </a>
-          </div>
-        );
-      })}
-    </div>
-  </ScrollContent>
-
-  <!-- Additional Contact Info -->
-  <ScrollContent class="pb-20">
-    <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
-      <p class="eyebrow mb-10">notes/</p>
-      <div class="grid gap-5 md:grid-cols-3">
-        {contactNotes.map((note, index) => (
-          <div
-            data-od-id={`note-${note.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
-            class="rounded-xl border border-mistral-border bg-mistral-bgElevated p-8"
-            data-scroll-reveal
-            data-direction="up"
-            data-distance="30"
-            data-delay={0.15 + index * 0.05}
-          >
-            <h3 class="mb-2 font-medium text-mistral-text">{note.title}</h3>
-            <p class="text-mistral-textMuted">{note.body}</p>
-          </div>
+            <div class="channel__meta">
+              <span class="mono channel__num">{pad(index + 1)}</span>
+              <span class="mono channel__label">{item.label}</span>
+            </div>
+            <div class="channel__main">
+              <span class="channel__value">{item.value}</span>
+              <span class="channel__desc">{item.description}</span>
+            </div>
+            <Arrow size={16} class="channel__arrow" />
+          </a>
         ))}
       </div>
     </div>
-  </ScrollContent>
+  </section>
 
-  <script>
-    const copyBtn = document.getElementById('copy-email');
-    const copyLabel = document.getElementById('copy-email-label');
-    if (copyBtn instanceof HTMLButtonElement) {
-      copyBtn.addEventListener('click', async () => {
-        const email = copyBtn.dataset.email ?? '';
-        try {
-          await navigator.clipboard.writeText(email);
-          if (copyLabel) copyLabel.textContent = 'Copied!';
-          setTimeout(() => { if (copyLabel) copyLabel.textContent = 'Copy email'; }, 2000);
-        } catch {
-          if (copyLabel) copyLabel.textContent = email;
-        }
-      });
-    }
-  </script>
+  <!-- 02 — Notes -->
+  <section class="section notes" aria-labelledby="notes-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="notes-title" class="h2 sec-head__title">Notes</h2>
+        <p class="sec-head__meta">02 / Before you write<br />Three things to know</p>
+      </div>
+
+      <div class="notes__grid">
+        {contactNotes.map((note, index) => (
+          <article
+            class="note"
+            data-od-id={`note-${note.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+          >
+            <span class="mono note__num">{pad(index + 1)}</span>
+            <h3 class="h4 note__title">{note.title}</h3>
+            <p class="body note__body">{note.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 </PageShell>
+
+<style>
+  /* -------------------------------------------------------------- Channels */
+
+  .channels__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1.5rem;
+    border-top: 1px solid var(--ink);
+  }
+
+  .channels__head h2 {
+    margin: 0;
+  }
+
+  .channels__head .btn {
+    min-width: 7.25rem;
+    justify-content: center;
+  }
+
+  .channel {
+    display: grid;
+    grid-template-columns: 13rem minmax(0, 1fr) 1.1rem;
+    gap: clamp(1rem, 3vw, 3rem);
+    align-items: start;
+    padding-block: clamp(1.5rem, 2.5vw, 2.25rem);
+    border-top: 1px solid var(--rule);
+    color: var(--ink);
+    text-decoration: none;
+    transition: background-color 220ms ease;
+  }
+
+  .channel:hover {
+    background: var(--paper-2);
+  }
+
+  .channel__meta {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .channel__num {
+    color: var(--muted);
+  }
+
+  .channel__main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .channel__value {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 2.6vw, 2.15rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+  }
+
+  .channel__desc {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--muted);
+    max-width: 48ch;
+  }
+
+  .channel :global(svg) {
+    color: var(--muted);
+    transition: transform 220ms ease, color 220ms ease;
+  }
+
+  .channel:hover :global(svg) {
+    transform: translate(3px, -3px);
+    color: var(--ink);
+  }
+
+  /* ----------------------------------------------------------------- Notes */
+
+  .notes {
+    border-top: 1px solid var(--rule);
+  }
+
+  .notes__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .note {
+    padding-top: 1rem;
+    border-top: 1px solid var(--ink);
+  }
+
+  .note__num {
+    margin: 0;
+  }
+
+  .note__title {
+    margin: 1.25rem 0 0;
+  }
+
+  .note__body {
+    margin: 0.6rem 0 0;
+    max-width: 36ch;
+    font-size: 0.94rem;
+  }
+
+  @media (max-width: 900px) {
+    .channel {
+      grid-template-columns: 9rem minmax(0, 1fr) 1.1rem;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .channel {
+      grid-template-columns: minmax(0, 1fr) 1.1rem;
+      gap: 0.75rem 1rem;
+    }
+
+    .channel__meta {
+      grid-column: 1 / -1;
+    }
+
+    .channel__main {
+      grid-column: 1;
+    }
+
+    .channel :global(svg) {
+      grid-column: 2;
+      grid-row: 2;
+      margin-top: 0.4rem;
+    }
+
+    .notes__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .channel,
+    .channel__arrow {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const copyBtn = document.getElementById('copy-email');
+  const copyLabel = document.getElementById('copy-email-label');
+
+  if (copyBtn instanceof HTMLButtonElement) {
+    copyBtn.addEventListener('click', async () => {
+      const email = copyBtn.dataset.email ?? '';
+      try {
+        await navigator.clipboard.writeText(email);
+        if (copyLabel) copyLabel.textContent = 'Copied!';
+        window.setTimeout(() => {
+          if (copyLabel) copyLabel.textContent = 'Copy email';
+        }, 2000);
+      } catch {
+        if (copyLabel) copyLabel.textContent = 'Copy failed';
+        window.setTimeout(() => {
+          if (copyLabel) copyLabel.textContent = 'Copy email';
+        }, 2000);
+      }
+    });
+  }
+</script>

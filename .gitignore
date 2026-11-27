@@ -47,3 +47,8 @@ astro.config.mjs.timestamp-*.mjs
 
 # Local verification output
 scripts/recon-check/
+shots/
+.shot.mjs
+.audit.mjs
+.verify-content.cjs
+.profile-tmp.mjs

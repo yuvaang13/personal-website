@@ -103,11 +103,11 @@ When I'm not coding, you'll find me experimenting with ML models (logistic regre
 };
 
 export const navItems: NavItem[] = [
-  { label: '~/', href: '/' },
-  { label: 'projects/', href: '/projects' },
-  { label: 'about_me', href: '/about' },
-  { label: 'experience', href: '/experience' },
-  { label: 'contact', href: '/contact' },
+  { label: 'Home', href: '/' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'About', href: '/about' },
+  { label: 'Experience', href: '/experience' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export const homeLinks: HomeLink[] = [

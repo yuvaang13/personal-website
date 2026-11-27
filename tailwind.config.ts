@@ -1,74 +1,57 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  content: [
-    './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
-  ],
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   darkMode: 'class',
   theme: {
     extend: {
       colors: {
+        paper: {
+          DEFAULT: '#f4efe3',
+          2: '#ece5d5',
+          3: '#e3dbc8',
+        },
+        ink: {
+          DEFAULT: '#17150f',
+          2: '#4a453a',
+        },
+        muted: '#6a6253',
+        rule: {
+          DEFAULT: '#d5ccb8',
+          strong: '#b8ad97',
+        },
+        cobalt: {
+          DEFAULT: '#1f3be0',
+          deep: '#152aa8',
+        },
+        vermilion: '#e4451f',
+        night: {
+          DEFAULT: '#14120d',
+          2: '#1d1a13',
+        },
+        nighttext: '#f4efe3',
+        nightmuted: '#a89f8c',
+        // Kept as aliases so any legacy component still resolves if imported.
         mistral: {
-          bg: '#0a0a0a',
-          bgElevated: '#131316',
-          text: '#f5f5f4',
-          textSecondary: '#a8a8a8',
-          textMuted: '#7a7a7a',
-          border: '#232323',
-          borderHover: '#3a3a3a',
-          accent: '#ffffff',
-          accentDim: 'rgba(255, 255, 255, 0.06)',
+          bg: '#f4efe3',
+          bgElevated: '#ece5d5',
+          text: '#17150f',
+          textSecondary: '#4a453a',
+          textMuted: '#7a7263',
+          border: '#d5ccb8',
+          borderHover: '#b8ad97',
+          accent: '#17150f',
+          accentDim: 'rgba(23, 21, 15, 0.06)',
         },
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['Space Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
-        serif: ['ALTMistral', 'Georgia', 'Cambria', 'Times New Roman', 'serif'],
-        display: ['ALTMistral', 'Georgia', 'Cambria', 'Times New Roman', 'serif'],
+        display: ['Instrument Serif', 'Georgia', 'Cambria', 'Times New Roman', 'serif'],
+        serif: ['Instrument Serif', 'Georgia', 'Cambria', 'Times New Roman', 'serif'],
       },
-      animation: {
-        'fade-up': 'fadeUp 900ms cubic-bezier(0.22, 1, 0.36, 1) both',
-        'fade-in': 'fadeIn 600ms ease-out both',
-        'slide-up': 'slideUp 800ms cubic-bezier(0.22, 1, 0.36, 1) both',
-        'scale-in': 'scaleIn 500ms cubic-bezier(0.22, 1, 0.36, 1) both',
-        'scale-fade': 'scaleFade 700ms cubic-bezier(0.22, 1, 0.36, 1) both',
-        'line-reveal': 'lineReveal 700ms cubic-bezier(0.22, 1, 0.36, 1) both',
-        'float': 'float 6s ease-in-out infinite',
-        'soft-pulse': 'softPulse 5s ease-in-out infinite',
-      },
-      keyframes: {
-        fadeUp: {
-          '0%': { opacity: '0', transform: 'translateY(18px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        softPulse: {
-          '0%, 100%': { opacity: '0.48' },
-          '50%': { opacity: '0.82' },
-        },
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(30px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        scaleIn: {
-          '0%': { opacity: '0', transform: 'scale(0.95)' },
-          '100%': { opacity: '1', transform: 'scale(1)' },
-        },
-        scaleFade: {
-          '0%': { opacity: '0', transform: 'scale(0.92) translateY(20px)' },
-          '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
-        },
-        lineReveal: {
-          '0%': { width: '0%' },
-          '100%': { width: '100%' },
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-8px)' },
-        },
+      maxWidth: {
+        wrap: '1440px',
       },
     },
   },

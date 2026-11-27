@@ -1,12 +1,10 @@
 ---
-// PageShell.astro - Main layout wrapper
-// Provides navbar, footer, cursor field, scroll animations, and light Mistral theme
+// PageShell.astro — paper, ink, and a quiet fixed header.
 
 import NavBar from '@/components/NavBar.astro';
 import Footer from '@/components/Footer.astro';
-import CursorField from '@/components/CursorField.astro';
-import IntroGate from '@/components/IntroGate.astro';
 import { profile } from '@/data/profile';
+import '@/styles/global.css';
 
 interface Props {
   title?: string;
@@ -28,10 +26,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <script>document.documentElement.classList.add('js');</script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="theme-color" content="#f4efe3" />
+    <meta name="color-scheme" content="light" />
     <meta name="author" content="Yuvaan Gulati" />
     <meta name="robots" content="index, follow" />
     <title>{title}</title>
@@ -41,13 +39,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={new URL('/og.svg', Astro.site)} />
+    <meta property="og:image" content={new URL('/og.png', Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:alt" content="Yuvaan Gulati — AI, Math, Robotics" />
     <meta property="og:site_name" content="Yuvaan Gulati" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL('/og.svg', Astro.site)} />
+    <meta name="twitter:image" content={new URL('/og.png', Astro.site)} />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Person',
@@ -59,166 +60,56 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       knowsAbout: ['Artificial Intelligence', 'Robotics', 'Applied Mathematics', 'STEM Education', 'FIRST LEGO League mentoring'],
     })} />
   </head>
-  <body class={`min-h-screen bg-mistral-bg text-mistral-text overflow-x-hidden ${className}`}>
-    <!-- Ambient light + subtle terminal grid: a softly lit desk, not a flat void -->
-    <div class="ambient-glow" aria-hidden="true"></div>
-    <div id="page-grid" class="page-grid" aria-hidden="true"></div>
-
+  <body class={className}>
     <a href="#main-content" class="skip-link">Skip to content</a>
+    <div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
 
-    <!-- Navigation (liquid glass top bar with status labels) -->
     <NavBar />
 
-    <!-- Cinematic Intro Gate — per-route (Yuvaan Gulati split-shutter) -->
-    <IntroGate />
-
-    <!-- Cursor field (global, draws neural web + glyphs on mouse move) -->
-    <CursorField />
-
-    <!-- Lights-out cinematic overlay — content fades in as you scroll (aaryapatel-style) -->
-    <div id="lights-out" class="lights-out" aria-hidden="true" role="presentation">
-      <div class="lights-out__hint">
-        <p class="font-mono text-xs uppercase tracking-widest text-mistral-textMuted">scroll to explore</p>
-      </div>
-    </div>
-
-    <!-- Main Content -->
-    <main id="main-content" class="relative z-10 pb-24 sm:pb-28">
+    <main id="main-content">
       <slot />
     </main>
 
-    <!-- Lightweight glass rail — kept off small screens to preserve reading space. -->
-    <nav class="bottom-glass-bar" aria-label="Social links">
-      <a href={profile.github} target="_blank" rel="noreferrer" class="focus-ring">
-        <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-        </svg>
-        GitHub
-      </a>
-      <span aria-hidden="true"></span>
-      <a href={profile.linkedin} target="_blank" rel="noreferrer" class="focus-ring">
-        <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" />
-        </svg>
-        LinkedIn
-      </a>
-    </nav>
-
-    <!-- Footer -->
     <Footer />
 
-    <!-- Back to top -->
     <button id="back-to-top" class="back-to-top" aria-label="Back to top" type="button">
-      <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 19V5M5 12l7-7 7 7" />
       </svg>
     </button>
 
-    <!-- Scroll Progress Indicator -->
-    <div id="scroll-progress-indicator" aria-hidden="true"></div>
-
-    <!-- Initialize animations -->
     <script>
-      import Lenis from 'lenis';
-      import { initScrollAnimations } from '@/utils/scrollAnimations';
-
-      // Slow, weighty inertial scroll (Mistral-style), skipped for reduced motion
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!prefersReducedMotion) {
-        const lenis = new Lenis({
-          lerp: 0.08,
-          wheelMultiplier: 0.9,
-          smoothWheel: true,
-        });
-
-        const raf = (time: number) => {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        };
-        requestAnimationFrame(raf);
-      }
-
-      // Scroll-driven intro: reveals start immediately, intro gate opens with scroll
-      initScrollAnimations();
-
-      // Parallax scroll — subtle drift for elements marked data-parallax
-      const parallaxEls = Array.from(document.querySelectorAll<HTMLElement>('[data-parallax]'));
-      if (parallaxEls.length) {
-        const updateParallax = () => {
-          const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
-          parallaxEls.forEach((el) => {
-            const speed = parseFloat(el.getAttribute('data-parallax') || '0.08');
-            el.style.transform = `translate3d(0, ${scrollY * speed}px, 0)`;
-          });
-        };
-        window.addEventListener('scroll', updateParallax, { passive: true });
-        updateParallax();
-      }
-
-      // Lights-out overlay — fades as the visitor scrolls
-      const lightsOut = document.getElementById('lights-out');
-      if (lightsOut && !prefersReducedMotion) {
-        let ticking = false;
-        let revealed = false;
-        const updateLights = () => {
-          const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
-          const opacity = revealed ? 0 : Math.max(0, Math.min(1, 1 - scrollY / 500));
-          lightsOut.style.opacity = String(opacity);
-          ticking = false;
-        };
-        // Reveal the page on its own so the design is visible without a scroll.
-        window.setTimeout(() => {
-          revealed = true;
-          updateLights();
-        }, 950);
-        window.addEventListener('scroll', () => {
-          if (!ticking) {
-            requestAnimationFrame(updateLights);
-            ticking = true;
-          }
-        }, { passive: true });
-        updateLights();
-      }
-
-      // Scroll progress indicator
-      const progressBar = document.getElementById('scroll-progress-indicator');
-      if (progressBar) {
-        let ticking = false;
-        const updateProgress = () => {
-          const scrollY = window.scrollY || document.documentElement.scrollTop;
-          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-          const progress = Math.max(0, Math.min(1, scrollY / docHeight));
-          progressBar.style.transform = `scaleX(${progress})`;
-          ticking = false;
-        };
-
-        window.addEventListener('scroll', () => {
-          if (!ticking) {
-            requestAnimationFrame(updateProgress);
-            ticking = true;
-          }
-        }, { passive: true });
-
-        // Initial update
-        updateProgress();
-      }
-
-      // Back to top
+      const progress = document.getElementById('scroll-progress');
       const backToTop = document.getElementById('back-to-top');
-      if (backToTop) {
-        const toggleBackToTop = () => {
-          backToTop.classList.toggle('is-visible', window.scrollY > 600);
-        };
-        window.addEventListener('scroll', toggleBackToTop, { passive: true });
-        toggleBackToTop();
-        backToTop.addEventListener('click', () => {
-          window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
-        });
-      }
+
+      const updateChrome = () => {
+        const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const ratio = docHeight > 0 ? Math.max(0, Math.min(1, scrollY / docHeight)) : 0;
+        if (progress) progress.style.transform = `scaleX(${ratio})`;
+        backToTop?.classList.toggle('is-visible', scrollY > 600);
+      };
+
+      let ticking = false;
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(() => {
+            updateChrome();
+            ticking = false;
+          });
+        },
+        { passive: true }
+      );
+
+      updateChrome();
+
+      backToTop?.addEventListener('click', () => {
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+      });
     </script>
   </body>
 </html>
-
-<style is:global>
-  @import '@/styles/global.css';
-</style>

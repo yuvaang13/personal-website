@@ -1,5 +1,5 @@
 ---
-// PageHeader.astro - Consistent section header component
+// PageHeader.astro — the title plate that opens every inner page.
 
 interface Props {
   eyebrow: string;
@@ -12,23 +12,88 @@ interface Props {
 const { eyebrow, title, body, class: className = '', number } = Astro.props;
 ---
 
-<section
-  data-od-id="page-header"
-  class={className}
-  data-scroll-reveal
-  data-direction="up"
-  data-distance="24"
-  data-delay="0"
->
-  {number && (
-    <div class="mb-6">
-      <span class="font-mono text-[11px] uppercase tracking-widest text-mistral-textMuted">{number}</span>
-      <span class="h-0.5 w-6 block mt-1.5 bg-mistral-text" aria-hidden="true" />
+<section class:list={['page-head', className]} data-od-id="page-header">
+  <div class="wrap">
+    <div class="page-head__rule">
+      <p class="mono">{number ? `Index / ${number}` : 'Index'}</p>
+      <p class="mono">{eyebrow}</p>
     </div>
-  )}
-  <div class="mx-auto max-w-7xl px-5 pb-12 pt-16 sm:px-8 lg:pb-16 lg:pt-24">
-    <p class="eyebrow">{eyebrow}</p>
-    <h1 class="mt-4 max-w-5xl heading-1" data-parallax="0.05">{title}</h1>
-    <p class="mt-6 max-w-3xl body-lg">{body}</p>
+
+    <h1 class="page-head__title">{title}</h1>
+
+    <div class="page-head__foot">
+      <p class="page-head__body">{body}</p>
+      <div class="page-head__meta">
+        <p class="mono">Yuvaan Gulati</p>
+        <p class="mono">Greater Boston</p>
+        <p class="mono">Student developer</p>
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+  .page-head {
+    padding-top: calc(var(--nav-h) + clamp(2.5rem, 5vw, 4.5rem));
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .page-head__rule {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--ink);
+  }
+
+  .page-head__title {
+    margin: clamp(1.5rem, 3vw, 2.5rem) 0 0;
+    max-width: 16ch;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(3rem, 8.2vw, 7.5rem);
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  .page-head__foot {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2rem clamp(2rem, 6vw, 6rem);
+    align-items: end;
+    margin-top: clamp(2rem, 4vw, 3.25rem);
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .page-head__body {
+    margin: 0;
+    max-width: 56ch;
+    font-size: clamp(1rem, 1.3vw, 1.2rem);
+    line-height: 1.6;
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+
+  .page-head__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-align: right;
+  }
+
+  .page-head__meta p {
+    margin: 0;
+  }
+
+  @media (max-width: 720px) {
+    .page-head__foot {
+      grid-template-columns: 1fr;
+    }
+
+    .page-head__meta {
+      text-align: left;
+    }
+  }
+</style>

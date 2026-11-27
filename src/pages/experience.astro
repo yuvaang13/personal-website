@@ -1,110 +1,293 @@
 ---
-// Experience page - Stats, timeline, roles with scroll animations
+// Experience — metrics, timeline, and roles.
 
 import PageShell from '@/layouts/PageShell.astro';
 import PageHeader from '@/components/PageHeader.astro';
-import ScrollContent from '@/components/ScrollContent.astro';
-import SectionDivider from '@/components/SectionDivider.astro';
 import { stats, timeline, roles } from '@/data/profile';
+
+const pad = (value: number) => String(value).padStart(2, '0');
 ---
 
-<PageShell title="Experience — Yuvaan Gulati">
+<PageShell
+  title="Experience — Yuvaan Gulati"
+  description="Competitions, robotics, teaching, and technical growth — the record behind the portfolio."
+>
   <PageHeader
-    eyebrow="sector 2 · experience"
-    number="02"
+    eyebrow="Experience / record"
+    number="03"
     title="Competition, robotics, teaching, and technical growth."
     body="A structured view of the work behind the portfolio: competitions, team roles, mentoring, coursework, and applied STEM projects."
   />
 
-  <!-- Stats Section -->
-  <ScrollContent class="pb-24">
-    <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
-      <p class="eyebrow mb-12">metrics/</p>
-    </div>
-
-    <div
-      data-stagger-container
-      data-stagger="0.08"
-      data-delay-children="0.15"
-      class="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-3"
-    >
-      {stats.map((stat, index) => (
-        <div
-          data-od-id={`stat-${stat.value.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
-          class="group relative min-h-[170px] rounded-xl border border-mistral-border bg-mistral-bgElevated p-6 transition-colors duration-300 hover:border-mistral-text hover:bg-white/5"
-          data-scroll-reveal
-          data-direction="up"
-          data-distance="30"
-          data-delay={0.1 + index * 0.03}
-        >
-          <div class="flex items-start gap-3 mb-4">
-            <span class="font-mono text-[10px] uppercase tracking-widest text-mistral-textMuted">0{index + 1}</span>
-            <span class="h-0.5 w-3 bg-mistral-text" aria-hidden="true" />
-          </div>
-          <p class="font-serif text-4xl leading-none tracking-tight text-mistral-text transition-transform duration-300 group-hover:scale-[1.02]">{stat.value}</p>
-          <p class="mt-4 text-sm leading-6 text-mistral-textMuted">{stat.label}</p>
-        </div>
-      ))}
-    </div>
-  </ScrollContent>
-
-  <!-- Timeline Section -->
-  <ScrollContent class="pb-24">
-    <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 sm:px-8 lg:grid-cols-[0.38fr_1fr]">
-      <div>
-        <p class="eyebrow">timeline/</p>
-        <h2 class="mt-8 heading-3">recent_work</h2>
+  <!-- 01 — Metrics -->
+  <section class="section metrics" aria-labelledby="metrics-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="metrics-title" class="h2 sec-head__title">By the numbers</h2>
+        <p class="sec-head__meta">01 / Metrics<br />Eight results</p>
       </div>
-      <div class="relative">
-        {/* Timeline line — aligned to the dot markers */}
-        <div class="absolute bottom-0 left-10 top-0 w-px bg-mistral-border" aria-hidden="true" />
 
-        <div data-stagger-container data-stagger="0.08" data-delay-children="0.15" class="pl-10">
-          {timeline.map((item, index) => (
-            <div
-              class="relative pb-12 pl-8"
-              data-scroll-reveal
-              data-direction="right"
-              data-distance="24"
-              data-delay={0.15 + index * 0.03}
-            >
-              <div class="flex items-start gap-3 mb-2">
-                <span class="font-mono text-[10px] uppercase tracking-widest text-mistral-textMuted">0{index + 1}</span>
-                <span class="h-0.5 w-3 bg-mistral-text" aria-hidden="true" />
-              </div>
-              <span class="absolute left-0 top-10 h-3 w-3 -translate-x-1/2 rounded-full border-4 border-mistral-bg bg-mistral-text" aria-hidden="true" />
-              <p class="font-mono text-sm text-mistral-textMuted">/{item.year}</p>
-              <h3 class="mt-2 text-2xl font-medium tracking-tight text-mistral-text">{item.title}</h3>
-              <p class="mt-3 max-w-2xl leading-7 text-mistral-textMuted">{item.body}</p>
+      <div class="metrics__grid">
+        {stats.map((stat, index) => (
+          <article class="metric" data-od-id={`stat-${stat.value.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
+            <p class="mono metric__num">{pad(index + 1)}</p>
+            <p class="metric__value">{stat.value}</p>
+            <p class="metric__label">{stat.label}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 — Timeline -->
+  <section class="section timeline" aria-labelledby="timeline-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="timeline-title" class="h2 sec-head__title">Recent work</h2>
+        <p class="sec-head__meta">02 / Timeline<br />Eight entries, 2026</p>
+      </div>
+
+      <div class="timeline__list">
+        {timeline.map((item, index) => (
+          <article class="timeline__item">
+            <div class="timeline__side">
+              <span class="mono">{pad(index + 1)}</span>
+              <span class="mono timeline__year">/{item.year}</span>
             </div>
-          ))}
-        </div>
+            <div class="timeline__content">
+              <h3 class="h4 timeline__title">{item.title}</h3>
+              <p class="body timeline__body">{item.body}</p>
+            </div>
+          </article>
+        ))}
       </div>
     </div>
-  </ScrollContent>
+  </section>
 
-  <SectionDivider />
+  <!-- 03 — Roles -->
+  <section class="section roles" aria-labelledby="roles-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="roles-title" class="h2 sec-head__title">Roles</h2>
+        <p class="sec-head__meta">03 / Responsibilities<br />Nine positions</p>
+      </div>
 
-  <!-- Roles Section -->
-  <ScrollContent class="pb-20">
-    <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
-      <p class="eyebrow mb-10">roles[]</p>
+      <div class="roles__grid">
+        {roles.map((role, index) => (
+          <article class="role" data-od-id={`role-${index + 1}`}>
+            <span class="mono role__num">{pad(index + 1)}</span>
+            <div>
+              <h3 class="role__title">{role.title}</h3>
+              <p class="body role__body">{role.description}</p>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
-
-    <div data-stagger-container data-stagger="0.06" data-delay-children="0.15" class="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-5 sm:px-8 lg:grid-cols-2">
-      {roles.map((role, index) => (
-        <div
-          data-od-id={`role-${index + 1}`}
-          class="rounded-xl border border-mistral-border bg-mistral-bgElevated p-6 text-lg text-mistral-textSecondary transition-colors duration-300 hover:border-mistral-text hover:bg-white/5"
-          data-scroll-reveal
-          data-direction="up"
-          data-distance="20"
-          data-delay={0.15 + index * 0.02}
-        >
-          <p class="font-medium text-mistral-text">{role.title}</p>
-          <p class="mt-1 text-mistral-textMuted">{role.description}</p>
-        </div>
-      ))}
-    </div>
-  </ScrollContent>
+  </section>
 </PageShell>
+
+<style>
+  /* --------------------------------------------------------------- Metrics */
+
+  .metrics__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .metric {
+    display: flex;
+    flex-direction: column;
+    min-height: 12.5rem;
+    padding: 1rem clamp(1rem, 2vw, 1.75rem) 1.5rem 0;
+    border-top: 1px solid var(--ink);
+    border-right: 1px solid var(--rule);
+  }
+
+  .metric:not(:nth-child(4n + 1)) {
+    padding-left: clamp(1rem, 2vw, 1.75rem);
+  }
+
+  .metric:nth-child(4n) {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .metric:nth-child(n + 5) {
+    border-top-color: var(--rule);
+  }
+
+  .metric__num {
+    margin: 0 0 1.5rem;
+  }
+
+  .metric__value {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 3.6vw, 3.6rem);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+  }
+
+  .metric__label {
+    margin: auto 0 0;
+    padding-top: 1.5rem;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+
+  /* -------------------------------------------------------------- Timeline */
+
+  .timeline {
+    border-top: 1px solid var(--rule);
+  }
+
+  .timeline__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .timeline__item {
+    display: grid;
+    grid-template-columns: 8rem minmax(0, 1fr);
+    gap: clamp(1rem, 3vw, 3rem);
+    padding-block: clamp(1.5rem, 2.5vw, 2.25rem);
+    border-top: 1px solid var(--rule);
+  }
+
+  .timeline__item:first-child {
+    border-top-color: var(--ink);
+  }
+
+  .timeline__side {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding-top: 0.35rem;
+  }
+
+  .timeline__year {
+    color: var(--ink);
+    font-size: 0.56rem;
+  }
+
+  .timeline__title {
+    margin: 0;
+    max-width: 24ch;
+  }
+
+  .timeline__body {
+    margin: 0.7rem 0 0;
+    max-width: 66ch;
+    font-size: 0.96rem;
+  }
+
+  /* ----------------------------------------------------------------- Roles */
+
+  .roles {
+    border-top: 1px solid var(--rule);
+  }
+
+  .roles__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 clamp(2rem, 5vw, 4.5rem);
+  }
+
+  .role {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: 1rem;
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .role:nth-child(-n + 2) {
+    border-top-color: var(--ink);
+  }
+
+  .role__num {
+    margin: 0.2rem 0 0;
+    color: var(--muted);
+  }
+
+  .role__title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+  }
+
+  .role__body {
+    margin: 0.45rem 0 0;
+    max-width: 44ch;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 1023px) {
+    .metrics__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .metric:nth-child(4n) {
+      border-right: 1px solid var(--rule);
+      padding-right: clamp(1rem, 2vw, 1.75rem);
+    }
+
+    .metric:nth-child(2n) {
+      border-right: 0;
+      padding-right: 0;
+    }
+
+    .metric:nth-child(n + 3) {
+      border-top-color: var(--rule);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .timeline__item {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .timeline__side {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 0;
+    }
+
+    .roles__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .role:nth-child(2) {
+      border-top-color: var(--rule);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .metrics__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .metric,
+    .metric:not(:nth-child(4n + 1)) {
+      min-height: 0;
+      padding: 1rem 0 1.35rem;
+      border-right: 0;
+    }
+
+    .metric + .metric {
+      border-top-color: var(--rule);
+    }
+
+    .metric__label {
+      padding-top: 0.75rem;
+    }
+  }
+</style>

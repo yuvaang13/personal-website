@@ -1,292 +1,947 @@
 ---
-// Home page - Hero, featured areas, scroll-driven project showcase, CTA
+// Home — a technical monograph: the work, the record, the person.
 
 import PageShell from '@/layouts/PageShell.astro';
-import PageHeader from '@/components/PageHeader.astro';
-import ScrollContent from '@/components/ScrollContent.astro';
-import ScrollShowcase from '@/components/ScrollShowcase.astro';
-import GlassFolderDesk from '@/components/GlassFolderDesk.astro';
-import GlassFolder from '@/components/ui/GlassFolder.astro';
-import { profile, homeLinks } from '@/data/profile';
+import Arrow from '@/components/Arrow.astro';
+import { profile, homeLinks, projects } from '@/data/profile';
+import { slugify } from '@/utils/slug';
 
-/* Every folder is smoked glass over generated, site-palette artwork — no stock photos. */
-const exploreFiles = [
-  { name: 'about_me', meta: 'profile.md', href: '/about' },
-  { name: 'projects/', meta: 'selected work', href: '/projects' },
-  { name: 'experience', meta: 'timeline', href: '/experience' },
-  { name: 'contact', meta: 'get in touch', href: '/contact' },
+const featured = projects.filter((project) => project.featured).sort((a, b) => a.impactOrder - b.impactOrder);
+const byTitle = (title: string) => featured.find((project) => project.title === title)!;
+
+const leftColumn = [byTitle('Auren'), byTitle('ClearEye')];
+const rightColumn = [byTitle('Infinit AI'), byTitle('Verus')];
+
+const recognition = [
+  { value: 'Solver', sub: 'MIT Solve — AI For A Better World' },
+  { value: '1st place', sub: 'NHSEE 2026 — CS & Math' },
+  { value: '3rd', sub: 'MATHCOUNTS Southern NH Chapter 2026' },
+  { value: 'FLL', sub: 'Mentor — Bicentennial Elementary' },
 ];
 
-const workFiles = [
-  { name: 'Auren', meta: 'AI guardrail', art: 'steel', href: '/projects' },
-  { name: 'Infinit AI', meta: 'MIT Solve Solver', art: 'copper', href: '/projects' },
-  { name: 'ClearEye', meta: 'Computer vision', art: 'steel', href: '/projects' },
-  { name: 'Verus', meta: 'Verification', href: '/projects' },
-];
-
-const connectFiles = [
-  { name: 'Email', meta: profile.email, href: `mailto:${profile.email}` },
-  { name: 'GitHub', meta: '@yuvaang13', art: 'steel', href: profile.github },
-  { name: 'LinkedIn', meta: 'in/yuvaan-gulati', href: profile.linkedin },
-];
-
-const featuredAreas = [
+const practice = [
   {
-    eyebrow: 'ai_ml',
+    label: 'ai_ml',
     title: 'AI & machine learning',
     body: 'RAG tutoring systems, CNNs, fine-tuning, and applied ML experiments.',
     href: '/about',
   },
   {
-    eyebrow: 'robotics',
+    label: 'robotics',
     title: 'Robotics & systems',
     body: 'FTC Team 21689 — autonomy, computer vision, odometry, and driver control.',
     href: '/experience',
   },
   {
-    eyebrow: 'stem_learning',
+    label: 'stem_learning',
     title: 'STEM learning',
     body: 'Infinit AI, MATHCOUNTS, and volunteer teaching for younger students.',
     href: '/projects',
   },
 ];
+
+const ctaByLabel = Object.fromEntries(homeLinks.map((link) => [link.label, link]));
+
+const imageSize = (src?: string) =>
+  src?.includes('infinit')
+    ? { width: 1536, height: 1024 }
+    : { width: 1920, height: 1080 };
 ---
 
-<PageShell title={`${profile.name} — Student Developer`}>
-  <!-- Hero Section -->
-  <PageHeader
-    eyebrow="sector 0 · home"
-    title={`${profile.name}.`}
-    body={profile.headline}
-    number="00"
-  />
+<PageShell
+  title={`${profile.name} — Student Developer`}
+  description={profile.headline}
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero__rule">
+        <p class="mono">Portfolio — 2026</p>
+        <p class="mono">Student developer · Greater Boston</p>
+      </div>
 
-  <!-- Tactile folder desk — a working, interactive map of the site -->
-  <GlassFolderDesk
-    id="folder-desk-home"
-    eyebrow="sector 0 · workspace"
-    title="Open a folder. Find the work."
-    body="This portfolio is organised like a desk: a folder for every direction, each one holding the real files — projects, roles, and ways to reach me."
-    caption="Hover to lean · Click to open · + to add a file"
-  >
-    <GlassFolder
-      label="Explore"
-      tone="dark"
-      art="graphite"
-      seed={3}
-      files={exploreFiles}
-      appearDelay={0}
-    />
-    <GlassFolder
-      label="Featured work"
-      tone="dark"
-      art="steel"
-      seed={7}
-      action="more"
-      labelPlacement="top-left"
-      files={workFiles}
-      menu={[{ label: 'Rename' }, { label: 'Share…' }, { label: 'Move to Trash', danger: true }]}
-      appearDelay={140}
-    />
-    <GlassFolder
-      label="Connect"
-      meta="Greater Boston"
-      tone="dark"
-      art="copper"
-      seed={11}
-      action="none"
-      labelPlacement="top-right"
-      files={connectFiles}
-      appearDelay={280}
-    />
-  </GlassFolderDesk>
+      <h1 class="hero__title">
+        <span class="enter-line"><span style="--d: 0.05s">Student developer</span></span>
+        <span class="enter-line"><span style="--d: 0.14s">building <em>AI tools,</em></span></span>
+        <span class="enter-line"><span style="--d: 0.23s">robotics systems,</span></span>
+        <span class="enter-line"><span style="--d: 0.32s">and <em>STEM learning</em> projects.</span></span>
+      </h1>
 
-  <!-- Recognition strip -->
-  <ScrollContent class="pb-4 pt-6">
-    <div
-      data-scroll-reveal
-      data-direction="up"
-      data-distance="30"
-      data-delay="0.08"
-      class="mx-auto max-w-7xl px-5 sm:px-8"
-    >
-      <div class="grid grid-cols-2 gap-5 lg:grid-cols-4" data-stagger-container data-stagger="0.06" data-delay-children="0.1">
-        {['Solver', '1st place', '3rd', 'FLL'].map((label, index) => {
-          const sub = [
-            'MIT Solve — AI For A Better World',
-            'NHSEE 2026 — CS &amp; Math',
-            'MATHCOUNTS Southern NH Chapter 2026',
-            'Mentor — Bicentennial Elementary',
-          ][index];
-          return (
-            <div class="glass-surface rounded-xl p-6" data-scroll-reveal data-direction="up" data-distance="20" data-delay={0.08 + index * 0.05}>
-              <div class="flex items-center gap-2 mb-2">
-                <span class="font-mono text-[10px] uppercase tracking-widest text-mistral-textMuted">0{index + 1}</span>
-                <span class="h-0.5 w-2 bg-mistral-text" aria-hidden="true" />
-              </div>
-              <p class="font-serif text-3xl tracking-tight text-mistral-text">{label}</p>
-              <p class="mt-2 text-sm text-mistral-textMuted">{sub}</p>
+      <div class="hero__foot">
+        <div class="hero__intro">
+          <p class="hero__lead">{profile.shortIntro}</p>
+          <div class="hero__actions">
+            <a href={ctaByLabel['Projects'].href} class="btn">
+              View projects
+              <Arrow size={15} />
+            </a>
+            <a href={ctaByLabel['Email'].href} class="btn btn--ghost">
+              Email
+              <Arrow size={15} />
+            </a>
+            <a
+              href={ctaByLabel['GitHub'].href}
+              class="hero__text-link"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+            </a>
+            <a
+              href={ctaByLabel['LinkedIn'].href}
+              class="hero__text-link"
+              target="_blank"
+              rel="noreferrer"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <aside class="dossier" aria-label="At a glance">
+          <p class="mono dossier__label">At a glance</p>
+          <dl class="dossier__list">
+            <div class="dossier__row">
+              <dt class="mono">Based</dt>
+              <dd>Greater Boston</dd>
             </div>
-          );
-        })}
+            <div class="dossier__row">
+              <dt class="mono">Now</dt>
+              <dd>Lead programmer, FTC Team 21689</dd>
+            </div>
+            <div class="dossier__row">
+              <dt class="mono">Focus</dt>
+              <dd>AI · applied math · robotics</dd>
+            </div>
+            <div class="dossier__row">
+              <dt class="mono">Recognition</dt>
+              <dd>MIT Solve Solver · NHSEE 1st · MATHCOUNTS 3rd</dd>
+            </div>
+          </dl>
+        </aside>
       </div>
     </div>
-  </ScrollContent>
+  </section>
 
-  <!-- Featured Areas -->
-  <ScrollContent class="pb-20 pt-14">
-    <div
-      data-scroll-reveal
-      data-direction="up"
-      data-distance="60"
-      data-delay="0.1"
-      class="mx-auto max-w-7xl px-5 sm:px-8"
-    >
-      <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
-        {featuredAreas.map((area, index) => (
-          <a
-            key={area.href}
-            href={area.href}
-            data-od-id={`feature-card-${area.eyebrow}`}
-            data-scroll-reveal
-            data-direction="up"
-            data-distance="30"
-            data-delay={0.15 + index * 0.06}
-            class="glass-surface focus-ring group flex min-h-[220px] flex-col justify-between gap-10 rounded-xl p-8 sm:p-10"
-          >
-            <div class="flex items-start gap-3">
-              <span class="font-mono text-[11px] uppercase tracking-widest text-mistral-textMuted">0{index + 1}</span>
-              <p class="eyebrow">{area.eyebrow}</p>
+  <!-- Recognition ledger -->
+  <section class="ledger-band" aria-label="Recognition">
+    <div class="wrap">
+      <div class="ledger">
+        {recognition.map((item, index) => (
+          <div class="ledger__cell">
+            <p class="mono ledger__num">0{index + 1}</p>
+            <p class="ledger__value">{item.value}</p>
+            <p class="ledger__sub">{item.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 — Selected work -->
+  <section class="section" aria-labelledby="work-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="work-title" class="h2 sec-head__title">Selected work</h2>
+        <p class="sec-head__meta">01 / Plates<br />Four projects, 2026</p>
+      </div>
+
+      <div class="work-grid">
+        <div class="work-col">
+          {leftColumn.map((project, index) => (
+            <article class="work-card" style={`--order: ${project.impactOrder}`}>
+              <a
+                href={`/projects#project-${slugify(project.title)}`}
+                class="plate work-card__plate"
+                aria-label={`${project.title} — read the project`}
+              >
+                {project.image ? (
+                  <img
+                    src={project.image}
+                    alt={`${project.title} title plate`}
+                    width={imageSize(project.image).width}
+                    height={imageSize(project.image).height}
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
+                  />
+                ) : (
+                  <div class="cover cover--cobalt work-card__cover">
+                    <div class="cover__top">
+                      <span>Plate 03</span>
+                      <span>Computer vision</span>
+                    </div>
+                    <p class="cover__title">ClearEye</p>
+                    <div class="cover__bottom">
+                      <span>Health · Mobile ML</span>
+                      <span>2026</span>
+                    </div>
+                    <span class="cover__circle" aria-hidden="true"></span>
+                    <span class="cover__circle cover__circle--two" aria-hidden="true"></span>
+                  </div>
+                )}
+              </a>
+
+              <div class="work-card__meta">
+                <p class="mono">{project.type}</p>
+                <p class="mono">{project.status}</p>
+              </div>
+
+              <h3 class="h3 work-card__title">
+                <a href={`/projects#project-${slugify(project.title)}`}>{project.title}</a>
+              </h3>
+              <p class="body work-card__summary">{project.summary}</p>
+
+              <ul class="work-card__tags" aria-label={`${project.title} tags`}>
+                {project.tags.slice(0, 3).map((tag) => (
+                  <li class="tag">{tag}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+
+        <div class="work-col work-col--offset">
+          {rightColumn.map((project) => (
+            <article class="work-card" style={`--order: ${project.impactOrder}`}>
+              <a
+                href={`/projects#project-${slugify(project.title)}`}
+                class="plate work-card__plate"
+                aria-label={`${project.title} — read the project`}
+              >
+                <img
+                  src={project.image}
+                  alt={`${project.title} title plate`}
+                  width={imageSize(project.image).width}
+                  height={imageSize(project.image).height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+
+              <div class="work-card__meta">
+                <p class="mono">{project.type}</p>
+                <p class="mono">{project.status}</p>
+              </div>
+
+              <h3 class="h3 work-card__title">
+                <a href={`/projects#project-${slugify(project.title)}`}>{project.title}</a>
+              </h3>
+              <p class="body work-card__summary">{project.summary}</p>
+
+              <ul class="work-card__tags" aria-label={`${project.title} tags`}>
+                {project.tags.slice(0, 3).map((tag) => (
+                  <li class="tag">{tag}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div class="work-foot">
+        <a href="/projects" class="arrow-link">
+          All nine projects
+          <Arrow size={14} />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 — Practice -->
+  <section class="section practice" aria-labelledby="practice-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="practice-title" class="h2 sec-head__title">The practice</h2>
+        <p class="sec-head__meta">02 / Three directions<br />Build, compete, teach</p>
+      </div>
+
+      <div class="practice__grid">
+        {practice.map((area, index) => (
+          <a href={area.href} class="practice__card">
+            <div class="practice__top">
+              <span class="mono">0{index + 1}</span>
+              <span class="mono">{area.label}</span>
             </div>
-            <div>
-              <h2 class="heading-3">{area.title}</h2>
-              <p class="mt-3 body-md">{area.body}</p>
-            </div>
-            <span class="inline-flex items-center gap-2 text-sm font-medium text-mistral-text">
-              open
-              <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 19l7-7m0 0l-7-7m7 7H3" />
-              </svg>
+            <h3 class="h3 practice__title">{area.title}</h3>
+            <p class="body practice__body">{area.body}</p>
+            <span class="practice__link mono">
+              Open
+              <Arrow size={13} />
             </span>
           </a>
         ))}
       </div>
     </div>
-  </ScrollContent>
+  </section>
 
-  <ScrollShowcase />
-
-  <!-- Mentorship spotlight -->
-  <ScrollContent class="pb-28">
-    <div data-scroll-reveal data-direction="up" data-distance="60" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
-      <div class="flex items-center gap-3 mb-6">
-        <span class="font-mono text-[11px] uppercase tracking-widest text-mistral-textMuted">04</span>
-        <span class="h-0.5 w-4 bg-mistral-text" aria-hidden="true" />
-      </div>
-      <a href="/experience" class="glass-surface focus-ring group grid grid-cols-1 gap-8 rounded-xl p-8 sm:p-10 lg:grid-cols-[1fr_1.4fr] lg:items-center">
-        <div>
-          <p class="eyebrow">mentorship/</p>
-          <h2 class="mt-4 heading-3">Coaching the next builders through FIRST LEGO League.</h2>
+  <!-- 03 — Mentorship -->
+  <section class="mentor" aria-labelledby="mentor-title">
+    <div class="wrap">
+      <div class="mentor__grid">
+        <div class="mentor__side">
+          <p class="mono">03 / Mentorship</p>
+          <p class="mono mentor__side-note">FIRST LEGO League<br />Bicentennial Elementary</p>
         </div>
-        <div>
-          <p class="body-md">I mentor a FIRST LEGO League team at Bicentennial Elementary School — guiding students through robot design, block coding, the innovation project, and competition-day problem solving.</p>
-          <span class="mt-5 inline-flex items-center gap-2 text-sm font-medium text-mistral-text">
+
+        <div class="mentor__body">
+          <h2 id="mentor-title" class="h2 mentor__title">
+            Coaching the next builders through <em>FIRST LEGO League.</em>
+          </h2>
+          <p class="lead mentor__copy">
+            I mentor a FIRST LEGO League team at Bicentennial Elementary School — guiding
+            students through robot design, block coding, the innovation project, and
+            competition-day problem solving.
+          </p>
+          <a href="/experience" class="arrow-link mentor__link">
             More in experience
-            <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 19l7-7m0 0l-7-7m7 7H3" />
-            </svg>
-          </span>
-        </div>
-      </a>
-    </div>
-  </ScrollContent>
-
-  <!-- CTA Section -->
-  <ScrollContent class="pb-28">
-    <div data-scroll-reveal data-direction="up" data-distance="60" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
-      <div class="flex items-center gap-3 mb-8">
-        <span class="font-mono text-[11px] uppercase tracking-widest text-mistral-textMuted">05</span>
-        <span class="h-0.5 w-4 bg-mistral-text" aria-hidden="true" />
-      </div>
-      <div class="flex flex-wrap gap-4" data-stagger-container data-stagger="0.08" data-delay-children="0">
-        {homeLinks.map((link, index) => (
-          <a
-            href={link.href}
-            target={link.href.startsWith("http") ? "_blank" : undefined}
-            rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-            data-od-id={index === 0 ? 'cta-github' : link.label.toLowerCase()}
-            class={`group focus-ring inline-flex h-12 items-center justify-center gap-2 rounded-full px-7 text-sm font-medium transition-colors duration-300 ${
-              index === 0
-                ? "bg-mistral-accent text-mistral-bg hover:bg-[#e5e5e5]"
-                : "border border-mistral-text bg-transparent text-mistral-text hover:bg-white/5"
-            }`}
-          >
-            {link.label}
-            <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 19l7-7m0 0l-7-7m7 7H3" />
-            </svg>
+            <Arrow size={14} />
           </a>
-        ))}
-      </div>
-    </div>
-  </ScrollContent>
-
-  <!-- About Preview Section -->
-  <ScrollContent class="pb-28">
-    <div data-scroll-reveal data-direction="up" data-distance="60" data-delay="0.15" class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 sm:px-8 md:grid-cols-[0.4fr_1fr]">
-      <div class="text-center md:text-left">
-        <div class="flex items-center gap-3 mb-4">
-          <span class="font-mono text-[11px] uppercase tracking-widest text-mistral-textMuted">06</span>
-          <span class="h-0.5 w-4 bg-mistral-text" aria-hidden="true" />
         </div>
-        <p class="eyebrow">work_in_progress/</p>
-        <h2 class="mt-4 heading-2">Selected projects, competitions, and technical interests.</h2>
-      </div>
-      <p class="max-w-3xl body-lg self-center">
-        The pages in the top navigation unpack the projects, competition history, and technical interests behind it. Scroll to explore each dimension.
-      </p>
-    </div>
-  </ScrollContent>
-
-  <!-- Scroll Indicator -->
-  <div id="scroll-indicator" class="fixed bottom-10 left-1/2 z-20 -translate-x-1/2 pointer-events-none" style="animation: fadeIn 500ms ease-out 1.5s both;">
-    <div class="flex flex-col items-center gap-2 text-mistral-textMuted">
-      <p class="font-mono text-[10px] uppercase tracking-[0.3em]">scroll</p>
-      <div class="h-6 w-1.5 rounded-full border border-mistral-text/40 overflow-hidden">
-        <div class="h-full w-full bg-mistral-text" style="animation: scrollBar 1.5s ease-in-out infinite;"></div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <style>
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+  <!-- 04 — About preview -->
+  <section class="section" aria-labelledby="about-preview-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="about-preview-title" class="h2 sec-head__title">
+          Selected projects, competitions, and technical interests.
+        </h2>
+        <p class="sec-head__meta">04 / About<br />Work in progress</p>
+      </div>
 
-    @keyframes scrollBar {
-      0% { transform: translateY(-100%); }
-      45%, 100% { transform: translateY(0); }
-    }
+      <div class="about-preview">
+        <p class="lead about-preview__copy">
+          The pages in the top navigation unpack the projects, competition history, and
+          technical interests behind it. Scroll to explore each dimension.
+        </p>
+        <div class="about-preview__links">
+          <a href="/about" class="arrow-link">
+            Read the about page
+            <Arrow size={14} />
+          </a>
+          <a href="/experience" class="arrow-link">
+            See the experience
+            <Arrow size={14} />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    #scroll-indicator {
-      transition: opacity 500ms ease, visibility 500ms ease;
-    }
+  <!-- 05 — Contact -->
+  <section class="close" aria-labelledby="close-title">
+    <div class="wrap">
+      <div class="close__rule">
+        <p class="mono">05 / Contact</p>
+        <p class="mono">Open to collaborations</p>
+      </div>
 
-    #scroll-indicator.indicator-hidden {
-      opacity: 0 !important;
-      visibility: hidden;
-    }
-  </style>
+      <h2 id="close-title" class="close__title">
+        Let’s build something <em>worth using.</em>
+      </h2>
 
-  <script>
-    const scrollIndicator = document.getElementById('scroll-indicator');
-    if (scrollIndicator) {
-      const hideIndicator = () => {
-        scrollIndicator.classList.add('indicator-hidden');
-        window.removeEventListener('scroll', hideIndicator);
-      };
-      window.addEventListener('scroll', hideIndicator, { passive: true });
-    }
-  </script>
+      <a href={`mailto:${profile.email}`} class="close__mail">{profile.email}</a>
+
+      <div class="close__foot">
+        <p class="close__note">
+          Research, AI/ML builds, STEM education, robotics.
+        </p>
+        <a href="/contact" class="btn">
+          Contact
+          <Arrow size={15} />
+        </a>
+      </div>
+    </div>
+  </section>
 </PageShell>
+
+<style>
+  /* ---------------------------------------------------------------- Hero */
+
+  .hero {
+    padding-top: calc(var(--nav-h) + clamp(1.5rem, 3vw, 2.5rem));
+    padding-bottom: clamp(2rem, 3vw, 2.75rem);
+  }
+
+  .hero__rule {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--ink);
+  }
+
+  .hero__title {
+    margin: clamp(1.25rem, 2.5vw, 2rem) 0 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.9rem, min(7.5vw, 11.5svh), 6.75rem);
+    line-height: 0.87;
+    letter-spacing: -0.038em;
+  }
+
+  .hero__title em {
+    font-style: italic;
+  }
+
+  .hero__foot {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.65fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+    margin-top: clamp(1.75rem, 3vw, 2.5rem);
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .hero__lead {
+    margin: 0;
+    max-width: 56ch;
+    font-size: clamp(1rem, 1.35vw, 1.2rem);
+    line-height: 1.6;
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    margin-top: 1.75rem;
+  }
+
+  .hero__text-link {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid transparent;
+    transition: color 180ms ease, border-color 180ms ease;
+  }
+
+  .hero__text-link:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+
+  .dossier {
+    border-top: 1px solid var(--ink);
+    padding-top: 0.85rem;
+  }
+
+  .dossier__label {
+    margin: 0 0 1rem;
+  }
+
+  .dossier__list {
+    margin: 0;
+  }
+
+  .dossier__row {
+    display: grid;
+    grid-template-columns: 5.2rem minmax(0, 1fr);
+    gap: 0.75rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .dossier__row dt {
+    margin: 0;
+    font-size: 0.58rem;
+    padding-top: 0.18rem;
+  }
+
+  .dossier__row dd {
+    margin: 0;
+    font-size: 0.86rem;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+
+  /* -------------------------------------------------------------- Ledger */
+
+  .ledger-band {
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .ledger {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .ledger__cell {
+    padding: 1.5rem clamp(1rem, 2.5vw, 2.25rem) 1.6rem 0;
+    border-right: 1px solid var(--rule);
+  }
+
+  .ledger__cell:not(:first-child) {
+    padding-left: clamp(1rem, 2.5vw, 2.25rem);
+  }
+
+  .ledger__cell:last-child {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .ledger__num {
+    margin: 0 0 1.1rem;
+  }
+
+  .ledger__value {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.6vw, 3.6rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+
+  .ledger__sub {
+    margin: 0.7rem 0 0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+
+  /* --------------------------------------------------------- Selected work */
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  .work-col {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3rem, 5vw, 5rem);
+  }
+
+  .work-col--offset {
+    margin-top: clamp(3rem, 7vw, 7rem);
+  }
+
+  .work-card__plate {
+    background: var(--paper-2);
+  }
+
+  .work-card__plate img {
+    width: 100%;
+    height: auto;
+    transition: transform 900ms var(--ease-out);
+  }
+
+  .work-card__plate:hover img {
+    transform: scale(1.025);
+  }
+
+  .work-card__cover {
+    aspect-ratio: 3 / 2;
+  }
+
+  .work-card__meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--ink);
+  }
+
+  .work-card__meta p {
+    margin: 0;
+  }
+
+  .work-card__meta p:last-child {
+    text-align: right;
+  }
+
+  .work-card__title {
+    margin: 1.1rem 0 0;
+  }
+
+  .work-card__title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .work-card__title a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 6px;
+  }
+
+  .work-card__summary {
+    margin: 0.85rem 0 0;
+    max-width: 46ch;
+  }
+
+  .work-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .work-foot {
+    margin-top: clamp(2.5rem, 4vw, 3.5rem);
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* -------------------------------------------------------------- Practice */
+
+  .practice {
+    border-top: 1px solid var(--rule);
+  }
+
+  .practice__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .practice__card {
+    display: flex;
+    flex-direction: column;
+    min-height: 19rem;
+    padding: 1.25rem 1rem 1.5rem 0;
+    border-top: 1px solid var(--ink);
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .practice__card:hover .practice__title {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 6px;
+  }
+
+  .practice__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.85rem;
+  }
+
+  .practice__title {
+    margin: 0.6rem 0 0;
+    max-width: 12ch;
+  }
+
+  .practice__body {
+    margin: 1rem 0 0;
+    max-width: 30ch;
+    flex: 1;
+  }
+
+  .practice__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    color: var(--ink);
+    font-size: 0.58rem;
+  }
+
+  .practice__link :global(svg) {
+    transition: transform 220ms ease;
+  }
+
+  .practice__card:hover .practice__link :global(svg) {
+    transform: translate(3px, -3px);
+  }
+
+  /* ------------------------------------------------------------ Mentorship */
+
+  .mentor {
+    margin-block: clamp(3rem, 6vw, 6rem);
+    padding-block: clamp(3.5rem, 6vw, 6rem);
+    background: var(--paper-2);
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .mentor__grid {
+    display: grid;
+    grid-template-columns: 10.5rem minmax(0, 1fr);
+    gap: clamp(2rem, 4vw, 4.5rem);
+  }
+
+  .mentor__side {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .mentor__side p {
+    margin: 0;
+  }
+
+  .mentor__side-note {
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  .mentor__title {
+    margin: 0;
+    max-width: 17ch;
+  }
+
+  .mentor__copy {
+    margin: 1.75rem 0 0;
+    max-width: 54ch;
+  }
+
+  .mentor__link {
+    margin-top: 2rem;
+  }
+
+  /* ---------------------------------------------------------- About preview */
+
+  .about-preview {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  .about-preview__copy {
+    margin: 0;
+    max-width: 44ch;
+  }
+
+  .about-preview__links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-top: 0.35rem;
+  }
+
+  /* --------------------------------------------------------------- Closing */
+
+  .close {
+    border-top: 1px solid var(--ink);
+    padding-block: clamp(3rem, 5vw, 4.5rem) clamp(3rem, 5vw, 4.5rem);
+  }
+
+  .close__rule {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .close__rule p {
+    margin: 0;
+  }
+
+  .close__title {
+    margin: 0;
+    max-width: 18ch;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.2rem, 4.6vw, 4.5rem);
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .close__title em {
+    font-style: italic;
+  }
+
+  .close__mail {
+    display: inline-block;
+    margin-top: clamp(1.5rem, 3vw, 2.5rem);
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 4.4vw, 4rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    padding-bottom: 0.08em;
+    transition: background-size 400ms var(--ease-out);
+    overflow-wrap: anywhere;
+  }
+
+  .close__mail:hover {
+    background-size: 100% 1px;
+  }
+
+  .close__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .close__note {
+    margin: 0;
+    max-width: 46ch;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+
+  /* ------------------------------------------------------------ Responsive */
+
+  /* Short laptop screens: tighten the hero so it still owns the fold. */
+  @media (max-height: 820px) {
+    .hero {
+      padding-top: calc(var(--nav-h) + 1.25rem);
+      padding-bottom: 1.5rem;
+    }
+
+    .hero__foot {
+      margin-top: 1.5rem;
+    }
+
+    .dossier__label {
+      margin-bottom: 0.75rem;
+    }
+
+    .dossier__row {
+      padding-block: 0.45rem;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .hero__foot {
+      grid-template-columns: 1fr;
+    }
+
+    .dossier {
+      max-width: 34rem;
+    }
+
+    .practice__grid {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .practice__card {
+      min-height: 0;
+      margin: 0;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .practice__card:first-child {
+      border-top: 1px solid var(--ink);
+    }
+
+    .practice__body {
+      max-width: 52ch;
+    }
+
+    .mentor__grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .mentor__side {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .mentor__side-note {
+      text-align: right;
+    }
+
+    .about-preview {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .work-grid {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .work-col {
+      display: contents;
+    }
+
+    .work-card {
+      order: var(--order);
+      padding-block: clamp(2rem, 5vw, 3rem);
+      border-top: 1px solid var(--rule);
+    }
+
+    .work-col:first-child .work-card:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .ledger {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .ledger__cell:nth-child(2) {
+      border-right: 0;
+      padding-right: 0;
+    }
+
+    .ledger__cell:nth-child(3),
+    .ledger__cell:nth-child(4) {
+      border-top: 1px solid var(--rule);
+    }
+
+    .ledger__cell:nth-child(3) {
+      padding-left: 0;
+    }
+
+    .ledger__cell:nth-child(4) {
+      padding-right: 0;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .hero__rule {
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .hero__actions {
+      gap: 0.6rem 1rem;
+    }
+
+    .hero__actions .btn {
+      flex: 1 1 45%;
+    }
+
+    .ledger__cell {
+      padding-block: 1.15rem;
+    }
+
+    .ledger__value {
+      font-size: 1.9rem;
+    }
+
+    .close__foot {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

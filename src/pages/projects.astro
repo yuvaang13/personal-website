@@ -1,311 +1,604 @@
 ---
-// Projects page - Project cards with images, detailed views, scroll animations
+// Projects — the full record, printed as plates and entries.
 
 import PageShell from '@/layouts/PageShell.astro';
 import PageHeader from '@/components/PageHeader.astro';
-import ScrollContent from '@/components/ScrollContent.astro';
-import GlassFolderDesk from '@/components/GlassFolderDesk.astro';
-import GlassFolder from '@/components/ui/GlassFolder.astro';
+import Arrow from '@/components/Arrow.astro';
 import { projects } from '@/data/profile';
+import { slugify } from '@/utils/slug';
 
-const slug = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+const featured = projects
+  .filter((project) => project.featured)
+  .sort((a, b) => a.impactOrder - b.impactOrder);
 
-/* Dark folders, generated site-palette artwork, no stock photography. */
-const fileFor = (title: string, meta: string, art?: string) => ({
-  name: title,
-  meta,
-  ...(art ? { art } : {}),
-  href: `#project-${slug(title)}`,
-});
+const other = projects
+  .filter((project) => !project.featured)
+  .sort((a, b) => a.impactOrder - b.impactOrder);
 
-const featuredFolder = [
-  fileFor('Auren', 'AI agent guardrail', 'steel'),
-  fileFor('Infinit AI', 'MIT Solve Solver', 'copper'),
-  fileFor('ClearEye', 'Concussion screening', 'steel'),
-  fileFor('Verus', 'Human verification'),
-];
+const coverTitle = (title: string) => {
+  if (title.startsWith('FTC Team Tesseract')) return 'Tesseract';
+  return title;
+};
 
-const buildingFolder = [
-  fileFor('FTC Team Tesseract', 'Lead programmer', 'copper'),
-  fileFor('MonkMode', 'iOS focus app', 'steel'),
-  fileFor('Personal Website v2', 'Astro + TypeScript'),
-];
+const allProjects = [...featured, ...other];
+const pad = (value: number) => String(value).padStart(2, '0');
 
-const experimentsFolder = [
-  fileFor('Digit Recognition', 'Logistic → CNN', 'steel'),
-  fileFor('Math Calculator', '100+ functions'),
-];
+const imageSize = (src?: string) =>
+  src?.includes('infinit')
+    ? { width: 1536, height: 1024 }
+    : { width: 1920, height: 1080 };
 ---
 
-<PageShell title="Projects — Yuvaan Gulati">
+<PageShell
+  title="Projects — Yuvaan Gulati"
+  description="AI tools, apps, ML experiments, and STEM systems built by Yuvaan Gulati."
+>
   <PageHeader
-    eyebrow="sector 3 · projects/"
-    number="03"
+    eyebrow="Projects / selected work"
+    number="01"
     title="AI tools, apps, ML experiments, and STEM systems."
     body="A fuller look at the things I am building: from tutoring platforms and health-focused computer vision concepts to productivity software and machine learning experiments."
   />
 
-  <!-- Folder desk — the same projects, arranged as a physical workspace -->
-  <GlassFolderDesk
-    id="folder-desk-projects"
-    eyebrow="sector 3 · workspace"
-    title="The projects, filed and ready."
-    body="Three folders hold the work in progress, the experiments, and the projects that have gone furthest. Open one and choose a file to jump straight to its full write-up below."
-    caption="Click a folder to open it · Choose a file to jump to its details"
-  >
-    <GlassFolder
-      label="Featured work"
-      tone="dark"
-      art="steel"
-      seed={7}
-      action="more"
-      labelPlacement="bottom-left"
-      files={featuredFolder}
-      menu={[{ label: 'Duplicate folder' }, { label: 'Archive', danger: true }]}
-      appearDelay={0}
-    />
-    <GlassFolder
-      label="In progress"
-      meta="2026 season"
-      tone="dark"
-      art="copper"
-      seed={19}
-      action="none"
-      labelPlacement="top-left"
-      files={buildingFolder}
-      appearDelay={140}
-    />
-    <GlassFolder
-      label="Experiments"
-      tone="dark"
-      art="graphite"
-      seed={31}
-      action="add"
-      labelPlacement="bottom-left"
-      files={experimentsFolder}
-      appearDelay={280}
-    />
-  </GlassFolderDesk>
-
-  <!-- Featured Projects -->
-  <ScrollContent class="pb-28">
-    <div data-scroll-reveal data-direction="up" data-distance="60" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
-      <p class="eyebrow mb-14">featured_work</p>
+  <!-- Contents -->
+  <section class="contents" aria-labelledby="contents-title">
+    <div class="wrap">
+      <div class="contents__head">
+        <h2 id="contents-title" class="mono">Contents</h2>
+        <p class="mono">{pad(allProjects.length)} projects</p>
+      </div>
+      <ol class="contents__list">
+        {allProjects.map((project, index) => (
+          <li>
+            <a href={`#project-${slugify(project.title)}`} class="contents__link">
+              <span class="mono contents__num">{pad(index + 1)}</span>
+              <span class="contents__title">{project.title}</span>
+              <span class="mono contents__type">{project.type}</span>
+              <Arrow size={13} />
+            </a>
+          </li>
+        ))}
+      </ol>
     </div>
+  </section>
 
-    <div data-stagger-container data-stagger="0.12" data-delay-children="0.15" class="mx-auto flex max-w-7xl flex-col gap-12 px-5 sm:px-8">
-      {projects
-        .filter(p => p.featured)
-        .sort((a, b) => a.impactOrder - b.impactOrder)
-        .map((project, index) => {
-          const hasImage = !!project.image;
+  <!-- Featured -->
+  <section class="section featured" aria-labelledby="featured-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="featured-title" class="h2 sec-head__title">Featured work</h2>
+        <p class="sec-head__meta">01 / Full entries<br />Five projects</p>
+      </div>
 
-          return (
-            <article
-              id={`project-${slug(project.title)}`}
-              data-od-id={`project-${project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
-              class={`group relative overflow-hidden rounded-xl border border-mistral-border bg-mistral-bgElevated transition-colors duration-300 hover:border-mistral-text hover:bg-white/5 ${
-                hasImage ? "grid grid-cols-1 lg:grid-cols-[1fr_1fr] lg:gap-8" : ""
-              }`}
-              data-scroll-reveal
-              data-direction="up"
-              data-distance="40"
-              data-delay={0.1 + index * 0.05}
-            >
-              <div class="lg:col-span-2 flex items-start gap-3 mb-4">
-                <span class="font-mono text-[10px] uppercase tracking-widest text-mistral-textMuted">0{index + 1}</span>
-                <span class="h-0.5 w-3 bg-mistral-text" aria-hidden="true" />
-              </div>
-              {/* Image/Visual Side */}
-              {hasImage && (
-                <div class="relative h-64 overflow-hidden bg-mistral-bgElevated lg:h-auto lg:min-h-[420px]">
+      <div class="entries">
+        {featured.map((project, index) => (
+          <article
+            id={`project-${slugify(project.title)}`}
+            class:list={['entry', { 'entry--flip': index % 2 === 1 }]}
+          >
+            <div class="entry__plate">
+              {project.image ? (
+                <div class="plate">
                   <img
                     src={project.image}
-                    alt={`${project.title} preview`}
-                    class="h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
-                    loading="lazy"
+                    alt={`${project.title} title plate`}
+                    width={imageSize(project.image).width}
+                    height={imageSize(project.image).height}
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
                   />
-                  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div class="absolute bottom-5 left-5">
-                    <span class="tag-filled">{project.type}</span>
+                </div>
+              ) : (
+                <div
+                  class:list={[
+                    'cover',
+                    'entry__cover',
+                    project.title === 'ClearEye' ? 'cover--cobalt' : 'cover--ink',
+                  ]}
+                >
+                  <div class="cover__top">
+                    <span>{pad(index + 1)}</span>
+                    <span>{project.type}</span>
                   </div>
+                  <p class="cover__title">{coverTitle(project.title)}</p>
+                  <div class="cover__bottom">
+                    <span>{project.status}</span>
+                    <span>2026</span>
+                  </div>
+                  <span class="cover__circle" aria-hidden="true"></span>
+                  <span class="cover__circle cover__circle--two" aria-hidden="true"></span>
                 </div>
               )}
+            </div>
 
-              {/* Content Side */}
-              <div class={`relative p-6 lg:p-8 ${hasImage ? "" : "lg:min-h-[420px]"}`}>
-                <div class="flex h-full flex-col justify-between gap-8">
-                  <div>
-                    {!hasImage && (
-                      <div class="mb-6 flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-[0.22em] text-mistral-textMuted">
-                        <span>{project.type}</span>
-                        <span class="h-1 w-1 rounded-full bg-mistral-text" />
-                        <span>{project.status}</span>
-                      </div>
-                    )}
-                    <h2 class="heading-3">{project.title}</h2>
-                    <p class="mt-5 body-lg">{project.summary}</p>
-                    <p class="mt-5 leading-7 text-mistral-textMuted">{project.details}</p>
-                  </div>
-
-                  <div>
-                    <div class="flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
-                        <span key={tag} class="tag">{tag}</span>
-                      ))}
-                    </div>
-                    {project.links ? (
-                      <div class="mt-6 flex flex-wrap gap-3">
-                        {project.links.map((link) => (
-                          <a
-                            key={link.href}
-                            href={link.href}
-                            target="_blank"
-                            rel="noreferrer"
-                            class="link-external"
-                          >
-                            {link.label}
-                            {link.href.includes("github") ? (
-                              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                              </svg>
-                            ) : (
-                              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                              </svg>
-                            )}
-                          </a>
-                        ))}
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
+            <div class="entry__body">
+              <div class="entry__top">
+                <span class="mono">{pad(index + 1)}</span>
+                <span class="mono">{project.type}</span>
+                <span class="mono entry__status">{project.status}</span>
               </div>
-            </article>
-          );
-        })}
-    </div>
-  </ScrollContent>
 
-  <!-- Other Projects -->
-  <ScrollContent class="pb-28">
-    <div data-scroll-reveal data-direction="up" data-distance="60" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8">
-      <p class="eyebrow mb-14">other_work</p>
-    </div>
+              <h3 class="h2 entry__title">{project.title}</h3>
+              <p class="lead entry__summary">{project.summary}</p>
+              <p class="body entry__details">{project.details}</p>
 
-    <div data-stagger-container data-stagger="0.1" data-delay-children="0.15" class="mx-auto flex max-w-7xl flex-col gap-8 px-5 sm:px-8">
-      {projects
-        .filter(p => !p.featured)
-        .sort((a, b) => a.impactOrder - b.impactOrder)
-        .map((project, index) => {
-          const hasImage = !!project.image;
+              <ul class="entry__tags" aria-label={`${project.title} tags`}>
+                {project.tags.map((tag) => (
+                  <li class="tag">{tag}</li>
+                ))}
+              </ul>
 
-          return (
-            <article
-              id={`project-${slug(project.title)}`}
-              data-od-id={`project-${project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
-              class={`group relative overflow-hidden rounded-xl border border-mistral-border bg-mistral-bgElevated p-6 transition-colors duration-300 hover:border-mistral-text hover:bg-white/5 md:p-8 ${
-                hasImage ? "grid grid-cols-1 lg:grid-cols-[1fr_1fr] lg:gap-8" : ""
-              }`}
-              data-scroll-reveal
-              data-direction="up"
-              data-distance="30"
-              data-delay={0.1 + index * 0.05}
-            >
-              <div class="lg:col-span-2 flex items-start gap-3 mb-4">
-                <span class="font-mono text-[10px] uppercase tracking-widest text-mistral-textMuted">0{index + 1}</span>
-                <span class="h-0.5 w-3 bg-mistral-text" aria-hidden="true" />
-              </div>
-              {hasImage && (
-                <div class="relative -m-6 mb-6 h-64 overflow-hidden bg-mistral-bgElevated lg:m-0 lg:min-h-[350px] lg:rounded-lg">
-                  <img
-                    src={project.image}
-                    alt={`${project.title} preview`}
-                    class="h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
-                    loading="lazy"
-                  />
-                  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div class="absolute bottom-4 left-4">
-                    <span class="tag-filled">{project.type}</span>
-                  </div>
+              {project.links && project.links.length > 0 && (
+                <div class="entry__links">
+                  {project.links.map((link) => (
+                    <a
+                      href={link.href}
+                      class="arrow-link"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {link.label}
+                      <Arrow size={14} />
+                    </a>
+                  ))}
                 </div>
               )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
-              <div class={`relative ${hasImage ? "lg:p-0" : ""}`}>
-                <div class="flex h-full flex-col justify-between gap-8">
-                  <div>
-                    {!hasImage && (
-                      <div class="mb-4 flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-[0.22em] text-mistral-textMuted">
-                        <span>{project.type}</span>
-                        <span class="h-1 w-1 rounded-full bg-mistral-text" />
-                        <span>{project.status}</span>
-                      </div>
-                    )}
-                    <h3 class="text-2xl font-medium tracking-tight text-mistral-text">{project.title}</h3>
-                    <p class="mt-4 body-md">{project.summary}</p>
-                    <p class="mt-4 leading-7 text-mistral-textMuted">{project.details}</p>
-                  </div>
+  <!-- Other work -->
+  <section class="section other" aria-labelledby="other-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="other-title" class="h2 sec-head__title">Other work</h2>
+        <p class="sec-head__meta">02 / Experiments<br />Four projects</p>
+      </div>
 
-                  <div>
-                    <div class="flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
-                        <span key={tag} class="tag">{tag}</span>
-                      ))}
-                    </div>
-                    {project.links ? (
-                      <div class="mt-4 flex flex-wrap gap-3">
-                        {project.links.map((link) => (
-                          <a
-                            key={link.href}
-                            href={link.href}
-                            target="_blank"
-                            rel="noreferrer"
-                            class="link-external"
-                          >
-                            {link.label}
-                            {link.href.includes("github") ? (
-                              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                              </svg>
-                            ) : (
-                              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                              </svg>
-                            )}
-                          </a>
-                        ))}
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
+      <div class="rows">
+        {other.map((project, index) => (
+          <article
+            id={`project-${slugify(project.title)}`}
+            class:list={['row', { 'row--with-media': Boolean(project.image) }]}
+          >
+            <p class="mono row__num">{pad(featured.length + index + 1)}</p>
+            <div class="row__main">
+              <div class="row__head">
+                <h3 class="h3 row__title">{project.title}</h3>
+                <p class="mono row__meta">{project.type} · {project.status}</p>
               </div>
-            </article>
-          );
-        })}
-    </div>
-  </ScrollContent>
+              <p class="lead row__summary">{project.summary}</p>
+              <p class="body row__details">{project.details}</p>
 
-  <!-- Bottom CTA -->
-  <ScrollContent class="pb-20">
-    <div data-scroll-reveal data-direction="up" data-distance="40" data-delay="0.1" class="mx-auto max-w-7xl px-5 sm:px-8 text-center">
-      <p class="eyebrow mb-6">more_coming/</p>
-      <h2 class="heading-3 mb-4">Always building. Always learning.</h2>
-      <p class="mx-auto mb-8 max-w-2xl text-mistral-textMuted">
-        New experiments in AI, robotics, and education tools are always in progress.
-        Check GitHub for the latest commits and works-in-progress.
-      </p>
-      <a
-        data-od-id="cta-github"
-        href="https://github.com/yuvaang13"
-        target="_blank"
-        rel="noreferrer"
-        class="btn-primary"
-      >
-        View on GitHub
-        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 19l7-7m0 0l-7-7m7 7H3" />
-        </svg>
-      </a>
+              <div class="row__foot">
+                <ul class="row__tags" aria-label={`${project.title} tags`}>
+                  {project.tags.map((tag) => (
+                    <li class="tag">{tag}</li>
+                  ))}
+                </ul>
+
+                {project.links && project.links.length > 0 && (
+                  <div class="row__links">
+                    {project.links.map((link) => (
+                      <a
+                        href={link.href}
+                        class="arrow-link"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {link.label}
+                        <Arrow size={14} />
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {project.image && (
+              <figure class="row__thumb plate">
+                <img
+                  src={project.image}
+                  alt={`${project.title} title plate`}
+                  width={imageSize(project.image).width}
+                  height={imageSize(project.image).height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
+            )}
+          </article>
+        ))}
+      </div>
     </div>
-  </ScrollContent>
+  </section>
+
+  <!-- CTA -->
+  <section class="more" aria-labelledby="more-title">
+    <div class="wrap">
+      <div class="more__grid">
+        <div>
+          <p class="mono">03 / more_coming</p>
+          <h2 id="more-title" class="h2 more__title">Always building. Always learning.</h2>
+        </div>
+        <div>
+          <p class="lead more__copy">
+            New experiments in AI, robotics, and education tools are always in progress.
+            Check GitHub for the latest commits and works-in-progress.
+          </p>
+          <a
+            href="https://github.com/yuvaang13"
+            class="btn more__btn"
+            target="_blank"
+            rel="noreferrer"
+            data-od-id="cta-github"
+          >
+            View on GitHub
+            <Arrow size={15} />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 </PageShell>
+
+<style>
+  /* -------------------------------------------------------------- Contents */
+
+  .contents {
+    padding-bottom: clamp(2.5rem, 4vw, 4rem);
+  }
+
+  .contents__head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .contents__head h2 {
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .contents__head p {
+    margin: 0;
+  }
+
+  .contents__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    columns: 2;
+    column-gap: clamp(2rem, 5vw, 4.5rem);
+  }
+
+  .contents__link {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr) auto 0.9rem;
+    align-items: baseline;
+    gap: 0.85rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink);
+    text-decoration: none;
+    break-inside: avoid;
+  }
+
+  .contents__num {
+    color: var(--muted);
+    font-size: 0.54rem;
+  }
+
+  .contents__title {
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+
+  .contents__type {
+    font-size: 0.54rem;
+    text-align: right;
+    max-width: 16ch;
+    line-height: 1.4;
+  }
+
+  .contents__link :global(svg) {
+    color: var(--muted);
+    transition: transform 200ms ease, color 200ms ease;
+  }
+
+  .contents__link:hover :global(svg) {
+    transform: translate(2px, -2px);
+    color: var(--ink);
+  }
+
+  .contents__link:hover .contents__title {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  /* -------------------------------------------------------------- Featured */
+
+  .featured {
+    padding-top: 0;
+  }
+
+  .entries {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3.5rem, 7vw, 7rem);
+  }
+
+  .entry {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+    padding-top: clamp(1.5rem, 3vw, 2.25rem);
+    border-top: 1px solid var(--ink);
+    scroll-margin-top: calc(var(--nav-h) + 1.5rem);
+  }
+
+  .entry--flip .entry__plate {
+    order: 2;
+  }
+
+  .entry__plate {
+    position: sticky;
+    top: calc(var(--nav-h) + 2rem);
+  }
+
+  .entry__plate .plate img {
+    width: 100%;
+    height: auto;
+  }
+
+  .entry__cover {
+    aspect-ratio: 3 / 2;
+  }
+
+  .entry__top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .entry__status {
+    margin-left: auto;
+    text-align: right;
+  }
+
+  .entry__title {
+    margin: 1.25rem 0 0;
+    max-width: 15ch;
+  }
+
+  .entry__summary {
+    margin: 1.25rem 0 0;
+    max-width: 46ch;
+    color: var(--ink);
+  }
+
+  .entry__details {
+    margin: 1rem 0 0;
+    max-width: 58ch;
+  }
+
+  .entry__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 1.75rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .entry__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* ------------------------------------------------------------ Other work */
+
+  .other {
+    border-top: 1px solid var(--rule);
+  }
+
+  .rows {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    gap: clamp(1rem, 2.5vw, 2rem);
+    padding-block: clamp(2rem, 3.5vw, 3rem);
+    border-top: 1px solid var(--ink);
+    scroll-margin-top: calc(var(--nav-h) + 1.5rem);
+  }
+
+  .row:last-child {
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .row__num {
+    margin: 0.35rem 0 0;
+    color: var(--muted);
+  }
+
+  .row--with-media {
+    grid-template-columns: 3.5rem minmax(0, 1fr) clamp(12rem, 18vw, 18rem);
+  }
+
+  .row__thumb {
+    margin: 0;
+    align-self: start;
+  }
+
+  .row__thumb img {
+    width: 100%;
+    height: auto;
+  }
+
+  .row__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+  }
+
+  .row__title {
+    margin: 0;
+  }
+
+  .row__meta {
+    margin: 0;
+    text-align: right;
+  }
+
+  .row__summary {
+    margin: 1rem 0 0;
+    max-width: 52ch;
+    color: var(--ink);
+  }
+
+  .row__details {
+    margin: 0.75rem 0 0;
+    max-width: 68ch;
+  }
+
+  .row__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.25rem 2rem;
+    margin-top: 1.5rem;
+  }
+
+  .row__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .row__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  /* -------------------------------------------------------------- Closing */
+
+  .more {
+    border-top: 1px solid var(--ink);
+    padding-block: clamp(3rem, 6vw, 5rem);
+  }
+
+  .more__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  .more__title {
+    margin: 1rem 0 0;
+    max-width: 13ch;
+  }
+
+  .more__copy {
+    margin: 0;
+    max-width: 44ch;
+  }
+
+  .more__btn {
+    margin-top: 1.75rem;
+  }
+
+  @media (max-width: 1023px) {
+    .entry {
+      grid-template-columns: 1fr;
+    }
+
+    .entry--flip .entry__plate {
+      order: 0;
+    }
+
+    .entry__plate {
+      position: static;
+    }
+
+    .entry__title {
+      max-width: none;
+    }
+
+    .row--with-media {
+      grid-template-columns: 3.5rem minmax(0, 1fr);
+    }
+
+    .row--with-media .row__thumb {
+      grid-column: 2;
+      max-width: 22rem;
+      margin-top: 1.5rem;
+    }
+
+    .more__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .contents__list {
+      columns: 1;
+    }
+
+    .contents__link {
+      grid-template-columns: 1.8rem minmax(0, 1fr) 0.9rem;
+    }
+
+    .contents__type {
+      display: none;
+    }
+
+    .row,
+    .row--with-media {
+      grid-template-columns: 1fr;
+    }
+
+    .row__num {
+      margin: 0;
+    }
+
+    .row__meta {
+      text-align: left;
+    }
+
+    .row__thumb {
+      max-width: 24rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .entry__status {
+      margin-left: 0;
+      text-align: left;
+      width: 100%;
+    }
+  }
+</style>

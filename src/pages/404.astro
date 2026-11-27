@@ -1,57 +1,187 @@
 ---
-// 404 Page - Not found with friendly message and navigation
+// 404 — not found, with a way back.
 
 import PageShell from '@/layouts/PageShell.astro';
+import Arrow from '@/components/Arrow.astro';
+import { navItems } from '@/data/profile';
+
+const notes: Record<string, string> = {
+  Home: 'Index',
+  Projects: 'Work',
+  About: 'Profile',
+  Experience: 'Timeline',
+  Contact: 'Reach out',
+};
 ---
 
 <PageShell title="404 — Page Not Found">
-  <section class="mx-auto max-w-7xl px-5 py-32 sm:px-8 lg:py-40" data-scroll-reveal data-direction="up" data-distance="60">
-    <div class="text-center">
-      <p class="font-serif text-8xl font-medium tracking-tight text-mistral-text/15 sm:text-9xl">404</p>
-      <h1 class="mt-8 heading-2">Page not found</h1>
-      <p class="mx-auto mt-4 max-w-xl body-lg">
-        The page you're looking for doesn't exist or has been moved.
-        No worries though — let's get you back on track.
-      </p>
-
-      <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-        <a href="/" class="btn-primary">
-          Back to Home
-          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-        </a>
-        <a href="/projects" class="btn-secondary">
-          View Projects
-          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 19l7-7m0 0l-7-7m7 7H3" />
-          </svg>
-        </a>
+  <section class="notfound">
+    <div class="wrap">
+      <div class="notfound__rule">
+        <p class="mono">Error / 404</p>
+        <p class="mono">Page not found</p>
       </div>
 
-      <!-- Quick Navigation -->
-      <div class="mx-auto mt-20 grid max-w-3xl grid-cols-2 gap-4 md:grid-cols-5">
-        <a href="/" class="rounded-xl border border-mistral-border bg-mistral-bgElevated p-4 text-sm text-mistral-textMuted transition-colors hover:border-mistral-text hover:bg-white/5 hover:text-mistral-text">
-          <p class="font-medium text-mistral-text">~/</p>
-          <p class="mt-1 text-xs text-mistral-textMuted">Home</p>
-        </a>
-        <a href="/projects" class="rounded-xl border border-mistral-border bg-mistral-bgElevated p-4 text-sm text-mistral-textMuted transition-colors hover:border-mistral-text hover:bg-white/5 hover:text-mistral-text">
-          <p class="font-medium text-mistral-text">projects/</p>
-          <p class="mt-1 text-xs text-mistral-textMuted">Work</p>
-        </a>
-        <a href="/about" class="rounded-xl border border-mistral-border bg-mistral-bgElevated p-4 text-sm text-mistral-textMuted transition-colors hover:border-mistral-text hover:bg-white/5 hover:text-mistral-text">
-          <p class="font-medium text-mistral-text">about_me</p>
-          <p class="mt-1 text-xs text-mistral-textMuted">About</p>
-        </a>
-        <a href="/experience" class="rounded-xl border border-mistral-border bg-mistral-bgElevated p-4 text-sm text-mistral-textMuted transition-colors hover:border-mistral-text hover:bg-white/5 hover:text-mistral-text">
-          <p class="font-medium text-mistral-text">experience</p>
-          <p class="mt-1 text-xs text-mistral-textMuted">Timeline</p>
-        </a>
-        <a href="/contact" class="col-span-2 rounded-xl border border-mistral-border bg-mistral-bgElevated p-4 text-sm text-mistral-textMuted transition-colors hover:border-mistral-text hover:bg-white/5 hover:text-mistral-text md:col-span-1">
-          <p class="font-medium text-mistral-text">contact</p>
-          <p class="mt-1 text-xs text-mistral-textMuted">Reach Out</p>
-        </a>
+      <p class="notfound__code" aria-hidden="true">404</p>
+
+      <div class="notfound__body">
+        <h1 class="h1 notfound__title">Page not found</h1>
+        <div>
+          <p class="lead notfound__copy">
+            The page you're looking for doesn't exist or has been moved. No worries though —
+            let's get you back on track.
+          </p>
+          <div class="notfound__actions">
+            <a href="/" class="btn">
+              Back to Home
+              <Arrow size={15} />
+            </a>
+            <a href="/projects" class="btn btn--ghost">
+              View Projects
+              <Arrow size={15} />
+            </a>
+          </div>
+        </div>
       </div>
+
+      <nav class="notfound__nav" aria-label="Quick navigation">
+        {navItems.map((item) => (
+          <a href={item.href} class="notfound__link">
+            <span class="notfound__link-title">{item.label}</span>
+            <span class="mono">{notes[item.label]}</span>
+            <Arrow size={13} />
+          </a>
+        ))}
+      </nav>
     </div>
   </section>
 </PageShell>
+
+<style>
+  .notfound {
+    padding-top: calc(var(--nav-h) + clamp(3rem, 6vw, 5rem));
+    padding-bottom: clamp(4rem, 8vw, 7rem);
+  }
+
+  .notfound__rule {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--ink);
+  }
+
+  .notfound__code {
+    margin: clamp(1.5rem, 4vw, 3rem) 0 0;
+    font-family: var(--font-display);
+    font-size: clamp(6rem, 24vw, 20rem);
+    line-height: 0.78;
+    letter-spacing: -0.05em;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--rule-strong);
+    paint-order: stroke;
+  }
+
+  .notfound__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 5vw, 5rem);
+    align-items: end;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--ink);
+  }
+
+  .notfound__title {
+    margin: 0;
+  }
+
+  .notfound__copy {
+    margin: 0;
+    max-width: 44ch;
+  }
+
+  .notfound__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .notfound__nav {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin-top: clamp(3rem, 6vw, 5rem);
+    border-top: 1px solid var(--ink);
+  }
+
+  .notfound__link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.1rem 1rem 1.25rem 0;
+    border-right: 1px solid var(--rule);
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .notfound__link:not(:first-child) {
+    padding-left: 1rem;
+  }
+
+  .notfound__link:last-child {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .notfound__link-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 1.7vw, 1.5rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .notfound__link :global(svg) {
+    color: var(--muted);
+    transition: transform 200ms ease;
+  }
+
+  .notfound__link:hover :global(svg) {
+    transform: translate(2px, -2px);
+  }
+
+  @media (max-width: 900px) {
+    .notfound__body {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .notfound__nav {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .notfound__link:nth-child(2n) {
+      border-right: 0;
+      padding-right: 0;
+    }
+
+    .notfound__link:nth-child(n + 3) {
+      border-top: 1px solid var(--rule);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .notfound__nav {
+      grid-template-columns: 1fr;
+    }
+
+    .notfound__link,
+    .notfound__link:not(:first-child) {
+      padding-left: 0;
+      border-right: 0;
+    }
+
+    .notfound__link + .notfound__link {
+      border-top: 1px solid var(--rule);
+    }
+  }
+</style>
